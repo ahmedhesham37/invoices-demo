@@ -1,0 +1,11 @@
+com/vbs/control/InvoicesRepository.class
+com/vbs/entity/AuditTrail.class
+com/vbs/boundry/RestfulResources/InvoicesResource.class
+com/vbs/entity/Invoice.class
+com/vbs/JAXRSConfiguration.class
+com/vbs/boundry/RestfulResources/ServicesResource.class
+com/vbs/boundry/RestfulResources/ClientsResource.class
+com/vbs/control/ServicesRepository.class
+com/vbs/entity/Service.class
+com/vbs/entity/Client.class
+com/vbs/control/ClientsRepository.class
