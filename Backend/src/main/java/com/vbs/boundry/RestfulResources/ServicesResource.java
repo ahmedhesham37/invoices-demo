@@ -1,6 +1,7 @@
 package com.vbs.boundry.RestfulResources;
 
 import com.vbs.control.ServicesRepository;
+import com.vbs.entity.Invoice;
 import com.vbs.entity.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +24,11 @@ public class ServicesResource {
     @Inject
     ServicesRepository servicesRepository;
 
+
     @GET
     public List<Service> retrieveServices() {
         return servicesRepository.retrieveServices();
     }
-
-    @POST
-    public Response createService(Service service) {
-        return servicesRepository.createService(service) ? Response.ok(true).build() : Response.ok(false).build();
-    }
-
 
     @GET
     @Path("{id}")
@@ -40,6 +36,32 @@ public class ServicesResource {
         try {
             Service service = servicesRepository.findById(id);
             return Response.ok(service).build();
+        } catch (Exception e) {
+            return Response.ok(false).build();
+        }
+    }
+
+    @POST
+    public Response createService(Service service) {
+        return servicesRepository.createService(service) ? Response.ok(service).build() : Response.ok(false).build();
+    }
+
+    @PUT
+    public Response updateService(Service service) {
+        return servicesRepository.updateService(service) ? Response.ok(service).build() : Response.ok(false).build();
+    }
+
+    @DELETE
+    public Response deleteService(Service service) {
+        return servicesRepository.deleteService(service) ? Response.ok(service).build() : Response.ok(false).build();
+    }
+
+    @GET
+    @Path("{serviceId}/invoices")
+    public Response findInvoicesByService(@PathParam("serviceId") Long id) {
+        try {
+            List<Invoice> invoices = servicesRepository.findInvoicesByServiceId(id);
+            return Response.ok(invoices).build();
         } catch (Exception e) {
             return Response.ok(false).build();
         }

@@ -2,6 +2,7 @@ package com.vbs.boundry.RestfulResources;
 
 import com.vbs.control.ClientsRepository;
 import com.vbs.entity.Client;
+import com.vbs.entity.Invoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,18 +29,41 @@ public class ClientsResource {
         return clientsRepository.retrieveClients();
     }
 
-    @POST
-    public Response createClient(Client client) {
-        return clientsRepository.createClient(client) ? Response.ok(true).build() :
-                Response.ok(false).build();
-    }
-
     @Path("{id}")
     @GET
     public Response findClientById(@PathParam("id") Long id) {
         try {
             Client client = clientsRepository.findById(id);
             return Response.ok(client).build();
+        } catch (Exception e) {
+            return Response.ok(false).build();
+        }
+    }
+
+    @POST
+    public Response createClient(Client client) {
+        return clientsRepository.createClient(client) ? Response.ok(true).build() :
+                Response.ok(false).build();
+    }
+
+    @PUT
+    public Response updateClient(Client client) {
+        return clientsRepository.updateClient(client) ? Response.ok(true).build() :
+                Response.ok(false).build();
+    }
+
+    @DELETE
+    public Response deleteClient(Client client) {
+        return clientsRepository.deleteClient(client) ? Response.ok(true).build() :
+                Response.ok(false).build();
+    }
+
+    @GET
+    @Path("{clientId}/invoices")
+    public Response findInvoicesByClient(@PathParam("clientId") Long id) {
+        try {
+            List<Invoice> invoices = clientsRepository.findInvoicesByClientId(id);
+            return Response.ok(invoices).build();
         } catch (Exception e) {
             return Response.ok(false).build();
         }

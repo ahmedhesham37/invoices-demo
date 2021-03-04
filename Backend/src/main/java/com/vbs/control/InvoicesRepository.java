@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -24,28 +23,6 @@ public class InvoicesRepository implements Serializable {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Inject
-    ServicesRepository servicesRepository;
-
-    @Inject
-    ClientsRepository clientsRepository;
-
-    public boolean createInvoice(Invoice invoice) {
-        entityManager.persist(invoice);
-        return true;
-    }
-
-    public boolean updateInvoice(Invoice invoice) {
-        entityManager.merge(invoice);
-        return true;
-    }
-
-
-    public List<Invoice> retrieveInvoices() {
-        List<Invoice> invoices = entityManager.createNamedQuery(Invoice.FIND_ALL, Invoice.class).getResultList();
-        logger.info(invoices.toString());
-        return invoices;
-    }
 
     public Invoice findById(Long Id) {
         logger.info("Invoices: retrieving invoice by id {}", Id);
@@ -60,6 +37,24 @@ public class InvoicesRepository implements Serializable {
             return null;
         }
     }
+
+    public List<Invoice> retrieveInvoices() {
+        List<Invoice> invoices = entityManager.createNamedQuery(Invoice.FIND_ALL, Invoice.class).getResultList();
+//        List<Invoice> invoices = entityManager.createQuery("from client").getResultList();
+        logger.info(invoices.toString());
+        return invoices;
+    }
+
+    public boolean createInvoice(Invoice invoice) {
+        entityManager.persist(invoice);
+        return true;
+    }
+
+    // Cannot Be Updated
+//    public boolean updateInvoice(Invoice invoice) {
+//        entityManager.merge(invoice);
+//        return true;
+//    }
 
 
 }

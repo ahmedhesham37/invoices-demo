@@ -30,16 +30,6 @@ public class InvoicesResource {
         return invoicesRepository.retrieveInvoices();
     }
 
-    @POST
-    public Response createInvoice(Invoice invoice) {
-        return invoicesRepository.createInvoice(invoice) ? Response.ok(true).build() : Response.ok(false).build();
-    }
-
-    @PUT
-    public Response updateInvoice(Invoice invoice) {
-        return invoicesRepository.updateInvoice(invoice) ? Response.ok(true).build() : Response.ok(false).build();
-    }
-
     @GET
     @Path("{id}")
     public Response findInvoiceById(@PathParam("id") Long id) {
@@ -50,5 +40,21 @@ public class InvoicesResource {
             return Response.ok(false).build();
         }
     }
+
+    @POST
+    public Response createInvoice(Invoice invoice) {
+        return invoicesRepository.createInvoice(invoice) ? Response.ok(true).build() : Response.ok(false).build();
+    }
+
+    // Invoice Cannot be updated
+//    @PUT
+//    public Response updateInvoice(Invoice invoice) {
+//        return invoicesRepository.updateInvoice(invoice) ? Response.ok(true).build() : Response.ok(false).build();
+//    }
+
+    // Invoice Cannot be deleted ??
+//    @DELETE
+//    public Response deleteInvoice(Invoice invoice) {
+//    }
 
 }

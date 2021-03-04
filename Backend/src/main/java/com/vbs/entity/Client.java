@@ -1,6 +1,7 @@
 package com.vbs.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "companyName")
+    @NotNull
+    @Column(name = "companyName" , unique = true)
     private String companyName;
 
     @Column(name = "address")
@@ -45,7 +47,7 @@ public class Client implements Serializable {
     @Column(name = "secondPhoneNumber")
     private String secondPhoneNumber;
 
-    @ManyToMany(mappedBy = "clients", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "clients", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Invoice> invoices = new ArrayList<>();
 
     public Client() {
@@ -99,28 +101,14 @@ public class Client implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-//    public List<Invoice> getInvoices() {
-//        return invoices;
-//    }
-//
-//    public void setInvoices(List<Invoice> invoices) {
-//        this.invoices = invoices;
-//    }
-//
-//
-//
-//    @Override
-//    public String toString() {
-//        return "Client{" +
-//                "id=" + id +
-//                ", companyName='" + companyName + '\'' +
-//                ", address='" + address + '\'' +
-//                ", website='" + website + '\'' +
-//                ", email='" + email + '\'' +
-//                ", phoneNumber='" + phoneNumber + '\'' +
-//                ", invoices=" + invoices +
-//                '}';
-//    }
+    public String getSecondPhoneNumber() {
+        return secondPhoneNumber;
+    }
+
+    public void setSecondPhoneNumber(String secondPhoneNumber) {
+        this.secondPhoneNumber = secondPhoneNumber;
+    }
+
 
     @Override
     public String toString() {
@@ -130,7 +118,9 @@ public class Client implements Serializable {
                 ", address='" + address + '\'' +
                 ", website='" + website + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", secondPhoneNumber='" + secondPhoneNumber + '\'' +
                 '}';
     }
+
 }

@@ -1,6 +1,7 @@
 package com.vbs.control;
 
 import com.vbs.entity.Client;
+import com.vbs.entity.Invoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,42 +20,49 @@ public class ClientsRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    public boolean createClient(Client client) {
-        entityManager.persist(client);
-        return true;
-    }
-
     public List<Client> retrieveClients() {
-        return entityManager.createNamedQuery(Client.FIND_ALL, Client.class).getResultList();
-    }
-
-    public List<Client> retrieveClientsByIds(Long[] ids) {
-        List<Client> clients = new ArrayList<>();
-        for (int i = 0; i < ids.length; i++) {
-            clients.add(findById(ids[i]));
-        }
+        List<Client> clients = entityManager.createNamedQuery(Client.FIND_ALL, Client.class).getResultList();
+        logger.info(clients.toString());
         return clients;
     }
 
     public Client findById(Long Id) {
         logger.info("CLients: retrieving client by id {}", Id);
+        logger.info(Id.getClass().toString());
         try {
             Query query = entityManager.createNamedQuery(Client.FIND_BY_ID, Client.class);
-            query.setParameter("id", String.valueOf(Id));
+            query.setParameter("id", Id);
             Client result = (Client) query.getSingleResult();
             entityManager.merge(result);
-            //             auditClient.audit("Database Query Succeeded",
-            //                 "Method name findCompanyByComRegNumber - returned result for"
-            //                     + " company using registration number "
-            //                     + regNum);
             return result;
         } catch (NoResultException e) {
-            //             auditClient.audit("Database Query Failed",
-            //                 "Method name findCompanyByName - returned no result using "
-            //                     + "registration number "
-            //                     + regNum);
             return null;
         }
+    }
+
+    public boolean createClient(Client client) {
+        entityManager.persist(client);
+        return true;
+    }
+
+    public boolean updateClient(Client client) {
+        entityManager.merge(client);
+        return true;
+    }
+
+    public boolean deleteClient(Client client) {
+        entityManager.remove(entityManager.contains(client) ? client : entityManager.merge(client));
+        return true;
+    }
+
+    public List<Invoice> findInvoicesByClientId(Long clientId) {
+        // Find Invoices by clients id
+        List<Invoice> invoices = new ArrayList<>();
+        Query query = entityManager.createQuery("select i from Invoice i join i.clients i_c where i_c.id = :id", Invoice.class);
+        query.setParameter("id", clientId);
+        invoices = (List<Invoice>) query.getResultList();
+        logger.info(invoices.toString());
+        return invoices;
     }
 
 }

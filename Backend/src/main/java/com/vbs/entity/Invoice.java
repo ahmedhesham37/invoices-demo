@@ -1,6 +1,7 @@
 package com.vbs.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class Invoice implements Serializable {
     @Column(name = "invoiceName")
     private String invoiceName;
 
-    @Column(name = "invoiceNumber")
+    @Column(name = "invoiceNumber" , unique = true)
     private String invoiceNubmer;
 
     @Column(name = "price")
@@ -44,6 +45,7 @@ public class Invoice implements Serializable {
     @Column(name = "invoiceDate")
     private Date invoiceDate;
 
+    @Future
     @Column(name = "dueData")
     private Date dueDate;
 
@@ -145,36 +147,8 @@ public class Invoice implements Serializable {
         return clients;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
-
     public List<Service> getServices() {
         return services;
-    }
-
-//    public void addService(Service service) {
-//        this.services.add(service);
-//        service.getInvoices().add(this);
-//    }
-//
-//    public void removeService(Service service) {
-//        this.services.remove(service);
-//        service.getInvoices().remove(this);
-//    }
-
-//    public void addClient(Client client) {
-//        this.clients.add(client);
-//        client.getInvoices().add(this);
-//    }
-//
-//    public void removeClient(Client client) {
-//        this.clients.remove(client);
-//        client.getInvoices().remove(this);
-//    }
-
-    public void setServices(List<Service> services) {
-        this.services = services;
     }
 
 

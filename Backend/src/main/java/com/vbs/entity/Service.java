@@ -47,7 +47,7 @@ public class Service implements Serializable {
     @Column(name = "totalPrice")
     private double totalPrice;
 
-    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Invoice> invoices = new ArrayList<>();
 
     public Service() {
@@ -138,18 +138,4 @@ public class Service implements Serializable {
                 ", totalPrice=" + totalPrice +
                 '}';
     }
-
-//    @Override
-//    public String toString() {
-//        return "Service{" +
-//                "id=" + id +
-//                ", serviceName='" + serviceName + '\'' +
-//                ", description='" + description + '\'' +
-//                ", unit='" + unit + '\'' +
-//                ", unitPrice=" + unitPrice +
-//                ", quantity=" + quantity +
-//                ", totalPrice=" + totalPrice +
-//                ", invoices=" + invoices +
-//                '}';
-//    }
 }

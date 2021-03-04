@@ -5,9 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { orderStatuses } from 'app/main/apps/e-commerce/order/order-statuses';
-import { Order } from 'app/main/apps/e-commerce/order/order.model';
-import { EcommerceOrderService } from 'app/main/apps/e-commerce/order/order.service';
+import { orderStatuses } from 'app/main/invoices/order/node_modules/app/main/apps/e-commerce/order/order-statuses';
+import { Order } from 'app/main/invoices/order/node_modules/app/main/apps/e-commerce/order/order.model';
+import { EcommerceOrderService } from 'app/main/invoices/order/node_modules/app/main/apps/e-commerce/order/order.service';
 
 @Component({
     selector     : 'e-commerce-order',

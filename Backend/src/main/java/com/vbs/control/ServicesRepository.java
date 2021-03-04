@@ -1,5 +1,6 @@
 package com.vbs.control;
 
+import com.vbs.entity.Invoice;
 import com.vbs.entity.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +25,18 @@ public class ServicesRepository {
         return true;
     }
 
-    public List<Service> retrieveServices() {
-        return entityManager.createNamedQuery(Service.FIND_ALL, Service.class).getResultList();
+    public boolean updateService(Service service) {
+        entityManager.merge(service);
+        return true;
     }
 
-    public List<Service> retrieveServicesByIds(Long[] ids) {
-        List<Service> services = new ArrayList<>();
-        for (int i = 0 ; i < ids.length; i++){
-            services.add(findById(ids[i]));
+    public boolean deleteService(Service service) {
+            entityManager.remove(service);
+            return true;
         }
-        return services;
+
+    public List<Service> retrieveServices() {
+        return entityManager.createNamedQuery(Service.FIND_ALL, Service.class).getResultList();
     }
 
     public Service findById(Long Id) {
@@ -48,5 +51,16 @@ public class ServicesRepository {
             return null;
         }
     }
+
+    public List<Invoice> findInvoicesByServiceId(Long serviceId) {
+        // Find Invoices by services id
+        List<Invoice> invoices = new ArrayList<>();
+        Query query = entityManager.createQuery("select i from Invoice i join i.services i_s where i_s.id = :id", Invoice.class);
+        query.setParameter("id", serviceId);
+        invoices = (List<Invoice>) query.getResultList();
+        logger.info(invoices.toString());
+        return invoices;
+    }
+
 
 }
