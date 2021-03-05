@@ -8,8 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 
-import { Product } from 'app/main/apps/e-commerce/product/product.model';
-import { EcommerceProductService } from 'app/main/apps/e-commerce/product/product.service';
+import { Product } from 'app/main/e-commerce/product/product.model';
+import { EcommerceProductService } from 'app/main/e-commerce/product/product.service';
 
 @Component({
     selector     : 'e-commerce-product',
@@ -20,7 +20,7 @@ import { EcommerceProductService } from 'app/main/apps/e-commerce/product/produc
 })
 export class EcommerceProductComponent implements OnInit, OnDestroy
 {
-    product: Product;
+    product: any;
     pageType: string;
     productForm: FormGroup;
 
@@ -62,10 +62,13 @@ export class EcommerceProductComponent implements OnInit, OnDestroy
         this._ecommerceProductService.onProductChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(product => {
-
+                console.log("changed" , product);
                 if ( product )
                 {
-                    this.product = new Product(product);
+                    console.log(product);
+                    
+                    // this.product = new Product(product);
+                    this.product = product;
                     this.pageType = 'edit';
                 }
                 else
@@ -101,23 +104,22 @@ export class EcommerceProductComponent implements OnInit, OnDestroy
     {
         return this._formBuilder.group({
             id              : [this.product.id],
-            name            : [this.product.name],
-            handle          : [this.product.handle],
+            name            : [this.product.serviceName],
             description     : [this.product.description],
-            categories      : [this.product.categories],
-            tags            : [this.product.tags],
+            // categories      : [this.product.categories],
+            // tags            : [this.product.tags],
             images          : [this.product.images],
-            priceTaxExcl    : [this.product.priceTaxExcl],
-            priceTaxIncl    : [this.product.priceTaxIncl],
+            priceTaxExcl    : [this.product.unitPrice],
+            priceTaxIncl    : [this.product.totalDue],
             taxRate         : [this.product.taxRate],
-            comparedPrice   : [this.product.comparedPrice],
-            quantity        : [this.product.quantity],
-            sku             : [this.product.sku],
-            width           : [this.product.width],
-            height          : [this.product.height],
-            depth           : [this.product.depth],
-            weight          : [this.product.weight],
-            extraShippingFee: [this.product.extraShippingFee],
+            // comparedPrice   : [this.product.comparedPrice],
+            // quantity        : [this.product.quantity],
+            // sku             : [this.product.sku],
+            // width           : [this.product.width],
+            // height          : [this.product.height],
+            // depth           : [this.product.depth],
+            // weight          : [this.product.weight],
+            // extraShippingFee: [this.product.extraShippingFee],
             active          : [this.product.active]
         });
     }
@@ -128,7 +130,6 @@ export class EcommerceProductComponent implements OnInit, OnDestroy
     saveProduct(): void
     {
         const data = this.productForm.getRawValue();
-        data.handle = FuseUtils.handleize(data.name);
 
         this._ecommerceProductService.saveProduct(data)
             .then(() => {
@@ -139,7 +140,7 @@ export class EcommerceProductComponent implements OnInit, OnDestroy
                 // Show the success message
                 this._matSnackBar.open('Product saved', 'OK', {
                     verticalPosition: 'top',
-                    duration        : 2000
+                    duration        : 3000
                 });
             });
     }
@@ -150,7 +151,6 @@ export class EcommerceProductComponent implements OnInit, OnDestroy
     addProduct(): void
     {
         const data = this.productForm.getRawValue();
-        data.handle = FuseUtils.handleize(data.name);
 
         this._ecommerceProductService.addProduct(data)
             .then(() => {
@@ -161,11 +161,11 @@ export class EcommerceProductComponent implements OnInit, OnDestroy
                 // Show the success message
                 this._matSnackBar.open('Product added', 'OK', {
                     verticalPosition: 'top',
-                    duration        : 2000
+                    duration        : 3000
                 });
 
                 // Change the location with new one
-                this._location.go('apps/e-commerce/products/' + this.product.id + '/' + this.product.handle);
+                this._location.go('e-commerce/products/' + this.product.id);
             });
     }
 }

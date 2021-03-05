@@ -6,7 +6,6 @@ export class Product
 {
     id: string;
     name: string;
-    handle: string;
     description: string;
     categories: string[];
     tags: string[];
@@ -29,6 +28,9 @@ export class Product
     extraShippingFee: number;
     active: boolean;
 
+
+
+
     /**
      * Constructor
      *
@@ -39,7 +41,6 @@ export class Product
         product = product || {};
         this.id = product.id || FuseUtils.generateGUID();
         this.name = product.name || '';
-        this.handle = product.handle || FuseUtils.handleize(this.name);
         this.description = product.description || '';
         this.categories = product.categories || [];
         this.tags = product.tags || [];

@@ -28,10 +28,10 @@ public class InvoicesRepository implements Serializable {
         logger.info("Invoices: retrieving invoice by id {}", Id);
         try {
             Query query = entityManager.createNamedQuery(Invoice.FIND_BY_ID, Invoice.class);
-            query.setParameter("id", String.valueOf(Id));
+            query.setParameter("id", Id);
             Invoice invoice = (Invoice) query.getSingleResult();
             entityManager.merge(invoice);
-
+            logger.info(invoice.toString());
             return invoice;
         } catch (NoResultException e) {
             return null;
@@ -47,6 +47,7 @@ public class InvoicesRepository implements Serializable {
 
     public boolean createInvoice(Invoice invoice) {
         entityManager.persist(invoice);
+        logger.info(invoice.toString());
         return true;
     }
 

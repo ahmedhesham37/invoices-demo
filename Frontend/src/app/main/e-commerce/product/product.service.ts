@@ -32,9 +32,11 @@ export class EcommerceProductService implements Resolve<any>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any
     {
+        console.log('route params' , this.routeParams);
+        
         this.routeParams = route.params;
 
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
 
             Promise.all([
                 this.getProduct()
@@ -54,6 +56,7 @@ export class EcommerceProductService implements Resolve<any>
      */
     getProduct(): Promise<any>
     {
+
         return new Promise((resolve, reject) => {
             if ( this.routeParams.id === 'new' )
             {
@@ -62,8 +65,12 @@ export class EcommerceProductService implements Resolve<any>
             }
             else
             {
-                this._httpClient.get('api/e-commerce-products/' + this.routeParams.id)
+                console.log('changed' , this.routeParams.id);
+                 
+                this._httpClient.get('http://localhost:8080/vbs-invoice-system/resources/services/' + this.routeParams.id)
                     .subscribe((response: any) => {
+                        console.log(response);
+                        
                         this.product = response;
                         this.onProductChanged.next(this.product);
                         resolve(response);
@@ -80,8 +87,22 @@ export class EcommerceProductService implements Resolve<any>
      */
     saveProduct(product): Promise<any>
     {
+        let service = { 
+            "id" : product.id,
+            "serviceName" : product.name,
+            "description" : product.description,
+            "unit" : product.unit,
+            "unitPrice" : parseFloat(product.priceTaxExcl),
+            "currency" : product.currency || 'USD',
+            "quantity" : parseFloat(product.quantity),
+            "totalDue" : parseFloat(product.priceTaxIncl) 
+//  Long id;
+//  double unitPrice;
+//  double quantity;
+//  double totalDue;
+        }
         return new Promise((resolve, reject) => {
-            this._httpClient.post('api/e-commerce-products/' + product.id, product)
+            this._httpClient.post('http://localhost:8080/vbs-invoice-system/resources/services/', service)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
@@ -97,8 +118,25 @@ export class EcommerceProductService implements Resolve<any>
     addProduct(product): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.post('api/e-commerce-products/', product)
+            let service = { 
+                "serviceName" : product.name,
+                "description" : product.description,
+                "unit" : product.unit,
+                "unitPrice" : parseFloat(product.priceTaxExcl),
+                "currency" : product.currency || 'USD',
+                "quantity" : parseFloat(product.quantity),
+                "totalDue" : parseFloat(product.priceTaxIncl) 
+    //  Long id;
+    //  double unitPrice;
+    //  double quantity;
+    //  double totalDue;
+            }
+            this._httpClient.post('http://localhost:8080/vbs-invoice-system/resources/services', service)
                 .subscribe((response: any) => {
+                    console.log("Added new Product with id >> " , response.id);
+                    
+                    console.log(response);
+                    
                     resolve(response);
                 }, reject);
         });

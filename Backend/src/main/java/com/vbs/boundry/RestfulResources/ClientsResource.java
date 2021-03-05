@@ -42,13 +42,13 @@ public class ClientsResource {
 
     @POST
     public Response createClient(Client client) {
-        return clientsRepository.createClient(client) ? Response.ok(true).build() :
+        return clientsRepository.createClient(client) ? Response.ok(client).build() :
                 Response.ok(false).build();
     }
 
     @PUT
     public Response updateClient(Client client) {
-        return clientsRepository.updateClient(client) ? Response.ok(true).build() :
+        return clientsRepository.updateClient(client) ? Response.ok(client).build() :
                 Response.ok(false).build();
     }
 

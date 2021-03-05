@@ -21,31 +21,39 @@ public class ServicesRepository {
     EntityManager entityManager;
 
     public boolean createService(Service service) {
+        logger.info("Creating a service ");
+        logger.info("Service Object >> " , service );
         entityManager.persist(service);
         return true;
     }
 
     public boolean updateService(Service service) {
+        logger.info("Updating Service :  ServiceId : ", service.getId());
+        logger.info("New Service Object >> " , service);
         entityManager.merge(service);
         return true;
     }
 
     public boolean deleteService(Service service) {
-            entityManager.remove(service);
-            return true;
-        }
+        logger.info("Deleting Serrvice :  ServiceId : ", service.getId());
+        entityManager.remove(service);
+        return true;
+    }
 
     public List<Service> retrieveServices() {
+        logger.info("Retrieving all services");
         return entityManager.createNamedQuery(Service.FIND_ALL, Service.class).getResultList();
     }
 
     public Service findById(Long Id) {
         logger.info("Services: retrieving service by id {}", Id);
+
         try {
             Query query = entityManager.createNamedQuery(Service.FIND_BY_ID, Service.class);
-            query.setParameter("id", String.valueOf(Id));
+            query.setParameter("id", Id);
             Service result = (Service) query.getSingleResult();
             entityManager.merge(result);
+            logger.info("Service Object found >> " , result);
             return result;
         } catch (NoResultException e) {
             return null;

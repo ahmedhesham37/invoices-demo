@@ -26,24 +26,29 @@ public class InvoicesResource {
     InvoicesRepository invoicesRepository;
 
     @GET
-    public List<Invoice> retrieveInvoices() {
-        return invoicesRepository.retrieveInvoices();
+    public Response retrieveInvoices() {
+        try {
+            List<Invoice> invoices = invoicesRepository.retrieveInvoices();
+            return Response.ok(invoices).build();
+        }catch (Exception e){
+            return Response.ok(e).build();
+        }
     }
 
     @GET
     @Path("{id}")
     public Response findInvoiceById(@PathParam("id") Long id) {
         try {
-            invoicesRepository.findById(id);
-            return Response.ok(true).build();
+            Invoice invoice = invoicesRepository.findById(id);
+            return Response.ok(invoice).build();
         } catch (Exception e) {
-            return Response.ok(false).build();
+            return Response.ok(e).build();
         }
     }
 
     @POST
     public Response createInvoice(Invoice invoice) {
-        return invoicesRepository.createInvoice(invoice) ? Response.ok(true).build() : Response.ok(false).build();
+        return invoicesRepository.createInvoice(invoice) ? Response.ok(invoice).build() : Response.ok(false).build();
     }
 
     // Invoice Cannot be updated

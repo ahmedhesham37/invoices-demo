@@ -5,9 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { orderStatuses } from 'app/main/invoices/order/node_modules/app/main/apps/e-commerce/order/order-statuses';
-import { Order } from 'app/main/invoices/order/node_modules/app/main/apps/e-commerce/order/order.model';
-import { EcommerceOrderService } from 'app/main/invoices/order/node_modules/app/main/apps/e-commerce/order/order.service';
+import { orderStatuses } from 'app/main/e-commerce/order/order-statuses';
+import { Order } from 'app/main/e-commerce/order/order.model';
+import { EcommerceOrderService } from 'app/main/e-commerce/order/order.service';
 
 @Component({
     selector     : 'e-commerce-order',
@@ -18,7 +18,7 @@ import { EcommerceOrderService } from 'app/main/invoices/order/node_modules/app/
 })
 export class EcommerceOrderComponent implements OnInit, OnDestroy
 {
-    order: Order;
+    order: any;
     orderStatuses: any;
     statusForm: FormGroup;
 
@@ -57,7 +57,9 @@ export class EcommerceOrderComponent implements OnInit, OnDestroy
         this._ecommerceOrderService.onOrderChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(order => {
-                this.order = new Order(order);
+                this.order = order;
+                console.log('order ' , this.order);
+                
             });
 
         this.statusForm = this._formBuilder.group({

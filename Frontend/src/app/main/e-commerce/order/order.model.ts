@@ -9,11 +9,12 @@ export class Order
     discount: string;
     total: string;
     date: string;
-    customer: any;
+    client: any;
     products: any[];
     status: any[];
     payment: any;
     shippingDetails: any[];
+
 
     /**
      * Constructor
@@ -30,7 +31,7 @@ export class Order
         this.discount = order.discount || 0;
         this.total = order.total || 0;
         this.date = order.date || '';
-        this.customer = order.customer || {};
+        this.client = order.client || {};
         this.products = order.products || [];
         this.status = order.status || [];
         this.payment = order.payment || {};

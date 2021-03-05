@@ -151,6 +151,13 @@ public class Invoice implements Serializable {
         return services;
     }
 
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 
-import { EcommerceProductsService } from 'app/main/invoices/list-invoices/node_modules/app/main/apps/e-commerce/products/products.service';
+import { EcommerceProductsService } from 'app/main/e-commerce/products/products.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +21,7 @@ import { takeUntil } from 'rxjs/operators';
 export class EcommerceProductsComponent implements OnInit
 {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
+    displayedColumns = ['id', 'image', 'name', 'price', 'active'];
 
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
@@ -196,9 +196,9 @@ export class FilesDataSource extends DataSource<any>
                 case 'name':
                     [propertyA, propertyB] = [a.name, b.name];
                     break;
-                case 'categories':
-                    [propertyA, propertyB] = [a.categories[0], b.categories[0]];
-                    break;
+                // case 'categories':
+                //     [propertyA, propertyB] = [a.categories[0], b.categories[0]];
+                //     break;
                 case 'price':
                     [propertyA, propertyB] = [a.priceTaxIncl, b.priceTaxIncl];
                     break;

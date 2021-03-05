@@ -47,7 +47,8 @@ public class ServicesResource {
     }
 
     @PUT
-    public Response updateService(Service service) {
+    @Path("{id}")
+    public Response updateService(@PathParam("id") Long id, Service service ) {
         return servicesRepository.updateService(service) ? Response.ok(service).build() : Response.ok(false).build();
     }
 

@@ -29,6 +29,10 @@ const appRoutes: Routes = [
     {
         path: 'invoices/create',
         loadChildren: () => import('./main/create-invoices/create-invoices.module').then(m => m.CreateInvoicesModule)
+    },
+    {
+        path: 'e-commerce',
+        loadChildren: () => import('./main/e-commerce/e-commerce.module').then(m => m.EcommerceModule)
     }
 ];
 

@@ -1,35 +1,50 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, fromEvent, merge, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+    ViewEncapsulation,
+} from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { DataSource } from "@angular/cdk/collections";
+import { BehaviorSubject, fromEvent, merge, Observable, Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 
-import { fuseAnimations } from '@fuse/animations';
-import { FuseUtils } from '@fuse/utils';
+import { fuseAnimations } from "@fuse/animations";
+import { FuseUtils } from "@fuse/utils";
 
-import { EcommerceOrdersService } from 'app/main/apps/e-commerce/orders/orders.service';
-import { takeUntil } from 'rxjs/operators';
+import { EcommerceOrdersService } from "app/main/e-commerce/orders/orders.service";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
-    selector     : 'e-commerce-orders',
-    templateUrl  : './orders.component.html',
-    styleUrls    : ['./orders.component.scss'],
-    animations   : fuseAnimations,
-    encapsulation: ViewEncapsulation.None
+    selector: "e-commerce-orders",
+    templateUrl: "./orders.component.html",
+    styleUrls: ["./orders.component.scss"],
+    animations: fuseAnimations,
+    encapsulation: ViewEncapsulation.None,
 })
-export class EcommerceOrdersComponent implements OnInit, OnDestroy
-{
+export class EcommerceOrdersComponent implements OnInit, OnDestroy {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'reference', 'customer', 'total', 'payment', 'status', 'date'];
+    displayedColumns = [
+        "id",
+        "reference",
+        "client",
+        "total",
+        // "payment",
+        "status",
+        "date",
+        "duedate",
+    ];
 
-    @ViewChild(MatPaginator, {static: true})
+    @ViewChild(MatPaginator, { static: true })
     paginator: MatPaginator;
 
-    @ViewChild('filter', {static: true})
+    @ViewChild("filter", { static: true })
     filter: ElementRef;
 
-    @ViewChild(MatSort, {static: true})
+    @ViewChild(MatSort, { static: true })
     sort: MatSort;
 
     // Private
@@ -40,10 +55,7 @@ export class EcommerceOrdersComponent implements OnInit, OnDestroy
      *
      * @param {EcommerceOrdersService} _ecommerceOrdersService
      */
-    constructor(
-        private _ecommerceOrdersService: EcommerceOrdersService
-    )
-    {
+    constructor(private _ecommerceOrdersService: EcommerceOrdersService) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -55,19 +67,21 @@ export class EcommerceOrdersComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
-        this.dataSource = new FilesDataSource(this._ecommerceOrdersService, this.paginator, this.sort);
+    ngOnInit(): void {
+        this.dataSource = new FilesDataSource(
+            this._ecommerceOrdersService,
+            this.paginator,
+            this.sort
+        );
 
-        fromEvent(this.filter.nativeElement, 'keyup')
+        fromEvent(this.filter.nativeElement, "keyup")
             .pipe(
                 takeUntil(this._unsubscribeAll),
                 debounceTime(150),
                 distinctUntilChanged()
             )
             .subscribe(() => {
-                if ( !this.dataSource )
-                {
+                if (!this.dataSource) {
                     return;
                 }
                 this.dataSource.filter = this.filter.nativeElement.value;
@@ -77,19 +91,17 @@ export class EcommerceOrdersComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 }
 
-export class FilesDataSource extends DataSource<any>
-{
+export class FilesDataSource extends DataSource<any> {
     // Private
-    private _filterChange = new BehaviorSubject('');
-    private _filteredDataChange = new BehaviorSubject('');
+    private _filterChange = new BehaviorSubject("");
+    private _filteredDataChange = new BehaviorSubject("");
 
     /**
      * Constructor
@@ -102,8 +114,7 @@ export class FilesDataSource extends DataSource<any>
         private _ecommerceOrdersService: EcommerceOrdersService,
         private _matPaginator: MatPaginator,
         private _matSort: MatSort
-    )
-    {
+    ) {
         super();
 
         this.filteredData = this._ecommerceOrdersService.orders;
@@ -114,24 +125,20 @@ export class FilesDataSource extends DataSource<any>
     // -----------------------------------------------------------------------------------------------------
 
     // Filtered data
-    get filteredData(): any
-    {
+    get filteredData(): any {
         return this._filteredDataChange.value;
     }
 
-    set filteredData(value: any)
-    {
+    set filteredData(value: any) {
         this._filteredDataChange.next(value);
     }
 
     // Filter
-    get filter(): string
-    {
+    get filter(): string {
         return this._filterChange.value;
     }
 
-    set filter(filter: string)
-    {
+    set filter(filter: string) {
         this._filterChange.next(filter);
     }
 
@@ -144,17 +151,16 @@ export class FilesDataSource extends DataSource<any>
      *
      * @returns {Observable<any[]>}
      */
-    connect(): Observable<any[]>
-    {
+    connect(): Observable<any[]> {
         const displayDataChanges = [
             this._ecommerceOrdersService.onOrdersChanged,
             this._matPaginator.page,
             this._filterChange,
-            this._matSort.sortChange
+            this._matSort.sortChange,
         ];
 
-        return merge(...displayDataChanges).pipe(map(() => {
-
+        return merge(...displayDataChanges).pipe(
+            map(() => {
                 let data = this._ecommerceOrdersService.orders.slice();
 
                 data = this.filterData(data);
@@ -164,11 +170,11 @@ export class FilesDataSource extends DataSource<any>
                 data = this.sortData(data);
 
                 // Grab the page's slice of data.
-                const startIndex = this._matPaginator.pageIndex * this._matPaginator.pageSize;
+                const startIndex =
+                    this._matPaginator.pageIndex * this._matPaginator.pageSize;
                 return data.splice(startIndex, this._matPaginator.pageSize);
             })
         );
-
     }
 
     /**
@@ -177,10 +183,8 @@ export class FilesDataSource extends DataSource<any>
      * @param data
      * @returns {any}
      */
-    filterData(data): any
-    {
-        if ( !this.filter )
-        {
+    filterData(data): any {
+        if (!this.filter) {
             return data;
         }
         return FuseUtils.filterArrayByString(data, this.filter);
@@ -192,53 +196,63 @@ export class FilesDataSource extends DataSource<any>
      * @param data
      * @returns {any[]}
      */
-    sortData(data): any[]
-    {
-        if ( !this._matSort.active || this._matSort.direction === '' )
-        {
+    sortData(data): any[] {
+        if (!this._matSort.active || this._matSort.direction === "") {
             return data;
         }
 
         return data.sort((a, b) => {
-            let propertyA: number | string = '';
-            let propertyB: number | string = '';
+            let propertyA: number | string = "";
+            let propertyB: number | string = "";
 
-            switch ( this._matSort.active )
-            {
-                case 'id':
+            switch (this._matSort.active) {
+                case "id":
                     [propertyA, propertyB] = [a.id, b.id];
                     break;
-                case 'reference':
-                    [propertyA, propertyB] = [a.reference, b.reference];
+                case "reference":
+                    [propertyA, propertyB] = [a.invoiceNumber, b.invoiceNumber];
                     break;
-                case 'customer':
-                    [propertyA, propertyB] = [a.customer.firstName, b.customer.firstName];
+                    case "client":
+                        [propertyA, propertyB] = [
+                            a.clients[0].companyName,
+                            b.clients[0].companyName,
+                        ];
                     break;
-                case 'total':
-                    [propertyA, propertyB] = [a.total, b.total];
+                case "total":
+                    [propertyA, propertyB] = [a.totalDue, b.totalDue];
                     break;
-                case 'payment':
-                    [propertyA, propertyB] = [a.payment.method, b.payment.method];
+                // case "payment":
+                //     [propertyA, propertyB] = [
+                //         a.payment.method,
+                //         b.payment.method,
+                //     ];
+                //     break;
+                // case "status":
+                //     [propertyA, propertyB] = [
+                //         a.status[0].name,
+                //         b.status[0].name,
+                //     ];
+                //     break;
+                case "invoiceDate":
+                    [propertyA, propertyB] = [a.invoiceDate, b.invoiceDate];
                     break;
-                case 'status':
-                    [propertyA, propertyB] = [a.status[0].name, b.status[0].name];
-                    break;
-                case 'date':
-                    [propertyA, propertyB] = [a.date, b.date];
+                case "dueDate":
+                    [propertyA, propertyB] = [a.dueDate, b.dueDate];
                     break;
             }
 
             const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
             const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
 
-            return (valueA < valueB ? -1 : 1) * (this._matSort.direction === 'asc' ? 1 : -1);
+            return (
+                (valueA < valueB ? -1 : 1) *
+                (this._matSort.direction === "asc" ? 1 : -1)
+            );
         });
     }
 
     /**
      * Disconnect
      */
-    disconnect(): void
-    {
-    }
+    disconnect(): void {}
 }

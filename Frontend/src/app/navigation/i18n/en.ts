@@ -4,7 +4,8 @@ export const locale = {
         'NAV': {
             'APPLICATIONS': 'Applications 2',
             'INVOICEMODERN': 'Modern Invoice',
-            'CREATEINVOICE': 'Create an Invoice'
+            'CREATEINVOICE': 'Create an Invoice',
+            'ECOMMERCE': 'E-Commerce'
         }
     }
 };

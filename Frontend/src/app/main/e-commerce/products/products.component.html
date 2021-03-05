@@ -35,7 +35,7 @@
 
             <!-- ADD BUTTON -->
             <button mat-raised-button
-                    [routerLink]="'/apps/e-commerce/products/new'"
+                    [routerLink]="'/e-commerce/products/new'"
                     class="add-product-button fuse-white mt-24 mt-md-0">
                 <span>ADD NEW PRODUCT</span>
             </button>
@@ -65,9 +65,9 @@
                 <ng-container matColumnDef="image">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let product">
-                        <img class="product-image"
-                             *ngIf="product.featuredImageId" [alt]="product.name"
-                             [src]="product.images[product.featuredImageId].url"/>
+                        <!-- <img class="product-image"
+                             *ngIf="product.featuredImageId" [alt]="product.serviceName"
+                             [src]="product.images[product.featuredImageId].url"/> -->
                         <img *ngIf="!product.featuredImageId"
                              [src]="'assets/images/ecommerce/product-image-placeholder.png'">
                     </mat-cell>
@@ -77,44 +77,44 @@
                 <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
                     <mat-cell *matCellDef="let product">
-                        <p class="text-truncate">{{product.name}}</p>
+                        <p class="text-truncate">{{product.serviceName}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Category Column -->
-                <ng-container matColumnDef="category">
+                <!-- <ng-container matColumnDef="category">
                     <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Category</mat-header-cell>
                     <mat-cell *matCellDef="let product" fxHide fxShow.gt-md>
                         <p class="category text-truncate">
                             {{product.categories[0]}}
                         </p>
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Price Column -->
                 <ng-container matColumnDef="price">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Price</mat-header-cell>
                     <mat-cell *matCellDef="let product" fxHide fxShow.gt-xs>
                         <p class="price text-truncate">
-                            {{product.priceTaxIncl | currency:'USD':'symbol'}}
+                            {{product.totalDue | currency:'USD':'symbol'}}
                         </p>
                     </mat-cell>
                 </ng-container>
 
-                <!-- Quantity Column -->
-                <ng-container matColumnDef="quantity">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Quantity</mat-header-cell>
+                <!-- Unit Column -->
+                <!-- <ng-container matColumnDef="unit">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Unit</mat-header-cell>
                     <mat-cell *matCellDef="let product" fxHide fxShow.gt-sm>
 
-                        <span class="quantity-indicator text-truncate"
-                              [ngClass]="{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}">
+                        <span class="unit-indicator text-truncate"
+                              [ngClass]="{'red-500':product.unit <= 5, 'amber-500':product.unit > 5 && product.unit <= 25,'green-600':product.unit > 25}">
                         </span>
                         <span>
-                            {{product.quantity}}
+                            {{product.unit}}
                         </span>
 
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Active Column -->
                 <ng-container matColumnDef="active">
@@ -130,7 +130,7 @@
                 <mat-row *matRowDef="let product; columns: displayedColumns;"
                          class="product"
                          matRipple
-                         [routerLink]="'/apps/e-commerce/products/'+product.id+'/'+product.handle">
+                         [routerLink]="'/e-commerce/products/'+product.id">
                 </mat-row>
 
             </mat-table>

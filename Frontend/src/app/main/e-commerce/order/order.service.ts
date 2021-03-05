@@ -34,7 +34,7 @@ export class EcommerceOrderService implements Resolve<any>
     {
         this.routeParams = route.params;
 
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
 
             Promise.all([
                 this.getOrder()
@@ -55,7 +55,7 @@ export class EcommerceOrderService implements Resolve<any>
     getOrder(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.get('api/e-commerce-orders/' + this.routeParams.id)
+            this._httpClient.get('http://localhost:8080/vbs-invoice-system/resources/invoices/' + this.routeParams.id)
                 .subscribe((response: any) => {
                     this.order = response;
                     this.onOrderChanged.next(this.order);
@@ -73,7 +73,7 @@ export class EcommerceOrderService implements Resolve<any>
     saveOrder(order): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.post('api/e-commerce-orders/' + order.id, order)
+            this._httpClient.post('http://localhost:8080/vbs-invoice-system/resources/invoices' + order.id, order)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
@@ -89,7 +89,7 @@ export class EcommerceOrderService implements Resolve<any>
     addOrder(order): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.post('api/e-commerce-orders/', order)
+            this._httpClient.post('http://localhost:8080/vbs-invoice-system/resources/invoices', order)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
