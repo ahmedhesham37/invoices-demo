@@ -1641,7 +1641,7 @@ export class ECommerceFakeDb
             'status'         : [
                 {
                     'id'   : 13,
-                    'name' : 'On pre-order (not paid)',
+                    'name' : 'On pre-invoice (not paid)',
                     'color': 'purple-300',
                     'date' : '2018/04/03 10:06:18'
                 },
@@ -1815,7 +1815,7 @@ export class ECommerceFakeDb
                 },
                 {
                     'id'   : 3,
-                    'name' : 'Preparing the order',
+                    'name' : 'Preparing the invoice',
                     'color': 'orange-500',
                     'date' : '2018/03/23 04:59:45'
                 }
@@ -2061,7 +2061,7 @@ export class ECommerceFakeDb
             'status'         : [
                 {
                     'id'   : 3,
-                    'name' : 'Preparing the order',
+                    'name' : 'Preparing the invoice',
                     'color': 'orange-500',
                     'date' : '2018/11/30 01:04:32'
                 },
@@ -2151,7 +2151,7 @@ export class ECommerceFakeDb
                 },
                 {
                     'id'   : 13,
-                    'name' : 'On pre-order (not paid)',
+                    'name' : 'On pre-invoice (not paid)',
                     'color': 'purple-300',
                     'date' : '2018/12/13 18:14:40'
                 }
@@ -2235,7 +2235,7 @@ export class ECommerceFakeDb
                 },
                 {
                     'id'   : 3,
-                    'name' : 'Preparing the order',
+                    'name' : 'Preparing the invoice',
                     'color': 'orange-500',
                     'date' : '2018/04/23 11:14:38'
                 }
@@ -2481,7 +2481,7 @@ export class ECommerceFakeDb
             'status'         : [
                 {
                     'id'   : 9,
-                    'name' : 'On pre-order (paid)',
+                    'name' : 'On pre-invoice (paid)',
                     'color': 'purple-300',
                     'date' : '2018/02/26 14:15:38'
                 },
@@ -2901,7 +2901,7 @@ export class ECommerceFakeDb
             'status'         : [
                 {
                     'id'   : 9,
-                    'name' : 'On pre-order (paid)',
+                    'name' : 'On pre-invoice (paid)',
                     'color': 'purple-300',
                     'date' : '2018/06/20 08:37:46'
                 },
@@ -2991,7 +2991,7 @@ export class ECommerceFakeDb
                 },
                 {
                     'id'   : 3,
-                    'name' : 'Preparing the order',
+                    'name' : 'Preparing the invoice',
                     'color': 'orange-500',
                     'date' : '2018/03/22 04:48:12'
                 }

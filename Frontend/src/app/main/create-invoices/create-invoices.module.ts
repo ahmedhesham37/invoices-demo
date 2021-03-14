@@ -14,7 +14,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 const routes: Routes = [
     {
-        path: 'invoices/create',
+        path: 'invoices1/create',
         component: CreateInvoicesComponent
     }
 ];

@@ -45,6 +45,8 @@
         "classlist.js": "1.1.20150312",
         "d3": "5.16.0",
         "date-fns": "2.16.1",
+        "keycloak-angular": "8.1.0",
+        "keycloak-js": "12.0.4",
         "lodash": "4.17.20",
         "moment": "2.29.1",
         "ng2-charts": "2.4.2",

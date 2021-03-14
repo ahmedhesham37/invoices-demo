@@ -3,10 +3,7 @@ export const locale = {
     data: {
         'NAV': {
             'APPLICATIONS': 'Programlar',
-            'SAMPLE'        : {
-                'TITLE': 'Örnek',
-                'BADGE': '15'
-            }
+            'SERVICES' : 'Services',
         }
     }
 };

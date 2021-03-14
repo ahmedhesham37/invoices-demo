@@ -4,6 +4,7 @@ com/vbs/boundry/RestfulResources/InvoicesResource.class
 com/vbs/entity/Invoice.class
 com/vbs/JAXRSConfiguration.class
 com/vbs/boundry/RestfulResources/ServicesResource.class
+com/vbs/CORSFilter.class
 com/vbs/boundry/RestfulResources/ClientsResource.class
 com/vbs/control/ServicesRepository.class
 com/vbs/entity/Service.class

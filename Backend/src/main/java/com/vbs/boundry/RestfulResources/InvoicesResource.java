@@ -5,6 +5,7 @@ import com.vbs.entity.Invoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Path("invoices")
 @RequestScoped
+@RolesAllowed({"CUSTOMER" , "customer"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class InvoicesResource {
@@ -36,10 +38,10 @@ public class InvoicesResource {
     }
 
     @GET
-    @Path("{id}")
-    public Response findInvoiceById(@PathParam("id") Long id) {
+    @Path("{invoiceNumber}")
+    public Response findInvoiceByInvoiceNumber(@PathParam("invoiceNumber") String invoiceNumber) {
         try {
-            Invoice invoice = invoicesRepository.findById(id);
+            Invoice invoice = invoicesRepository.findByInvoiceNumber(invoiceNumber);
             return Response.ok(invoice).build();
         } catch (Exception e) {
             return Response.ok(e).build();

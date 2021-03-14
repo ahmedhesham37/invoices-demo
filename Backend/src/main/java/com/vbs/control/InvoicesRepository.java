@@ -24,11 +24,11 @@ public class InvoicesRepository implements Serializable {
     EntityManager entityManager;
 
 
-    public Invoice findById(Long Id) {
-        logger.info("Invoices: retrieving invoice by id {}", Id);
+    public Invoice findByInvoiceNumber(String invoiceNumber) {
+        logger.info("Invoices: retrieving invoice by invoiceNumber {}", invoiceNumber);
         try {
-            Query query = entityManager.createNamedQuery(Invoice.FIND_BY_ID, Invoice.class);
-            query.setParameter("id", Id);
+            Query query = entityManager.createNamedQuery(Invoice.FIND_BY_INVOICENUM, Invoice.class);
+            query.setParameter("invoiceNumber", String.valueOf(invoiceNumber));
             Invoice invoice = (Invoice) query.getSingleResult();
             entityManager.merge(invoice);
             logger.info(invoice.toString());

@@ -1,0 +1,528 @@
+<div id="invoice" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button
+                    mat-icon-button
+                    class="mr-16"
+                    [routerLink]="'/main/invoices'"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">Invoice {{ invoice.invoiceNumber }}</div>
+
+                    <div class="subtitle secondary-text">
+                        <span>from</span>
+                        <span>
+                            {{ invoice.client.companyName }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <form
+                    name="invoiceForm"
+                    *ngIf="loading"
+                    [formGroup]="invoiceForm"
+                    class="service w-100-p"
+                    fxLayout="column"
+                    fxFlex
+                >
+                    <mat-tab-group fxLayout="column" fxFlex>
+                        <mat-tab label="Client Details">
+                            <div
+                                class="client-details tab-content p-24"
+                                fusePerfectScrollbar
+                            >
+                                <div class="section pb-48">
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            account_circle</mat-icon
+                                        >
+                                        <div class="h2 secondary-text">
+                                            Client
+                                        </div>
+                                    </div>
+
+                                    <div class="client mb-32">
+                                        <table class="simple">
+                                            <thead>
+                                                <tr>
+                                                    <th>Company Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>Company Address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div
+                                                            fxLayout="row"
+                                                            fxLayoutAlign="start center"
+                                                        >
+                                                            <span
+                                                                class="company text-truncate"
+                                                            >
+                                                                {{
+                                                                    invoice
+                                                                        .client
+                                                                        .companyName
+                                                                }}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="email text-truncate"
+                                                        >
+                                                            {{
+                                                                invoice.client
+                                                                    .email
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="phone text-truncate"
+                                                        >
+                                                            {{
+                                                                invoice.client
+                                                                    .phoneNumber
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="address text-truncate"
+                                                        >
+                                                            {{
+                                                                invoice.client
+                                                                    .address
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="section pb-48">
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            access_time
+                                        </mat-icon>
+                                        <div class="h2 secondary-text">
+                                            Invoice Status
+                                        </div>
+                                    </div>
+
+                                    <table class="simple">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!--                                            <tr *ngFor="let status of invoice.status">-->
+                                            <!--                                                <td>-->
+                                            <!--                                                    <span-->
+                                            <!--                                                        class="status h6 p-4"-->
+                                            <!--                                                        [ngClass]="status.color"-->
+                                            <!--                                                    >-->
+                                            <!--                                                        {{ status.name }}-->
+                                            <!--                                                    </span>-->
+                                            <!--                                                </td>-->
+                                            <!--                                                <td>-->
+                                            <!--                                                    <span>-->
+                                            <!--                                                        {{ status.date | date }}-->
+                                            <!--                                                    </span>-->
+                                            <!--                                                </td>-->
+                                            <!--                                            </tr>-->
+                                        </tbody>
+                                    </table>
+
+                                    <!--                                    <form-->
+                                    <!--                                        class="update-status p-24" (ngSubmit)="updateStatus()" [formGroup]="statusForm" fxLayout="row" fxLayoutAlign="start center">-->
+                                    <!--                                        <mat-form-field appearance="outline" class="mr-16" fxFlex>-->
+                                    <!--                                            <mat-label>Status</mat-label>-->
+                                    <!--                                            <mat-select formControlName="newStatus" required>-->
+                                    <!--                                                <mat-option *ngFor="let status of invoiceStatuses" [value]="status.id">-->
+                                    <!--                                                    {{ status.name }}-->
+                                    <!--                                                </mat-option>-->
+                                    <!--                                            </mat-select>-->
+                                    <!--                                        </mat-form-field>-->
+
+                                    <!--                                        <button mat-raised-button class="mat-accent" [disabled]="statusForm.invalid">-->
+                                    <!--                                            Update Status-->
+                                    <!--                                        </button>-->
+                                    <!--                                    </form>-->
+                                </div>
+
+                                <div class="section pb-48">
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            attach_money
+                                        </mat-icon>
+                                        <div class="h2 secondary-text">
+                                            Payment
+                                        </div>
+                                    </div>
+
+                                    <table class="simple">
+                                        <thead>
+                                            <tr>
+                                                <th>TransactionID</th>
+                                                <th>Payment Method</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field
+                                                        appearance="outline"
+                                                        class="mr-16"
+                                                        fxFlex
+                                                    >
+                                                        <mat-label
+                                                            >Invoice
+                                                            Number</mat-label
+                                                        >
+                                                        <input
+                                                            matInput
+                                                            placeholder="Invoice Number"
+                                                            name="invoice-number"
+                                                            formControlName="invoiceNumber"
+                                                            required
+                                                        />
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field
+                                                        appearance="outline"
+                                                        class="mr-16"
+                                                        fxFlex
+                                                    >
+                                                        <mat-label
+                                                            >Total
+                                                            Price</mat-label
+                                                        >
+                                                        <input
+                                                            matInput
+                                                            placeholder="Total Price"
+                                                            name="total-price"
+                                                            formControlName="priceTaxIncl"
+                                                            required
+                                                        />
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <span class="text-truncate">
+                                                        <!--                                                    {{ invoice.date | date }}-->
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </mat-tab>
+
+                        <!--                        <mat-tab label="Services">-->
+                        <!--                            <div-->
+                        <!--                                class="services tab-content p-24"-->
+                        <!--                                fusePerfectScrollbar-->
+                        <!--                            >-->
+                        <!--                                <table class="simple">-->
+                        <!--                                    <thead>-->
+                        <!--                                    <tr>-->
+                        <!--                                        <th class="w-80">ID</th>-->
+                        <!--                                        <th class="w-120">Image</th>-->
+                        <!--                                        <th>Name</th>-->
+                        <!--                                        <th class="w-120">Price</th>-->
+                        <!--                                        <th class="w-80">Quantity</th>-->
+                        <!--                                    </tr>-->
+                        <!--                                    </thead>-->
+                        <!--                                    <tbody>-->
+                        <!--                                    <tr-->
+                        <!--                                        class="product-row"-->
+                        <!--                                        *ngFor="let service of invoice.services"-->
+                        <!--                                        [routerLink]="-->
+                        <!--                                            '/main/services/' + service.id-->
+                        <!--                                        "-->
+                        <!--                                    >-->
+                        <!--                                        <td>-->
+                        <!--                                            {{ service.id }}-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <img-->
+                        <!--                                                class="service-image"-->
+                        <!--                                                [src]="service.image"-->
+                        <!--                                            />-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            {{ service.serviceName }}-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            {{ service.totalPrice }}-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            {{ service.quantity }}-->
+                        <!--                                        </td>-->
+                        <!--                                    </tr>-->
+                        <!--                                    </tbody>-->
+                        <!--                                </table>-->
+                        <!--                            </div>-->
+                        <!--                        </mat-tab>-->
+
+                        <!--                        <mat-tab label="Invoice">-->
+                        <!--                            <div class="invoice tab-content p-24" fusePerfectScrollbar>-->
+                        <!--                                <div id="invoice" class="compact page-layout blank" fxLayout="row" fusePerfectScrollbar>-->
+                        <!--                                    <div class="invoice-container">-->
+                        <!--                                        &lt;!&ndash; INVOICE &ndash;&gt;-->
+                        <!--                                        <div class="card">-->
+                        <!--                                            <div class="header">-->
+                        <!--                                                <div class="invoice-date">-->
+                        <!--                                                    {{ invoice.invoiceDate }}-->
+                        <!--                                                </div>-->
+
+                        <!--                                                <div fxLayout="row" fxLayoutAlign="space-between stretch">-->
+                        <!--                                                    <div class="client">-->
+                        <!--                                                        <div-->
+                        <!--                                                            class="invoice-number"-->
+                        <!--                                                            fxLayout="row"-->
+                        <!--                                                            fxLayoutAlign="start center">-->
+                        <!--                                                            <span class="title">INVOICE</span>-->
+                        <!--                                                            <span class="number">-->
+                        <!--&lt;!&ndash;                                                            {{pageType === 'edit' ? invoice.invoiceNumber || ''}}&ndash;&gt;-->
+                        <!--                                                        </span>-->
+                        <!--                                                        </div>-->
+
+                        <!--                                                        <div class="info">-->
+                        <!--                                                            <div class="title">-->
+                        <!--&lt;!&ndash;                                                                {{pageType === 'edit' ? invoice.clients[0].companyName || ''}}&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="address">-->
+                        <!--&lt;!&ndash;                                                                {{pageType === 'edit' ? invoice.clients[0].address || ''}}&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="phone">-->
+                        <!--&lt;!&ndash;                                                                {{pageType === 'edit' ? invoice.clients[0].phoneNumber || ''}}&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="email">-->
+                        <!--&lt;!&ndash;                                                                {{pageType === 'edit' ? invoice.clients[0].email || ''}}&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                        </div>-->
+                        <!--                                                    </div>-->
+
+                        <!--                                                    <div class="issuer accent" fxLayout="row"-->
+                        <!--                                                         fxLayoutAlign="start center">-->
+                        <!--                                                        <div class="logo">-->
+                        <!--                                                            <img src="assets/images/logos/full-logo.png"/>-->
+                        <!--                                                        </div>-->
+
+                        <!--                                                        <div class="info">-->
+                        <!--                                                            <div class="title">-->
+                        <!--                                                                VBS INC.-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="address">-->
+                        <!--                                                                © 2020 Vertical Business Solutions S.A.E. All Rights-->
+                        <!--                                                                Reserved by Vertical Business Solutions-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="phone">-->
+                        <!--                                                                +2 0238277304-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="email">-->
+                        <!--                                                                info@vbseg.com-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="website">-->
+                        <!--                                                                www.vbseg.com-->
+                        <!--                                                            </div>-->
+                        <!--                                                        </div>-->
+                        <!--                                                    </div>-->
+                        <!--                                                </div>-->
+                        <!--                                            </div>-->
+
+                        <!--                                            <div class="content">-->
+                        <!--                                                <table class="simple invoice-table">-->
+                        <!--                                                    <thead>-->
+                        <!--                                                    <tr>-->
+                        <!--                                                        <th>PRODUCT</th>-->
+                        <!--                                                        <th class="text-right">-->
+                        <!--                                                            PRICE-->
+                        <!--                                                        </th>-->
+                        <!--                                                        <th class="text-right">-->
+                        <!--                                                            QUANTITY-->
+                        <!--                                                        </th>-->
+                        <!--                                                        <th class="text-right">-->
+                        <!--                                                            TOTAL-->
+                        <!--                                                        </th>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                    </thead>-->
+                        <!--                                                    <tbody>-->
+                        <!--                                                    <tr *ngFor="let service of invoice.service">-->
+                        <!--                                                        <td>-->
+                        <!--                                                            <div class="title">-->
+                        <!--                                                                {{service.name}}-->
+                        <!--                                                            </div>-->
+                        <!--                                                        </td>-->
+                        <!--                                                        <td class="text-right">-->
+                        <!--&lt;!&ndash;                                                            {{service.price| currency: "USD": "symbol"}}&ndash;&gt;-->
+                        <!--                                                        </td>-->
+                        <!--                                                        <td class="text-right">-->
+                        <!--                                                            {{-->
+                        <!--                                                            service.quantity-->
+                        <!--                                                            }}-->
+                        <!--                                                        </td>-->
+                        <!--                                                        <td class="text-right">-->
+                        <!--                                                            {{-->
+                        <!--                                                            service.total-->
+                        <!--                                                                | currency-->
+                        <!--                                                                : "USD"-->
+                        <!--                                                                    : "symbol"-->
+                        <!--                                                            }}-->
+                        <!--                                                        </td>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                    </tbody>-->
+                        <!--                                                </table>-->
+
+                        <!--                                                <table-->
+                        <!--                                                    class="simple invoice-table-footer"-->
+                        <!--                                                >-->
+                        <!--                                                    <tbody>-->
+                        <!--                                                    <tr class="subtotal">-->
+                        <!--                                                        <td>SUBTOTAL</td>-->
+                        <!--                                                        <td>-->
+                        <!--&lt;!&ndash;                                                            {{&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                            invoice.price&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                | currency&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                : "USD"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                    : "symbol"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                            }}&ndash;&gt;-->
+                        <!--                                                        </td>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                    <tr class="tax">-->
+                        <!--                                                        <td>TAX</td>-->
+                        <!--                                                        <td>-->
+                        <!--&lt;!&ndash;                                                            {{&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                            invoice.tax&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                | currency&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                : "USD"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                    : "symbol"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                            }}&ndash;&gt;-->
+                        <!--                                                        </td>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                    <tr class="discount">-->
+                        <!--                                                        <td>DISCOUNT</td>-->
+                        <!--                                                        <td>-->
+                        <!--&lt;!&ndash;                                                            -{{&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                            invoice.discount&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                | currency&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                : "USD"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                    : "symbol"&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                            }}&ndash;&gt;-->
+                        <!--                                                        </td>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                    <tr class="total">-->
+                        <!--                                                        <td>TOTAL</td>-->
+                        <!--                                                        <td>-->
+                        <!--&lt;!&ndash;                                                            {{invoice.totalDue| currency: "USD": "symbol"}}&ndash;&gt;-->
+                        <!--                                                        </td>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                    </tbody>-->
+                        <!--                                                </table>-->
+                        <!--                                            </div>-->
+
+                        <!--                                            <div class="footer">-->
+                        <!--                                                <div class="note">-->
+                        <!--                                                    Please pay within 15 days. Thank-->
+                        <!--                                                    you for your business.-->
+                        <!--                                                </div>-->
+                        <!--                                                <div fxLayout="row" fxLayoutAlign="start start">-->
+                        <!--                                                    <div class="logo">-->
+                        <!--                                                        <img src="assets/images/logos/full-logo.png"/>-->
+                        <!--                                                    </div>-->
+                        <!--                                                    <div class="small-note">-->
+                        <!--                                                        In condimentum malesuada-->
+                        <!--                                                        efficitur. Mauris volutpat-->
+                        <!--                                                        placerat auctor. Ut ac-->
+                        <!--                                                        congue dolor. Quisque-->
+                        <!--                                                        scelerisque lacus sed-->
+                        <!--                                                        feugiat fermentum. Cras-->
+                        <!--                                                        aliquet facilisis-->
+                        <!--                                                        pellentesque. Nunc hendrerit-->
+                        <!--                                                        quam at leo commodo, a-->
+                        <!--                                                        suscipit tellus dapibus.-->
+                        <!--                                                        Etiam at felis volutpat est-->
+                        <!--                                                        mollis lacinia. Mauris-->
+                        <!--                                                        placerat sem sit amet velit-->
+                        <!--                                                        mollis, in porttitor ex-->
+                        <!--                                                        finibus. Proin eu nibh id-->
+                        <!--                                                        libero tincidunt lacinia et-->
+                        <!--                                                        eget eros.-->
+                        <!--                                                    </div>-->
+                        <!--                                                </div>-->
+                        <!--                                            </div>-->
+                        <!--                                        </div>-->
+                        <!--                                        &lt;!&ndash; / INVOICE &ndash;&gt;-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </mat-tab>-->
+                    </mat-tab-group>
+                </form>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

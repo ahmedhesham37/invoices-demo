@@ -15,8 +15,6 @@ import java.util.List;
 
 @Path("clients")
 @RequestScoped
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class ClientsResource {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientsResource.class);
@@ -24,13 +22,17 @@ public class ClientsResource {
     @Inject
     ClientsRepository clientsRepository;
 
+
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Client> retrieveClients() {
         return clientsRepository.retrieveClients();
     }
 
-    @Path("{id}")
+
     @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response findClientById(@PathParam("id") Long id) {
         try {
             Client client = clientsRepository.findById(id);
@@ -41,18 +43,23 @@ public class ClientsResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createClient(Client client) {
         return clientsRepository.createClient(client) ? Response.ok(client).build() :
                 Response.ok(false).build();
     }
 
     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updateClient(Client client) {
         return clientsRepository.updateClient(client) ? Response.ok(client).build() :
                 Response.ok(false).build();
     }
 
     @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteClient(Client client) {
         return clientsRepository.deleteClient(client) ? Response.ok(true).build() :
                 Response.ok(false).build();
@@ -60,6 +67,7 @@ public class ClientsResource {
 
     @GET
     @Path("{clientId}/invoices")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response findInvoicesByClient(@PathParam("clientId") Long id) {
         try {
             List<Invoice> invoices = clientsRepository.findInvoicesByClientId(id);
@@ -69,3 +77,4 @@ public class ClientsResource {
         }
     }
 }
+

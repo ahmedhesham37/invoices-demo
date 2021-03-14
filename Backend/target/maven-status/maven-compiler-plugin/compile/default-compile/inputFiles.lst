@@ -1,4 +1,5 @@
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/Client.java
+/home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/CORSFilter.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/Service.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/boundry/RestfulResources/ServicesResource.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/control/ClientsRepository.java

@@ -2,10 +2,9 @@ export const locale = {
     lang: 'en',
     data: {
         'NAV': {
-            'APPLICATIONS': 'Applications 2',
-            'INVOICEMODERN': 'Modern Invoice',
-            'CREATEINVOICE': 'Create an Invoice',
-            'ECOMMERCE': 'E-Commerce'
+            'APPLICATIONS': 'VBS',
+            'SERVICES' : 'Services',
+            'INVOICES': 'Invoices'
         }
     }
 };

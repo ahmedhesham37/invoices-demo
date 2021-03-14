@@ -8,13 +8,16 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("services")
 @RequestScoped
+//@RolesAllowed({"CUSTOMER" , "customer"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ServicesResource {
@@ -24,9 +27,14 @@ public class ServicesResource {
     @Inject
     ServicesRepository servicesRepository;
 
+    @Context
+    HttpServletRequest request;
+
+
 
     @GET
     public List<Service> retrieveServices() {
+        logger.info("request auth header " + request.getHeader("Authorization"));
         return servicesRepository.retrieveServices();
     }
 

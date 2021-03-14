@@ -7,8 +7,8 @@
         <jta-data-source>java:/jdbc/datasources/invoicesDS</jta-data-source>
 
         <!-- Entity classes -->
-        <class>com.vbs.entity.Invoice</class>
-        <class>com.vbs.entity.Client</class>
+<!--        <class>com.vbs.entity.Invoice</class>-->
+<!--        <class>com.vbs.entity.Client</class>-->
 <!--        <class>com.com.vbs.entity.Client</class>-->
         <properties>
 <!--            H2 ? -->
@@ -23,7 +23,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.dialect.storage_engine" value="innodb"/>
 
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.jdbc.use_get_generated_keys" value="true"/>
 

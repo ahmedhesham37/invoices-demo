@@ -13,13 +13,15 @@ import static com.vbs.entity.Invoice.*;
 @Table(name = "invoices")
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "select i from Invoice i "),
-        @NamedQuery(name = FIND_BY_ID, query = "Select i from Invoice i where i.id = :id"),
+        @NamedQuery(name = FIND_BY_INVOICENUM, query = "Select i from Invoice i where i.invoiceNumber = :invoiceNumber"),
+//        @NamedQuery(name = FIND_BY_INVOICENUM, query = "Select i from Invoice i where i.invoiceNumber = :invoiceNumber"),
 //        @NamedQuery(name= FIND_INVOICE_SERVICE , query = "select s from Service s where s.id = (select service_id from INVOICE_SERVICE i_s where i_s.invoice_id = :id)")
 })
 public class Invoice implements Serializable {
 
     public static final String FIND_ALL = "Invoice.finaAll";
     public static final String FIND_BY_ID = "find invoice by id";
+    public static final String FIND_BY_INVOICENUM = "find invoice by invoiceNumber";
 
 //    public static final String FIND_INVOICE_SERVICE = "find services in invoice";
 
@@ -30,8 +32,8 @@ public class Invoice implements Serializable {
     @Column(name = "invoiceName")
     private String invoiceName;
 
-    @Column(name = "invoiceNumber" , unique = true)
-    private String invoiceNubmer;
+    @Column(name = "invoiceNumber" )
+    private String invoiceNumber;
 
     @Column(name = "price")
     private double price;
@@ -52,13 +54,13 @@ public class Invoice implements Serializable {
     @Column(name = "totalDue")
     private double totalDue;
 
-    @ManyToMany
+    @ManyToOne
     @JoinTable(
             name = "INVOICE_CLIENT",
             joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id")
     )
-    private List<Client> clients = new ArrayList<>();
+    private Client client = new Client();
 
     @ManyToMany
     @JoinTable(
@@ -136,27 +138,38 @@ public class Invoice implements Serializable {
     }
 
     public String getInvoiceNubmer() {
-        return invoiceNubmer;
+        return invoiceNumber;
     }
 
-    public void setInvoiceNubmer(String invoiceNubmer) {
-        this.invoiceNubmer = invoiceNubmer;
+    public void setInvoiceNubmer(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 
-    public List<Client> getClients() {
-        return clients;
-    }
 
     public List<Service> getServices() {
         return services;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
@@ -164,14 +177,14 @@ public class Invoice implements Serializable {
         return "Invoice{" +
                 "id=" + id +
                 ", invoiceName='" + invoiceName + '\'' +
-                ", invoiceNubmer='" + invoiceNubmer + '\'' +
+                ", invoiceNumber='" + invoiceNumber + '\'' +
                 ", price=" + price +
                 ", tax=" + tax +
                 ", discount=" + discount +
                 ", invoiceDate=" + invoiceDate +
                 ", dueDate=" + dueDate +
                 ", totalDue=" + totalDue +
-                ", clients=" + clients +
+                ", client=" + client +
                 ", services=" + services +
                 '}';
     }

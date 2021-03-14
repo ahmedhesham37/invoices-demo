@@ -21,8 +21,6 @@ public class Client implements Serializable {
 
     public static final String FIND_ALL = "Client.finaAll";
     public static final String FIND_BY_ID = "find client by id";
-//    public static final String FIND_INVOICE_CLIENT = "find clients in invoice by id";
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,7 +45,7 @@ public class Client implements Serializable {
     @Column(name = "secondPhoneNumber")
     private String secondPhoneNumber;
 
-    @ManyToMany(mappedBy = "clients", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Invoice> invoices = new ArrayList<>();
 
     public Client() {
