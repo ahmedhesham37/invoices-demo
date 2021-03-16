@@ -13,15 +13,15 @@ export const navigation: FuseNavigation[] = [
             //     translate: 'NAV.CREATEINVOICE',
             //     type: 'item',
             //     icon: 'crop_portrait',
-            //     url: 'invoices1/create',
+            //     url: 'show-invoice/create',
             // },
             // {
-            //     id: 'invoice-modern',
+            //     id: 'invoice-show-invoice-component',
             //     title: 'Modern Invoice',
             //     translate: 'NAV.INVOICEMODERN',
             //     type: 'item',
             //     icon: 'crop_portrait',
-            //     url: 'invoices1/modern',
+            //     url: 'show-invoice/show-invoice-component',
             // },
             {
                 id: 'services',

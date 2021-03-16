@@ -9,7 +9,7 @@
         <div
             class="header accent"
             fxLayout="column"
-            fxLayoutAlign="center center"
+            fxLayoutAlign="cInvoiceComponententer center"
             fxLayout.gt-xs="row"
             fxLayoutAlign.gt-xs="space-between center"
         >
@@ -54,13 +54,14 @@
             <!-- / SEARCH -->
 
             <!-- ADD BUTTON -->
-            <button mat-raised-button
-                    [routerLink]="'/main/invoices/new'"
-                    class="add-service-button fuse-white mt-24 mt-md-0">
+            <button
+                mat-raised-button
+                [routerLink]="'/main/invoices/create'"
+                class="add-service-button fuse-white mt-24 mt-md-0"
+            >
                 <span>CREATE INVOICE</span>
             </button>
             <!-- / ADD BUTTON -->
-
         </div>
         <!-- / HEADER -->
 
@@ -74,24 +75,14 @@
                 [@animateStagger]="{ value: '50' }"
                 fusePerfectScrollbar
             >
-                <!-- ID Column -->
-                <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header
-                        >ID</mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let invoice">
-                        <p class="text-truncate">{{ invoice.id }}</p>
-                    </mat-cell>
-                </ng-container>
-
-                <!-- Reference Column -->
-                <ng-container matColumnDef="reference">
+                <!-- Invoice Number Column -->
+                <ng-container matColumnDef="invoiceNumber">
                     <mat-header-cell
                         *matHeaderCellDef
                         mat-sort-header
                         fxHide
                         fxShow.gt-sm
-                        >Reference</mat-header-cell
+                        >Invoice Number</mat-header-cell
                     >
                     <mat-cell *matCellDef="let invoice" fxHide fxShow.gt-sm>
                         <p class="text-truncate">{{ invoice.invoiceNumber }}</p>
@@ -100,12 +91,12 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="client">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header
-                        >Client</mat-header-cell
-                    >
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Client
+                    </mat-header-cell>
                     <mat-cell *matCellDef="let invoice">
                         <p class="text-truncate">
-                            {{ invoice.clients[0].companyName }}
+                            {{ invoice.client.companyName }}
                         </p>
                     </mat-cell>
                 </ng-container>
@@ -197,7 +188,7 @@
                     *matRowDef="let invoice; columns: displayedColumns"
                     class="invoice"
                     matRipple
-                    [routerLink]="'/invoices/' + invoice.id"
+                    [routerLink]="'/main/invoices/' + invoice.invoiceNumber"
                 >
                 </mat-row>
             </mat-table>

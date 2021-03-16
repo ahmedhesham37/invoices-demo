@@ -48,12 +48,8 @@ export class ServicesService implements Resolve<any> {
     getServices(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient
-                .get(
-                    "/vbs-invoice-system/resources/services"
-                )
+                .get("/vbs-invoice-system/resources/services")
                 .subscribe((response: any) => {
-                    console.log(response);
-
                     this.products = response;
                     this.onServicesChanged.next(this.products);
                     resolve(response);

@@ -6,21 +6,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vbs.entity.Client.FIND_ALL;
-import static com.vbs.entity.Client.FIND_BY_ID;
+import static com.vbs.entity.Client.*;
 
 @Entity
 @Table(name = "clients")
 @Access(AccessType.FIELD)
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "select c from Client c "),
-        @NamedQuery(name = FIND_BY_ID, query = "Select c from Client c where c.id = :id")
+        @NamedQuery(name = FIND_BY_ID, query = "Select c from Client c where c.id = :id"),
+        @NamedQuery(name = FIND_BY_COMPANY, query = "Select c from Client c where c.companyName = :companyName")
 //        @NamedQuery(name= FIND_INVOICE_CLIENT, query = "select c from Client c INNER JOIN Invoice i on c.id = i.id"),
 })
 public class Client implements Serializable {
 
     public static final String FIND_ALL = "Client.finaAll";
     public static final String FIND_BY_ID = "find client by id";
+    public static final String FIND_BY_COMPANY = "find client by companyName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

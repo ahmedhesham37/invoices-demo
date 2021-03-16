@@ -31,11 +31,11 @@ public class ClientsResource {
 
 
     @GET
-    @Path("{id}")
+    @Path("{companyName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findClientById(@PathParam("id") Long id) {
+    public Response findClientByCompanyName(@PathParam("companyName") String companyName) {
         try {
-            Client client = clientsRepository.findById(id);
+            Client client = clientsRepository.findByCompanyName(companyName);
             return Response.ok(client).build();
         } catch (Exception e) {
             return Response.ok(false).build();

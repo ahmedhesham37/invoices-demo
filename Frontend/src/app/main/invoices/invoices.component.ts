@@ -29,8 +29,7 @@ import { takeUntil } from "rxjs/operators";
 export class InvoicesComponent implements OnInit, OnDestroy {
     dataSource: FilesDataSource | null;
     displayedColumns = [
-        "id",
-        "reference",
+        "invoiceNumber",
         "client",
         "total",
         // "payment",
@@ -207,17 +206,14 @@ export class FilesDataSource extends DataSource<any> {
             let propertyB: number | string = "";
 
             switch (this._matSort.active) {
-                case "id":
-                    [propertyA, propertyB] = [a.id, b.id];
-                    break;
-                case "reference":
+                case "invoiceNumber":
                     [propertyA, propertyB] = [a.invoiceNumber, b.invoiceNumber];
                     break;
-                    case "client":
-                        [propertyA, propertyB] = [
-                            a.clients[0].companyName,
-                            b.clients[0].companyName,
-                        ];
+                case "client":
+                    [propertyA, propertyB] = [
+                        a.client.companyName,
+                        b.client.companyName,
+                    ];
                     break;
                 case "total":
                     [propertyA, propertyB] = [a.totalDue, b.totalDue];

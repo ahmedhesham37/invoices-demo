@@ -1,3 +1,5 @@
+import { MatStepperModule } from "@angular/material/stepper";
+import { CreateInvoicesComponent } from "./create-invoices/create-invoices.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
@@ -8,6 +10,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSortModule } from "@angular/material/sort";
@@ -27,6 +30,10 @@ import { InvoicesComponent } from "app/main/invoices/invoices.component";
 import { InvoicesService } from "app/main/invoices/invoices.service";
 import { InvoiceComponent } from "app/main/invoice/invoice.component";
 import { InvoiceService } from "app/main/invoice/invoice.service";
+import { CreateInvoiceService } from "./create-invoices/create-invoice.service";
+import { MatDatepicker } from "@angular/material/datepicker";
+import { InvoiceModernComponent } from "./show-invoice/show-invoice-component/show-invoice.component";
+import { ShowInvoiceService } from "./show-invoice/show-invoice.service";
 
 const routes: Routes = [
     {
@@ -51,10 +58,24 @@ const routes: Routes = [
         },
     },
     {
-        path: "invoices/:id",
+        path: "invoices/create",
+        component: CreateInvoicesComponent,
+        resolve: {
+            data: CreateInvoiceService,
+        },
+    },
+    {
+        path: "invoices/:invoiceNumber",
         component: InvoiceComponent,
         resolve: {
             data: InvoiceService,
+        },
+    },
+    {
+        path: "show-invoice/:invoiceNumber",
+        component: InvoiceModernComponent,
+        resolve: {
+            data: ShowInvoiceService,
         },
     },
 ];
@@ -64,7 +85,9 @@ const routes: Routes = [
         ServicesComponent,
         ServiceComponent,
         InvoicesComponent,
-        InvoiceComponent
+        InvoiceComponent,
+        InvoiceModernComponent,
+        CreateInvoicesComponent,
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -74,6 +97,8 @@ const routes: Routes = [
         MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,
+        MatDatepickerModule,
+        MatIconModule,
         MatInputModule,
         MatPaginatorModule,
         MatRippleModule,
@@ -82,6 +107,7 @@ const routes: Routes = [
         MatSnackBarModule,
         MatTableModule,
         MatTabsModule,
+        MatStepperModule,
 
         NgxChartsModule,
         AgmCoreModule.forRoot({
@@ -96,6 +122,8 @@ const routes: Routes = [
         ServiceService,
         InvoicesService,
         InvoiceService,
+        CreateInvoiceService,
+        ShowInvoiceService,
     ],
 })
 export class MainModule {}

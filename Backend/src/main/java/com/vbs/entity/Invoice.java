@@ -48,26 +48,38 @@ public class Invoice implements Serializable {
     private Date invoiceDate;
 
     @Future
-    @Column(name = "dueData")
+    @Column(name = "dueDate")
     private Date dueDate;
 
     @Column(name = "totalDue")
     private double totalDue;
 
+    @Column(name = "type")
+    private InvoiceType type;
+
+    @Column(name = "hasInstallments")
+    private boolean hasInstallments;
+
+    @Column(name = "invoiceStatus")
+    private InvoiceStatus invoiceStatus;
+
+    @OneToOne
+    private Payment payment;
+
     @ManyToOne
-    @JoinTable(
-            name = "INVOICE_CLIENT",
-            joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id")
-    )
+//    @JoinTable(
+//            name = "INVOICE_CLIENT",
+//            joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id")
+//    )
     private Client client = new Client();
 
     @ManyToMany
-    @JoinTable(
-            name = "INVOICE_SERVICE",
-            joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
-    )
+//    @JoinTable(
+//            name = "INVOICE_SERVICE",
+//            joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
+//    )
     private List<Service> services = new ArrayList<>();
 
     public Invoice() {
@@ -172,6 +184,30 @@ public class Invoice implements Serializable {
         this.client = client;
     }
 
+    public InvoiceType getType() {
+        return type;
+    }
+
+    public void setType(InvoiceType type) {
+        this.type = type;
+    }
+
+    public boolean isHasInstallments() {
+        return hasInstallments;
+    }
+
+    public void setHasInstallments(boolean hasInstallments) {
+        this.hasInstallments = hasInstallments;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -184,6 +220,9 @@ public class Invoice implements Serializable {
                 ", invoiceDate=" + invoiceDate +
                 ", dueDate=" + dueDate +
                 ", totalDue=" + totalDue +
+                ", type=" + type +
+                ", hasInstallments=" + hasInstallments +
+                ", payment=" + payment +
                 ", client=" + client +
                 ", services=" + services +
                 '}';

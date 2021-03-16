@@ -1,9 +1,12 @@
-import { KeycloakService } from "keycloak-angular";
-import { KeycloakProfile } from "keycloak-js";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Service } from "app/main/service/service.model";
+import { CreateInvoiceService } from "./create-invoice.service";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs";
-import { Client } from "../../models/Client";
+import { Client } from "app/main/invoice/client.model";
+import { Invoice } from "../invoice/invoice.model";
+import { MatTable } from "@angular/material/table";
 
 @Component({
     selector: "forms",
@@ -11,6 +14,8 @@ import { Client } from "../../models/Client";
     styleUrls: ["./create-invoices.component.scss"],
 })
 export class CreateInvoicesComponent implements OnInit, OnDestroy {
+    @ViewChild("servicesTable") servicesTable: MatTable<Service[]>;
+
     form: FormGroup;
 
     // Horizontal Stepper
@@ -24,43 +29,64 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     FormStep2: FormGroup;
     FormStep3: FormGroup;
 
-    registeredClient: any;
-    public userProfile: KeycloakProfile | null = null;
+    showClientForm: Boolean = false;
+    showServicesForm: Boolean = false;
+    client: Client;
+    invoice: Invoice;
+    savedClients: Client[];
+    services: Service[];
+    invoiceServices: Service[] = [];
+
+    displayedColumns = ["serviceName", "serviceDescription", "totalPrice"];
 
     constructor(
         private _formBuilder: FormBuilder,
-        private keycloak: KeycloakService
+        private _createInvoiceService: CreateInvoiceService,
+        private router: Router
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+
+        this.client = new Client(null);
+        this.invoice = new Invoice(null);
+        this.getClients();
+        this.getServices();
     }
 
-    async isLogged() {
-        let loggedin = await this.keycloak.isLoggedIn();
-        console.log(loggedin);
-    }
     async ngOnInit() {
-        this.isLogged();
-        let registeredUser = this.registeredClient;
+        this.createForm();
+    }
+
+    createForm() {
         this.FormStep1 = this._formBuilder.group({
-            clientName: ["", Validators.required],
-            clientCompany: ["", Validators.required],
-            clientAddress: ["", Validators.required],
-            clientWebsite: ["", Validators.required],
-            clientEmail: ["", Validators.email],
-            clientPhoneNumber: ["", Validators.min(9)],
-            clientOtherPhoneNumber: ["", Validators.required],
-            registeredClient: [""],
+            companyName: [this.client.companyName, Validators.required],
+            address: [this.client.address, Validators.required],
+            website: [this.client.website, Validators.required],
+            email: [this.client.email, Validators.email],
+            phoneNumber: [this.client.phoneNumber, Validators.min(9)],
+            secondPhoneNumber: [
+                this.client.secondPhoneNumber,
+                Validators.required,
+            ],
+            client: [this.client],
         });
 
         this.FormStep2 = this._formBuilder.group({
-            address: ["", Validators.required],
+            service: ["", Validators.required],
         });
 
         this.FormStep3 = this._formBuilder.group({
-            city: ["", Validators.required],
-            state: ["", Validators.required],
-            postalCode: ["", [Validators.required, Validators.maxLength(5)]],
+            invoiceNumber: [this.invoice.invoiceNumber, Validators.required],
+            tax: [
+                this.invoice.tax,
+                [Validators.required, Validators.maxLength(5)],
+            ],
+            discount: [this.invoice.discount, [Validators.required]],
+            invoiceDate: [this.invoice.invoiceDate, [Validators.required]],
+            type: [this.invoice.type, [Validators.required]],
+            dueDate: [this.invoice.dueDate, [Validators.required]],
+            totalDue: [this.invoice.totalDue, [Validators.required]],
+            description: [this.invoice.description, [Validators.required]],
         });
     }
 
@@ -71,6 +97,50 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     }
 
     finishForm(): void {
-        alert("You have finished the horizontal stepper!");
+        // Populating invoice data into the invoice object
+        let data = this.FormStep3.getRawValue();
+        this.invoice = new Invoice(data);
+
+        // Populating client data into the client object (whether new or saved)
+        let clientData = this.FormStep1.getRawValue();
+        this.client = new Client(clientData);
+
+        // Add the services chosen in Step 2 to the Main Invoice Object
+        this.invoice.services = this.invoiceServices;
+
+        // Add the client details (whether previous or new) chosen in Step 2 to the Main Invoice Object
+        this.invoice.client = this.client;
+
+        this.invoice.invoiceStatus = "STARTED";
+        console.log("invoice ", this.invoice);
+
+        this._createInvoiceService
+            .addInvoice(this.invoice)
+            .then((invoice: Invoice) =>
+                this.router.navigateByUrl(
+                    "/main/show-invoice/" + this.invoice.invoiceNumber
+                )
+            );
+    }
+
+    async getClients() {
+        this.savedClients = await this._createInvoiceService.getSavedClients();
+    }
+
+    async getServices() {
+        this.services = await this._createInvoiceService.getServices();
+    }
+
+    populateClient(e) {
+        this.client = this.savedClients.filter((x) => x.companyName === e)[0];
+        this.createForm();
+        this.showClientForm = true;
+    }
+
+    addService(e) {
+        let service = this.services.filter((x) => x.serviceName === e.value)[0];
+        if (this.invoiceServices.indexOf(service) == -1)
+            this.invoiceServices.push(service);
+        this.showServicesForm = true;
     }
 }

@@ -1,21 +1,21 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Subject} from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {takeUntil} from 'rxjs/operators';
-import {Location} from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Subject } from "rxjs";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { takeUntil } from "rxjs/operators";
+import { Location } from "@angular/common";
 
-import {fuseAnimations} from '@fuse/animations';
+import { fuseAnimations } from "@fuse/animations";
 
-import {Service} from 'app/main/service/service.model';
-import {ServiceService} from 'app/main/service/service.service';
+import { Service } from "app/main/service/service.model";
+import { ServiceService } from "app/main/service/service.service";
 
 @Component({
-    selector: 'service',
-    templateUrl: './service.component.html',
-    styleUrls: ['./service.component.scss'],
+    selector: "service",
+    templateUrl: "./service.component.html",
+    styleUrls: ["./service.component.scss"],
     encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations
+    animations: fuseAnimations,
 })
 export class ServiceComponent implements OnInit, OnDestroy {
     service: any;
@@ -40,7 +40,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
         private _matSnackBar: MatSnackBar
     ) {
         // Set the default
-        this.service = new Service();
+        this.service = new Service(null);
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -57,15 +57,13 @@ export class ServiceComponent implements OnInit, OnDestroy {
         // Subscribe to update service on changes
         this._serviceService.onServiceChanged
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(service => {
-                console.log('changed', service);
+            .subscribe((service) => {
                 if (service) {
-                    // this.service = new Service(service);
-                    this.service = service;
-                    this.pageType = 'edit';
+                    this.service = new Service(service);
+                    this.pageType = "edit";
                 } else {
-                    this.pageType = 'new';
-                    this.service = new Service();
+                    this.service = new Service(null);
+                    this.pageType = "new";
                 }
 
                 this.serviceForm = this.createServiceForm();
@@ -93,13 +91,12 @@ export class ServiceComponent implements OnInit, OnDestroy {
     createServiceForm(): FormGroup {
         return this._formBuilder.group({
             id: [this.service.id],
-            name: [this.service.serviceName],
+            serviceName: [this.service.serviceName],
             description: [this.service.description],
-            images: [this.service.images],
-            priceTaxExcl: [this.service.unitPrice],
-            priceTaxIncl: [this.service.totalDue],
+            unitPrice: [this.service.unitPrice],
+            totalPrice: [this.service.totalPrice],
             taxRate: [this.service.taxRate],
-            active: [this.service.active]
+            active: [this.service.active],
         });
     }
 
@@ -108,19 +105,16 @@ export class ServiceComponent implements OnInit, OnDestroy {
      */
     saveService(): void {
         const data = this.serviceForm.getRawValue();
+        this._serviceService.saveService(data).then(() => {
+            // Trigger the subscription with new data
+            this._serviceService.onServiceChanged.next(data);
 
-        this._serviceService.saveService(data)
-            .then(() => {
-
-                // Trigger the subscription with new data
-                this._serviceService.onServiceChanged.next(data);
-
-                // Show the success message
-                this._matSnackBar.open('Service saved', 'OK', {
-                    verticalPosition: 'top',
-                    duration: 3000
-                });
+            // Show the success message
+            this._matSnackBar.open("Service saved", "OK", {
+                verticalPosition: "top",
+                duration: 3000,
             });
+        });
     }
 
     /**
@@ -129,20 +123,18 @@ export class ServiceComponent implements OnInit, OnDestroy {
     addService(): void {
         const data = this.serviceForm.getRawValue();
 
-        this._serviceService.addService(data)
-            .then(() => {
+        this._serviceService.addService(data).then(() => {
+            // Trigger the subscription with new data
+            this._serviceService.onServiceChanged.next(data);
 
-                // Trigger the subscription with new data
-                this._serviceService.onServiceChanged.next(data);
-
-                // Show the success message
-                this._matSnackBar.open('Service added', 'OK', {
-                    verticalPosition: 'top',
-                    duration: 3000
-                });
-
-                // Change the location with new one
-                this._location.go('main/services/' + this.service.id);
+            // Show the success message
+            this._matSnackBar.open("Service added", "OK", {
+                verticalPosition: "top",
+                duration: 3000,
             });
+
+            // Change the location with new one
+            this._location.go("main/services/" + this.service.id);
+        });
     }
 }

@@ -117,14 +117,6 @@ public class Service implements Serializable {
         this.currency = currency;
     }
 
-    //    public List<Invoice> getInvoices() {
-//        return invoices;
-//    }
-//
-//    public void setInvoices(List<Invoice> invoices) {
-//        this.invoices = invoices;
-//    }
-
     @Override
     public String toString() {
         return "Service{" +

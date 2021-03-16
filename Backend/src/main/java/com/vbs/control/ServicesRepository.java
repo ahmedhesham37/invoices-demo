@@ -29,8 +29,8 @@ public class ServicesRepository {
 
     public boolean updateService(Service service) {
         logger.info("Updating Service :  ServiceId : ", service.getId());
-        logger.info("New Service Object >> " , service);
         entityManager.merge(service);
+        logger.info("New Service Object >> " , service.toString());
         return true;
     }
 

@@ -8,7 +8,7 @@ export class Client {
 
     /** Constructor
      *
-     * @param invoice
+     * @param client
      */
     constructor(client) {
         client = client || {};
@@ -19,5 +19,4 @@ export class Client {
         this.phoneNumber = client.phoneNumber;
         this.secondPhoneNumber = client.secondPhoneNumber;
     }
-
 }

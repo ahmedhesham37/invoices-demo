@@ -1,5 +1,5 @@
-import {Client} from './client.model';
-import {Service} from '../service/service.model';
+import { Service } from "app/main/service/service.model";
+import { Client } from "./client.model";
 
 export class Invoice {
     id: number;
@@ -16,6 +16,11 @@ export class Invoice {
     totalDue: number;
     client: Client;
     services: Service[];
+
+    type: string;
+    hasInstallments: boolean;
+    payment: Payment[];
+    invoiceStatus: string;
 
     /**
      * Constructor
@@ -36,4 +41,12 @@ export class Invoice {
         this.dueDate = invoice.dueDate;
         this.totalDue = invoice.totalDue;
     }
+}
+
+class Payment {
+    id;
+    transactionId;
+    paymentMethod;
+    chequeNumber;
+    amount;
 }

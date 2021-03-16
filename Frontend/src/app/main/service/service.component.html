@@ -1,30 +1,38 @@
 <div id="service" class="page-layout carded fullwidth inner-scroll">
-
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
     <!-- / TOP BACKGROUND -->
 
     <!-- CENTER -->
     <div class="center">
-
         <!-- HEADER -->
-        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
-
+        <div
+            class="header accent"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
             <!-- APP TITLE -->
             <div fxLayout="row" fxLayoutAlign="start center">
-
-                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/main/services'">
+                <button
+                    mat-icon-button
+                    class="mr-0 mr-sm-16"
+                    [routerLink]="'/main/services'"
+                >
                     <mat-icon>arrow_back</mat-icon>
                 </button>
 
-                <div fxLayout="column" fxLayoutAlign="start start"
-                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    <div class="h2" *ngIf="pageType ==='edit'">
-                        {{service.name}}
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2" *ngIf="pageType === 'edit'">
+                        {{ service.serviceName }}
                     </div>
-                    <div class="h2" *ngIf="pageType ==='new'">
-                        New Service
-                    </div>
+                    <div class="h2" *ngIf="pageType === 'new'">New Service</div>
                     <div class="subtitle secondary-text">
                         <span>Service Detail</span>
                     </div>
@@ -32,17 +40,23 @@
             </div>
             <!-- / APP TITLE -->
 
-            <button mat-raised-button
-                    class="save-service-button"
-                    [disabled]="serviceForm.invalid"
-                    *ngIf="pageType ==='new'" (click)="addService()">
+            <button
+                mat-raised-button
+                class="add-service-button"
+                [disabled]="serviceForm.invalid"
+                *ngIf="pageType === 'new'"
+                (click)="addService()"
+            >
                 <span>ADD</span>
             </button>
 
-            <button mat-raised-button
-                    class="save-service-button"
-                    [disabled]="serviceForm.invalid || serviceForm.pristine"
-                    *ngIf="pageType ==='edit'" (click)="saveService()">
+            <button
+                mat-raised-button
+                class="save-service-button"
+                [disabled]="serviceForm.invalid || serviceForm.pristine"
+                *ngIf="pageType === 'edit'"
+                (click)="saveService()"
+            >
                 <span>SAVE</span>
             </button>
         </div>
@@ -50,144 +64,108 @@
 
         <!-- CONTENT CARD -->
         <div class="content-card">
-
             <!-- CONTENT -->
             <div class="content">
-
-                <form name="serviceForm" [formGroup]="serviceForm" class="service w-100-p" fxLayout="column" fxFlex>
-
+                <form
+                    name="serviceForm"
+                    [formGroup]="serviceForm"
+                    class="service w-100-p"
+                    fxLayout="column"
+                    fxFlex
+                >
                     <mat-tab-group>
-
                         <mat-tab label="Basic Info">
-
                             <div class="tab-content p-24" fusePerfectScrollbar>
-
-                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
                                     <mat-label>Service Name</mat-label>
-                                    <input matInput placeholder="Service Name"
-                                           name="name"
-                                           formControlName="name"
-                                           required>
+                                    <input
+                                        matInput
+                                        placeholder="Service Name"
+                                        name="serviceName"
+                                        formControlName="serviceName"
+                                        required
+                                    />
                                 </mat-form-field>
 
-                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
                                     <mat-label>Service Description</mat-label>
-                                    <textarea matInput placeholder="Service Description"
-                                              name="description"
-                                              formControlName="description"
-                                              rows="5">
+                                    <textarea
+                                        matInput
+                                        placeholder="Service Description"
+                                        name="description"
+                                        formControlName="description"
+                                        rows="5"
+                                    >
                                     </textarea>
                                 </mat-form-field>
-
-                                <!-- <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-
-                                    <mat-label>Categories</mat-label>
-
-                                    <mat-chip-list #categoryList name="categories" formControlName="categories">
-
-                                        <mat-chip *ngFor="let category of service.categories"
-                                                  [removable]="true" (removed)="service.removeCategory(category)">
-                                            {{category}}
-                                            <mat-icon matChipRemove>cancel</mat-icon>
-                                        </mat-chip>
-
-                                        <input [matChipInputFor]="categoryList"
-                                               [matChipInputAddOnBlur]="true"
-                                               (matChipInputTokenEnd)="service.addCategory($event)"/>
-
-                                    </mat-chip-list>
-
-                                </mat-form-field> -->
-
-                                <!-- <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
-
-                                    <mat-label>Tags</mat-label>
-
-                                    <mat-chip-list #tagList name="tags" formControlName="tags">
-
-                                        <mat-chip *ngFor="let tag of service.tags"
-                                                  [removable]="true" (removed)="service.removeTag(tag)">
-                                            {{tag}}
-                                            <mat-icon matChipRemove>cancel</mat-icon>
-                                        </mat-chip>
-
-                                        <input [matChipInputFor]="tagList"
-                                               [matChipInputAddOnBlur]="true"
-                                               (matChipInputTokenEnd)="service.addTag($event)"/>
-
-                                    </mat-chip-list>
-
-                                </mat-form-field> -->
-
                             </div>
-
                         </mat-tab>
 
-                        <!-- <mat-tab label="Service Images">
-
-                            <div class="tab-content p-24" fusePerfectScrollbar>
-                                <div fxLayout="row wrap" fxLayoutAlign="start start">
-
-                                    <div *ngIf="service.images.length === 0"
-                                         class="service-image" fxlayout="row" fxLayoutAlign="center center">
-                                        <img class="media"
-                                             [src]="'assets/images/ecommerce/service-image-placeholder.png'">
-                                    </div>
-
-                                    <div *ngFor="let image of service.images">
-                                        <div *ngIf="service.images.length > 0"
-                                             class="service-image" fxlayout="row" fxLayoutAlign="center center">
-                                            <img class="media" [src]="image.url">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </mat-tab> -->
-
                         <mat-tab label="Pricing">
-
                             <div class="tab-content p-24" fusePerfectScrollbar>
-
-                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
                                     <mat-label>Tax Excluded Price</mat-label>
-                                    <input matInput placeholder="Tax Excluded Price"
-                                           name="priceTaxExcl"
-                                           formControlName="priceTaxExcl"
-                                           type="number">
+                                    <input
+                                        matInput
+                                        placeholder="Tax Excluded Price"
+                                        name="unitPrice"
+                                        formControlName="unitPrice"
+                                        type="number"
+                                    />
                                     <span matPrefix>$&nbsp;</span>
                                 </mat-form-field>
 
-                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
                                     <mat-label>Tax Included Price</mat-label>
-                                    <input matInput placeholder="Tax Included Price"
-                                           name="priceTaxIncl"
-                                           formControlName="priceTaxIncl"
-                                           type="number">
+                                    <input
+                                        matInput
+                                        placeholder="Tax Included Price"
+                                        name="totalPrice"
+                                        formControlName="totalPrice"
+                                        type="number"
+                                    />
                                     <span matPrefix>$&nbsp;</span>
                                 </mat-form-field>
 
-                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
                                     <mat-label>Tax Rate</mat-label>
-                                    <input matInput placeholder="Tax Rate"
-                                           name="taxRate"
-                                           formControlName="taxRate"
-                                           type="number">
+                                    <input
+                                        matInput
+                                        placeholder="Tax Rate"
+                                        name="taxRate"
+                                        formControlName="taxRate"
+                                        type="number"
+                                    />
                                     <span matPrefix>&#37;&nbsp;</span>
                                 </mat-form-field>
                             </div>
                         </mat-tab>
                     </mat-tab-group>
-
                 </form>
-
             </div>
             <!-- / CONTENT -->
-
         </div>
         <!-- / CONTENT CARD -->
-
     </div>
     <!-- / CENTER -->
-
 </div>

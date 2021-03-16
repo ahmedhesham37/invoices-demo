@@ -23,41 +23,19 @@ import { fuseConfig } from "app/fuse-config";
 import { FakeDbService } from "app/fake-db/fake-db.service";
 import { AppComponent } from "app/app.component";
 import { LayoutModule } from "app/layout/layout.module";
-import { InvoiceModernModule } from "./main/invoices1/modern/modern.module";
 import { InMemoryWebApiModule } from "angular-in-memory-web-api";
-import { CreateInvoicesModule } from "./main/create-invoices/create-invoices.module";
 import { RegisterModule } from "./main/auth/register/register.module";
 import { LoginModule } from "./main/auth/login/login.module";
 import { initializer } from "./utils/app-init";
 import { AuthGuard } from "./utils/app-guard";
+import { CommonModule } from "@angular/common";
 
 const appRoutes: Routes = [
-    {
-        path: "invoices1/modern",
-        loadChildren: () =>
-            import("./main/invoices1/modern/modern.module").then(
-                (m) => m.InvoiceModernModule
-            ),
-        // canActivate: [AuthGuard],
-    },
-    {
-        path: "invoices1/create",
-        loadChildren: () =>
-            import("./main/create-invoices/create-invoices.module").then(
-                (m) => m.CreateInvoicesModule
-            ),
-        // canActivate: [AuthGuard],
-    },
     {
         path: "main",
         loadChildren: () =>
             import("./main/main.module").then((m) => m.MainModule),
     },
-    // {
-    //     path: "invoices1/modern",
-    //     redirectTo: "e-commerce",
-    //     pathMatch: "full",
-    // },
 ];
 
 @NgModule({
@@ -77,6 +55,8 @@ const appRoutes: Routes = [
             passThruUnknownUrl: true,
         }),
 
+        CommonModule,
+
         // Material moment date module
         MatMomentDateModule,
 
@@ -93,8 +73,6 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        InvoiceModernModule,
-        CreateInvoicesModule,
         RegisterModule,
         LoginModule,
     ],

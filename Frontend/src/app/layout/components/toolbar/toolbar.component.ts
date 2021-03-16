@@ -45,6 +45,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         this.userData = {};
         this.userData.firstName = "";
         this.userData.lastName = "";
+        this.userData.email = "";
         this.getUserData();
 
         this.languages = [
@@ -119,7 +120,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
      */
     search(value): void {
         // Do your search here...
-        console.log(value);
     }
 
     /**

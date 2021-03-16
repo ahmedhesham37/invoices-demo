@@ -1,28 +1,35 @@
-import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {Subject} from 'rxjs';
-import {delay, filter, take, takeUntil} from 'rxjs/operators';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+    ViewEncapsulation,
+} from "@angular/core";
+import { NavigationEnd, Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { delay, filter, take, takeUntil } from "rxjs/operators";
 
-import {FuseConfigService} from '@fuse/services/config.service';
-import {FuseNavigationService} from '@fuse/components/navigation/navigation.service';
-import {FusePerfectScrollbarDirective} from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
-import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
-import {KeycloakService} from 'keycloak-angular';
+import { FuseConfigService } from "@fuse/services/config.service";
+import { FuseNavigationService } from "@fuse/components/navigation/navigation.service";
+import { FusePerfectScrollbarDirective } from "@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive";
+import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
+import { KeycloakService } from "keycloak-angular";
 
 @Component({
-    selector: 'navbar-vertical-style-1',
-    templateUrl: './style-1.component.html',
-    styleUrls: ['./style-1.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    selector: "navbar-vertical-style-1",
+    templateUrl: "./style-1.component.html",
+    styleUrls: ["./style-1.component.scss"],
+    encapsulation: ViewEncapsulation.None,
 })
 export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
     fuseConfig: any;
     navigation: any;
+    userData: any;
 
     // Private
     private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
     private _unsubscribeAll: Subject<any>;
-    private userData: Keycloak.KeycloakProfile;
+    // private userData: Keycloak.KeycloakProfile;
 
     /**
      * Constructor
@@ -41,6 +48,10 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+
+        this.userData = {};
+        this.userData.firstName = "";
+        this.userData.lastName = "";
         this.getUserData();
     }
 
@@ -49,7 +60,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
     // -----------------------------------------------------------------------------------------------------
 
     // Directive
-    @ViewChild(FusePerfectScrollbarDirective, {static: true})
+    @ViewChild(FusePerfectScrollbarDirective, { static: true })
     set directive(theDirective: FusePerfectScrollbarDirective) {
         if (!theDirective) {
             return;
@@ -59,10 +70,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
 
         // Update the scrollbar on collapsable item toggle
         this._fuseNavigationService.onItemCollapseToggled
-            .pipe(
-                delay(500),
-                takeUntil(this._unsubscribeAll)
-            )
+            .pipe(delay(500), takeUntil(this._unsubscribeAll))
             .subscribe(() => {
                 this._fusePerfectScrollbar.update();
             });
@@ -74,11 +82,13 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
                 take(1)
             )
             .subscribe(() => {
-                    setTimeout(() => {
-                        this._fusePerfectScrollbar.scrollToElement('navbar .nav-link.active', -120);
-                    });
-                }
-            );
+                setTimeout(() => {
+                    this._fusePerfectScrollbar.scrollToElement(
+                        "navbar .nav-link.active",
+                        -120
+                    );
+                });
+            });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -95,11 +105,10 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribeAll)
             )
             .subscribe(() => {
-                    if (this._fuseSidebarService.getSidebar('navbar')) {
-                        this._fuseSidebarService.getSidebar('navbar').close();
-                    }
+                if (this._fuseSidebarService.getSidebar("navbar")) {
+                    this._fuseSidebarService.getSidebar("navbar").close();
                 }
-            );
+            });
 
         // Subscribe to the config changes
         this._fuseConfigService.config
@@ -111,7 +120,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
         // Get current navigation
         this._fuseNavigationService.onNavigationChanged
             .pipe(
-                filter(value => value !== null),
+                filter((value) => value !== null),
                 takeUntil(this._unsubscribeAll)
             )
             .subscribe(() => {
@@ -136,14 +145,14 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
      * Toggle sidebar opened status
      */
     toggleSidebarOpened(): void {
-        this._fuseSidebarService.getSidebar('navbar').toggleOpen();
+        this._fuseSidebarService.getSidebar("navbar").toggleOpen();
     }
 
     /**
      * Toggle sidebar folded status
      */
     toggleSidebarFolded(): void {
-        this._fuseSidebarService.getSidebar('navbar').toggleFold();
+        this._fuseSidebarService.getSidebar("navbar").toggleFold();
     }
 
     async getUserData() {

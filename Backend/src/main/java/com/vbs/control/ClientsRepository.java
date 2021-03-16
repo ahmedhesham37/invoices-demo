@@ -46,7 +46,9 @@ public class ClientsRepository {
     }
 
     public boolean updateClient(Client client) {
+        logger.info("Updating Client :  ClientID : ", client.getId());
         entityManager.merge(client);
+        logger.info("New Service Object >> " , client.toString());
         return true;
     }
 
@@ -65,4 +67,16 @@ public class ClientsRepository {
         return invoices;
     }
 
+    public Client findByCompanyName(String companyName) {
+        logger.info("CLients: retrieving client by companyName {} " + companyName);
+                try {
+                    Query query = entityManager.createNamedQuery(Client.FIND_BY_COMPANY, Client.class);
+                    query.setParameter("companyName", companyName);
+                    Client result = (Client) query.getSingleResult();
+                    entityManager.merge(result);
+                    return result;
+                } catch (NoResultException e) {
+                    return null;
+                }
+    }
 }

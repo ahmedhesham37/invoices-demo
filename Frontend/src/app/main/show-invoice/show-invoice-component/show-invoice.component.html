@@ -20,21 +20,26 @@
                         <div class="divider"></div>
 
                         <div class="detail">
-                            <div class="title">{{ invoice.from.title }}</div>
-                            <div *ngIf="invoice?.from.address" class="address">
-                                {{ invoice.from.address }}
+                            <div class="title">
+                                <span> Invoice Number:</span>
+                                {{ invoice.invoiceNumber }}</div>
+                            <div class="address">
+                                <span> Address:</span>
+                                Arkan Plaza Building 4 Sheikh Zayed, Giza, Egypt
+                                Postal Code: 12588
                             </div>
-                            <div *ngIf="invoice?.from.phone" class="phone">
+                            <div class="phone">
                                 <span>Phone:</span>
-                                {{ invoice.from.phone }}
+                                +2 0238277304 -
+                                +201225556926
                             </div>
-                            <div *ngIf="invoice?.from.email" class="email">
+                            <div class="email">
                                 <span>Email:</span>
-                                {{ invoice.from.email }}
+                                info@vbseg.com
                             </div>
-                            <div *ngIf="invoice?.from.website" class="website">
+                            <div class="website">
                                 <span>Web:</span>
-                                {{ invoice.from.website }}
+                                www.vbseg.com
                             </div>
                         </div>
                     </div>
@@ -55,16 +60,18 @@
                         <div class="divider"></div>
 
                         <div class="detail">
-                            <div class="title">{{ invoice.client.title }}</div>
+                            <div class="title">
+                                {{ invoice.client.companyName }}
+                            </div>
                             <div
                                 *ngIf="invoice?.client.address"
                                 class="address"
                             >
                                 {{ invoice.client.address }}
                             </div>
-                            <div *ngIf="invoice?.client.phone" class="phone">
+                            <div *ngIf="invoice?.client.phoneNumber" class="phone">
                                 <span>Phone:</span>
-                                {{ invoice.client.phone }}
+                                {{ invoice.client.phoneNumber }}
                             </div>
                             <div *ngIf="invoice?.client.email" class="email">
                                 <span>Email:</span>
@@ -84,12 +91,12 @@
                 <table class="summary">
                     <tr class="code">
                         <td class="label">INVOICE</td>
-                        <td class="value">{{ invoice.number }}</td>
+                        <td class="value">{{ invoice.invoiceNumber }}</td>
                     </tr>
 
                     <tr>
                         <td class="label">INVOICE DATE</td>
-                        <td class="value">{{ invoice.date }}</td>
+                        <td class="value">{{ invoice.invoiceDate  | date: 'dd/MM/yyyy'}} </td>
                     </tr>
 
                     <tr>
@@ -100,7 +107,7 @@
                     <tr>
                         <td class="label">TOTAL DUE</td>
                         <td class="value">
-                            {{ invoice.total | currency: "USD":"symbol" }}
+                            {{ invoice.totalDue | currency: "USD":"symbol" }}
                         </td>
                     </tr>
                 </table>
@@ -111,31 +118,26 @@
                     <thead>
                         <tr>
                             <th>SERVICE</th>
-                            <th>UNIT</th>
                             <th class="text-right">UNIT PRICE</th>
-                            <th class="text-right">QUANTITY</th>
+
                             <th class="text-right">TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let service of invoice.services">
                             <td>
-                                <div class="title">{{ service.title }}</div>
-                                <div class="detail">{{ service.detail }}</div>
-                            </td>
-                            <td>
-                                {{ service.unit }}
-                            </td>
-                            <td class="text-right">
-                                {{
-                                    service.unitPrice | currency: "USD":"symbol"
-                                }}
+                                <div class="title">
+                                    {{ service.serviceName }}
+                                </div>
+                                <div class="detail">
+                                    {{ service.description }}
+                                </div>
                             </td>
                             <td class="text-right">
-                                {{ service.quantity }}
+                                 {{ service.unitPrice | currency: "USD":"symbol" }}
                             </td>
                             <td class="text-right">
-                                {{ service.total | currency: "USD":"symbol" }}
+                                 {{ service.totalPrice | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                     </tbody>
@@ -146,29 +148,25 @@
                         <tr class="subtotal">
                             <td>SUBTOTAL</td>
                             <td>
-                                {{
-                                    invoice.subtotal | currency: "USD":"symbol"
-                                }}
+                                 {{ invoice.price | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                         <tr class="tax">
                             <td>TAX</td>
                             <td>
-                                {{ invoice.tax | currency: "USD":"symbol" }}
+                                 {{ invoice.tax | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                         <tr class="discount">
                             <td>DISCOUNT</td>
                             <td>
-                                -{{
-                                    invoice.discount | currency: "USD":"symbol"
-                                }}
+                                 -{{ invoice.discount | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                         <tr class="total">
                             <td>TOTAL</td>
                             <td>
-                                {{ invoice.total | currency: "USD":"symbol" }}
+                                 {{ invoice.totalDue | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                     </tbody>
