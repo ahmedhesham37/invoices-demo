@@ -32,23 +32,20 @@ public class Service implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "serviceUnit")
-    private String unit;
-
-    @Column(name = "unitPrice")
-    private double unitPrice;
-
     @Column(name = "currency")
     private String currency;
 
-    @Column(name = "quantity")
-    private double quantity;
+    @Column(name = "taxRate")
+    private double taxRate;
 
-    @Column(name = "totalPrice")
-    private double totalPrice;
+    @Column(name = "price")
+    private double price;
 
     @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Invoice> invoices = new ArrayList<>();
+
+    @ManyToOne
+    private Project project;
 
     public Service() {
     }
@@ -77,36 +74,20 @@ public class Service implements Serializable {
         this.description = description;
     }
 
-    public String getUnit() {
-        return unit;
+    public double getTaxRate() {
+        return taxRate;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setTaxRate(double taxRate) {
+        this.taxRate = taxRate;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
+    public double getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getCurrency() {
@@ -123,11 +104,9 @@ public class Service implements Serializable {
                 "id=" + id +
                 ", serviceName='" + serviceName + '\'' +
                 ", description='" + description + '\'' +
-                ", unit='" + unit + '\'' +
-                ", unitPrice=" + unitPrice +
                 ", currency='" + currency + '\'' +
-                ", quantity=" + quantity +
-                ", totalPrice=" + totalPrice +
+                ", taxRate=" + taxRate +
+                ", price=" + price +
                 '}';
     }
 }

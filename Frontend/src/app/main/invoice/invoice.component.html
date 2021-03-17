@@ -38,8 +38,17 @@
                         </span>
                     </div>
                 </div>
+
+
             </div>
             <!-- / APP TITLE -->
+            <button
+                mat-raised-button
+                [routerLink]="'/main/show-invoice/' + this.invoice.invoiceNumber"
+                class="add-service-button fuse-white mt-24 mt-md-0"
+            >
+                <span>Show Printable Invoice</span>
+            </button>
         </div>
         <!-- / HEADER -->
 
@@ -522,17 +531,7 @@
                                                                 }}
                                                             </td>
                                                         </tr>
-                                                        <tr class="discount">
-                                                            <td>DISCOUNT</td>
-                                                            <td>
-                                                                -{{
-                                                                    invoice.discount
-                                                                        | currency
-                                                                            : "USD"
-                                                                            : "symbol"
-                                                                }}
-                                                            </td>
-                                                        </tr>
+
                                                         <tr class="total">
                                                             <td>TOTAL</td>
                                                             <td>

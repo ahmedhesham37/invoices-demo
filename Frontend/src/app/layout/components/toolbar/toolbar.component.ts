@@ -5,7 +5,6 @@ import { TranslateService } from "@ngx-translate/core";
 import * as _ from "lodash";
 
 import { FuseConfigService } from "@fuse/services/config.service";
-import { FuseSidebarService } from "@fuse/components/sidebar/sidebar.service";
 
 import { navigation } from "app/navigation/navigation";
 import { KeycloakService } from "keycloak-angular";
@@ -38,7 +37,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
         private keycloak: KeycloakService
     ) {
@@ -91,42 +89,16 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         });
     }
 
-    /**
-     * On destroy
-     */
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Toggle sidebar open
-     *
-     * @param key
-     */
-    toggleSidebarOpen(key): void {
-        this._fuseSidebarService.getSidebar(key).toggleOpen();
-    }
-
-    /**
-     * Search
-     *
-     * @param value
-     */
     search(value): void {
         // Do your search here...
     }
 
-    /**
-     * Set the language
-     *
-     * @param lang
-     */
     setLanguage(lang): void {
         // Set the selected language for the toolbar
         this.selectedLanguage = lang;

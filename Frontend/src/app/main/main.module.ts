@@ -34,6 +34,10 @@ import { CreateInvoiceService } from "./create-invoices/create-invoice.service";
 import { MatDatepicker } from "@angular/material/datepicker";
 import { InvoiceModernComponent } from "./show-invoice/show-invoice-component/show-invoice.component";
 import { ShowInvoiceService } from "./show-invoice/show-invoice.service";
+import {CommonModule} from '@angular/common';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectComponent } from './project/project.component';
+import {ProjectsService} from './projects/projects.service';
 
 const routes: Routes = [
     {
@@ -50,6 +54,7 @@ const routes: Routes = [
             data: ServiceService,
         },
     },
+    // Invoices
     {
         path: "invoices",
         component: InvoicesComponent,
@@ -78,6 +83,29 @@ const routes: Routes = [
             data: ShowInvoiceService,
         },
     },
+    // Projects
+    {
+        path: "projects",
+        component: ProjectsComponent,
+        resolve: {
+            data: ProjectsService,
+        },
+    },
+    {
+        path: "invoices/create",
+        component: CreateInvoicesComponent,
+        resolve: {
+            data: CreateInvoiceService,
+        },
+    },
+    {
+        path: "invoices/:invoiceNumber",
+        component: InvoiceComponent,
+        resolve: {
+            data: InvoiceService,
+        },
+    },
+
 ];
 
 @NgModule({
@@ -88,10 +116,12 @@ const routes: Routes = [
         InvoiceComponent,
         InvoiceModernComponent,
         CreateInvoicesComponent,
+        ProjectsComponent,
+        ProjectComponent,
     ],
     imports: [
         RouterModule.forChild(routes),
-
+        CommonModule,
         MatButtonModule,
         MatChipsModule,
         MatExpansionModule,

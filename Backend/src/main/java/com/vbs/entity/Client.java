@@ -1,5 +1,8 @@
 package com.vbs.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -46,8 +49,14 @@ public class Client implements Serializable {
     @Column(name = "secondPhoneNumber")
     private String secondPhoneNumber;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "client" , cascade = CascadeType.PERSIST)
     private List<Invoice> invoices = new ArrayList<>();
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
+
 
     public Client() {
     }

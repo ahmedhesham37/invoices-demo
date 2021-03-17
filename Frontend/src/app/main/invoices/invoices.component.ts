@@ -5,68 +5,53 @@ import {
     OnInit,
     ViewChild,
     ViewEncapsulation,
-} from "@angular/core";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
+} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
-import { DataSource } from "@angular/cdk/collections";
-import { BehaviorSubject, fromEvent, merge, Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
+import {DataSource} from '@angular/cdk/collections';
+import {BehaviorSubject, fromEvent, merge, Observable, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
-import { fuseAnimations } from "@fuse/animations";
-import { FuseUtils } from "@fuse/utils";
+import {fuseAnimations} from '@fuse/animations';
+import {FuseUtils} from '@fuse/utils';
 
-import { InvoicesService } from "app/main/invoices/invoices.service";
-import { takeUntil } from "rxjs/operators";
+import {InvoicesService} from 'app/main/invoices/invoices.service';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: "invoices",
-    templateUrl: "./invoices.component.html",
-    styleUrls: ["./invoices.component.scss"],
+    selector: 'invoices',
+    templateUrl: './invoices.component.html',
+    styleUrls: ['./invoices.component.scss'],
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None,
 })
 export class InvoicesComponent implements OnInit, OnDestroy {
     dataSource: FilesDataSource | null;
     displayedColumns = [
-        "invoiceNumber",
-        "client",
-        "total",
+        'invoiceNumber',
+        'client',
+        'total',
         // "payment",
-        "status",
-        "date",
-        "duedate",
+        'status',
+        'date',
     ];
 
-    @ViewChild(MatPaginator, { static: true })
+    @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
 
-    @ViewChild("filter", { static: true })
+    @ViewChild('filter', {static: true})
     filter: ElementRef;
 
-    @ViewChild(MatSort, { static: true })
+    @ViewChild(MatSort, {static: true})
     sort: MatSort;
 
-    // Private
     private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {InvoicesService} _invoicesService
-     */
     constructor(private _invoicesService: InvoicesService) {
-        // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
         this.dataSource = new FilesDataSource(
             this._invoicesService,
@@ -74,7 +59,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
             this.sort
         );
 
-        fromEvent(this.filter.nativeElement, "keyup")
+        fromEvent(this.filter.nativeElement, 'keyup')
             .pipe(
                 takeUntil(this._unsubscribeAll),
                 debounceTime(150),
@@ -88,28 +73,16 @@ export class InvoicesComponent implements OnInit, OnDestroy {
             });
     }
 
-    /**
-     * On destroy
-     */
     ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 }
 
 export class FilesDataSource extends DataSource<any> {
-    // Private
-    private _filterChange = new BehaviorSubject("");
-    private _filteredDataChange = new BehaviorSubject("");
+    private _filterChange = new BehaviorSubject('');
+    private _filteredDataChange = new BehaviorSubject('');
 
-    /**
-     * Constructor
-     *
-     * @param {InvoicesService} _invoicesService
-     * @param {MatPaginator} _matPaginator
-     * @param {MatSort} _matSort
-     */
     constructor(
         private _invoicesService: InvoicesService,
         private _matPaginator: MatPaginator,
@@ -119,10 +92,6 @@ export class FilesDataSource extends DataSource<any> {
 
         this.filteredData = this._invoicesService.invoices;
     }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
 
     // Filtered data
     get filteredData(): any {
@@ -142,10 +111,6 @@ export class FilesDataSource extends DataSource<any> {
         this._filterChange.next(filter);
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
     /**
      * Connect function called by the table to retrieve one stream containing the data to render.
      *
@@ -161,28 +126,22 @@ export class FilesDataSource extends DataSource<any> {
 
         return merge(...displayDataChanges).pipe(
             map(() => {
-                let data = this._invoicesService.invoices.slice();
+                if (this._invoicesService.invoices && this._invoicesService.invoices.length > 0) {
+                    let data = this._invoicesService.invoices.slice();
+                    data = this.filterData(data);
 
-                data = this.filterData(data);
+                    this.filteredData = [...data];
 
-                this.filteredData = [...data];
-
-                data = this.sortData(data);
-
-                // Grab the page's slice of data.
-                const startIndex =
-                    this._matPaginator.pageIndex * this._matPaginator.pageSize;
-                return data.splice(startIndex, this._matPaginator.pageSize);
+                    data = this.sortData(data);
+                    // Grab the page's slice of data.
+                    const startIndex =
+                        this._matPaginator.pageIndex * this._matPaginator.pageSize;
+                    return data.splice(startIndex, this._matPaginator.pageSize);
+                }
             })
         );
     }
 
-    /**
-     * Filter data
-     *
-     * @param data
-     * @returns {any}
-     */
     filterData(data): any {
         if (!this.filter) {
             return data;
@@ -190,32 +149,26 @@ export class FilesDataSource extends DataSource<any> {
         return FuseUtils.filterArrayByString(data, this.filter);
     }
 
-    /**
-     * Sort data
-     *
-     * @param data
-     * @returns {any[]}
-     */
     sortData(data): any[] {
-        if (!this._matSort.active || this._matSort.direction === "") {
+        if (!this._matSort.active || this._matSort.direction === '') {
             return data;
         }
 
         return data.sort((a, b) => {
-            let propertyA: number | string = "";
-            let propertyB: number | string = "";
+            let propertyA: number | string = '';
+            let propertyB: number | string = '';
 
             switch (this._matSort.active) {
-                case "invoiceNumber":
+                case 'invoiceNumber':
                     [propertyA, propertyB] = [a.invoiceNumber, b.invoiceNumber];
                     break;
-                case "client":
+                case 'client':
                     [propertyA, propertyB] = [
                         a.client.companyName,
                         b.client.companyName,
                     ];
                     break;
-                case "total":
+                case 'total':
                     [propertyA, propertyB] = [a.totalDue, b.totalDue];
                     break;
                 // case "payment":
@@ -230,11 +183,8 @@ export class FilesDataSource extends DataSource<any> {
                 //         b.status[0].name,
                 //     ];
                 //     break;
-                case "invoiceDate":
+                case 'invoiceDate':
                     [propertyA, propertyB] = [a.invoiceDate, b.invoiceDate];
-                    break;
-                case "dueDate":
-                    [propertyA, propertyB] = [a.dueDate, b.dueDate];
                     break;
             }
 
@@ -243,13 +193,11 @@ export class FilesDataSource extends DataSource<any> {
 
             return (
                 (valueA < valueB ? -1 : 1) *
-                (this._matSort.direction === "asc" ? 1 : -1)
+                (this._matSort.direction === 'asc' ? 1 : -1)
             );
         });
     }
 
-    /**
-     * Disconnect
-     */
-    disconnect(): void {}
+    disconnect(): void {
+    }
 }

@@ -1,8 +1,11 @@
+com/vbs/control/ProjectsRepository.class
 com/vbs/entity/Cheque.class
 com/vbs/control/InvoicesRepository.class
 com/vbs/entity/Payment.class
 com/vbs/entity/PaymentMethod.class
 com/vbs/entity/AuditTrail.class
+com/vbs/boundry/RestfulResources/ProjectsResource.class
+com/vbs/entity/Project.class
 com/vbs/boundry/RestfulResources/InvoicesResource.class
 com/vbs/entity/Invoice.class
 com/vbs/entity/InvoiceType.class

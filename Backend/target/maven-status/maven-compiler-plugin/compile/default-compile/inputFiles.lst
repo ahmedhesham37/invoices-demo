@@ -1,4 +1,6 @@
+/home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/control/ProjectsRepository.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/InvoiceStatus.java
+/home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/Project.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/InvoiceType.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/CORSFilter.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/control/ClientsRepository.java
@@ -6,6 +8,7 @@
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/boundry/RestfulResources/InvoicesResource.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/control/InvoicesRepository.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/PaymentMethod.java
+/home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/boundry/RestfulResources/ProjectsResource.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/Client.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/Service.java
 /home/javaee/development/Invoice-Project/Backend/src/main/java/com/vbs/entity/Cheque.java

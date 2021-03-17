@@ -1,20 +1,20 @@
-import { Router } from "@angular/router";
-import { Service } from "app/main/service/service.model";
-import { CreateInvoiceService } from "./create-invoice.service";
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Subject } from "rxjs";
-import { Client } from "app/main/invoice/client.model";
-import { Invoice } from "../invoice/invoice.model";
-import { MatTable } from "@angular/material/table";
+import {Router} from '@angular/router';
+import {Service} from 'app/main/service/service.model';
+import {CreateInvoiceService} from './create-invoice.service';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {Client} from 'app/main/invoice/client.model';
+import {Invoice} from '../invoice/invoice.model';
+import {MatTable} from '@angular/material/table';
 
 @Component({
-    selector: "forms",
-    templateUrl: "./create-invoices.component.html",
-    styleUrls: ["./create-invoices.component.scss"],
+    selector: 'forms',
+    templateUrl: './create-invoices.component.html',
+    styleUrls: ['./create-invoices.component.scss'],
 })
 export class CreateInvoicesComponent implements OnInit, OnDestroy {
-    @ViewChild("servicesTable") servicesTable: MatTable<Service[]>;
+    @ViewChild('servicesTable') servicesTable: MatTable<Service[]>;
 
     form: FormGroup;
 
@@ -37,7 +37,7 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     services: Service[];
     invoiceServices: Service[] = [];
 
-    displayedColumns = ["serviceName", "serviceDescription", "totalPrice"];
+    displayedColumns = ['serviceName', 'serviceDescription', 'totalPrice'];
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -72,19 +72,15 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         });
 
         this.FormStep2 = this._formBuilder.group({
-            service: ["", Validators.required],
+            service: ['', Validators.required],
         });
 
         this.FormStep3 = this._formBuilder.group({
+            // Invoice Number shoud be created here
+            // this.client.companyName.substring(0,2).toUpperCase() + this.invoice.invoiceNumber
             invoiceNumber: [this.invoice.invoiceNumber, Validators.required],
-            tax: [
-                this.invoice.tax,
-                [Validators.required, Validators.maxLength(5)],
-            ],
-            discount: [this.invoice.discount, [Validators.required]],
-            invoiceDate: [this.invoice.invoiceDate, [Validators.required]],
+            invoiceDate: [{ value: this.invoice.invoiceDate , disabled : true} ],
             type: [this.invoice.type, [Validators.required]],
-            dueDate: [this.invoice.dueDate, [Validators.required]],
             totalDue: [this.invoice.totalDue, [Validators.required]],
             description: [this.invoice.description, [Validators.required]],
         });
@@ -111,14 +107,14 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         // Add the client details (whether previous or new) chosen in Step 2 to the Main Invoice Object
         this.invoice.client = this.client;
 
-        this.invoice.invoiceStatus = "STARTED";
-        console.log("invoice ", this.invoice);
+        this.invoice.invoiceStatus = 'STARTED';
+        console.log('invoice ', this.invoice);
 
         this._createInvoiceService
             .addInvoice(this.invoice)
             .then((invoice: Invoice) =>
                 this.router.navigateByUrl(
-                    "/main/show-invoice/" + this.invoice.invoiceNumber
+                    '/main/show-invoice/' + this.invoice.invoiceNumber
                 )
             );
     }
@@ -139,8 +135,9 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
 
     addService(e) {
         let service = this.services.filter((x) => x.serviceName === e.value)[0];
-        if (this.invoiceServices.indexOf(service) == -1)
+        if (this.invoiceServices.indexOf(service) == -1) {
             this.invoiceServices.push(service);
+        }
         this.showServicesForm = true;
     }
 }

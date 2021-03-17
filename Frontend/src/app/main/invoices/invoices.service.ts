@@ -12,13 +12,7 @@ export class InvoicesService implements Resolve<any> {
     invoices: any[];
     onOrdersChanged: BehaviorSubject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {HttpClient} _httpClient
-     */
     constructor(private _httpClient: HttpClient) {
-        // Set the defaults
         this.onOrdersChanged = new BehaviorSubject({});
     }
 

@@ -9,6 +9,7 @@ import { fuseAnimations } from "@fuse/animations";
 
 import { Service } from "app/main/service/service.model";
 import { ServiceService } from "app/main/service/service.service";
+import {Router} from '@angular/router';
 
 @Component({
     selector: "service",
@@ -18,7 +19,7 @@ import { ServiceService } from "app/main/service/service.service";
     animations: fuseAnimations,
 })
 export class ServiceComponent implements OnInit, OnDestroy {
-    service: any;
+    service: Service;
     pageType: string;
     serviceForm: FormGroup;
 
@@ -37,7 +38,8 @@ export class ServiceComponent implements OnInit, OnDestroy {
         private _serviceService: ServiceService,
         private _formBuilder: FormBuilder,
         private _location: Location,
-        private _matSnackBar: MatSnackBar
+        private _matSnackBar: MatSnackBar,
+        private router : Router
     ) {
         // Set the default
         this.service = new Service(null);
@@ -93,16 +95,12 @@ export class ServiceComponent implements OnInit, OnDestroy {
             id: [this.service.id],
             serviceName: [this.service.serviceName],
             description: [this.service.description],
-            unitPrice: [this.service.unitPrice],
             totalPrice: [this.service.totalPrice],
             taxRate: [this.service.taxRate],
             active: [this.service.active],
         });
     }
 
-    /**
-     * Save service
-     */
     saveService(): void {
         const data = this.serviceForm.getRawValue();
         this._serviceService.saveService(data).then(() => {
@@ -114,27 +112,25 @@ export class ServiceComponent implements OnInit, OnDestroy {
                 verticalPosition: "top",
                 duration: 3000,
             });
+            this.router.navigateByUrl("main/services");
         });
     }
 
-    /**
-     * Add service
-     */
     addService(): void {
         const data = this.serviceForm.getRawValue();
 
-        this._serviceService.addService(data).then(() => {
+        this._serviceService.addService(data).then((service) => {
             // Trigger the subscription with new data
             this._serviceService.onServiceChanged.next(data);
 
+            this.service = new Service(service);
             // Show the success message
             this._matSnackBar.open("Service added", "OK", {
                 verticalPosition: "top",
                 duration: 3000,
             });
 
-            // Change the location with new one
-            this._location.go("main/services/" + this.service.id);
+            this.router.navigateByUrl("main/services");
         });
     }
 }

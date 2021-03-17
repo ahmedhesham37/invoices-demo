@@ -17,13 +17,6 @@ export class FuseConfigService
     private _configSubject: BehaviorSubject<any>;
     private readonly _defaultConfig: any;
 
-    /**
-     * Constructor
-     *
-     * @param {Platform} _platform
-     * @param {Router} _router
-     * @param _config
-     */
     constructor(
         private _platform: Platform,
         private _router: Router,

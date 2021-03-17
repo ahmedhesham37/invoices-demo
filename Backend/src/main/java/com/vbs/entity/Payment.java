@@ -16,6 +16,7 @@ public class Payment {
     private Long transactionId;
 
     @Column(name = "paymentMethod")
+    @Enumerated(EnumType.STRING)    // To show in the database strings instead of numbers
     private PaymentMethod paymentMethod;
 
     @OneToMany(mappedBy = "payment")

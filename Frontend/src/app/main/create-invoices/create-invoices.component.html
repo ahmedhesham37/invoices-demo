@@ -212,11 +212,11 @@
                                             *matHeaderCellDef
                                             mat-sort-header
                                         >
-                                            Service Description
+                                            Tax Rate
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let service">
                                             <p class="text-truncate">
-                                                {{ service.description }}
+                                                {{ service.taxRate }}
                                             </p>
                                         </mat-cell>
                                     </ng-container>
@@ -354,30 +354,6 @@
                                 <mat-error>Postal Code is required!</mat-error>
                             </mat-form-field>
 
-                            <mat-form-field appearance="outline" fxFlex="100">
-                                <mat-label>Discount</mat-label>
-                                <input
-                                    matInput
-                                    #postalCode2
-                                    formControlName="discount"
-                                    maxlength="5"
-                                    required
-                                />
-                                <mat-error>TAX is required!</mat-error>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="outline" fxFlex="100">
-                                <mat-label>Tax</mat-label>
-                                <input
-                                    matInput
-                                    #postalCode2
-                                    formControlName="tax"
-                                    maxlength="5"
-                                    required
-                                />
-                                <mat-error>TAX is required!</mat-error>
-                            </mat-form-field>
-
                             <mat-form-field
                                 appearance="outline"
                                 class="ml-sm-12"
@@ -386,35 +362,11 @@
                                 <mat-label>Invoice Date</mat-label>
                                 <input
                                     matInput
-                                    [matDatepicker]="invoiceDate"
+                                    #invoiceDate
                                     formControlName="invoiceDate"
-                                    placeholder="Due Date"
                                 />
-                                <mat-datepicker-toggle
-                                    matSuffix
-                                    [for]="invoiceDate"
-                                ></mat-datepicker-toggle>
-                                <mat-datepicker #invoiceDate></mat-datepicker>
                             </mat-form-field>
 
-                            <mat-form-field
-                                appearance="outline"
-                                class="ml-sm-12"
-                                fxFlex
-                            >
-                                <mat-label>Due Date</mat-label>
-                                <input
-                                    matInput
-                                    [matDatepicker]="dueDate"
-                                    formControlName="dueDate"
-                                    placeholder="Due Date"
-                                />
-                                <mat-datepicker-toggle
-                                    matSuffix
-                                    [for]="dueDate"
-                                ></mat-datepicker-toggle>
-                                <mat-datepicker #dueDate></mat-datepicker>
-                            </mat-form-field>
                         </div>
 
                         <div fxLayout="row" fxLayoutAlign="center center">

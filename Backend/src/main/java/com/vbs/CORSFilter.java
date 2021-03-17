@@ -17,10 +17,6 @@ public class CORSFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext,
                        ContainerResponseContext responseContext) throws IOException {
-        logger.info(requestContext.toString());
-        logger.info("Between them");
-        logger.info(responseContext.toString());
-
 
         responseContext.getHeaders().add(
             "Access-Control-Allow-Origin", "*");

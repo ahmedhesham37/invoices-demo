@@ -48,13 +48,6 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
         // Subscribe to update invoice on changes
         this._invoiceService.onInvoiceChanged
@@ -75,21 +68,14 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         this._unsubscribeAll.complete();
     }
 
-    /**
-     * Create invoice form
-     * @returns {FormGroup}
-     */
     createInvoiceForm(): FormGroup {
         return this._formBuilder.group({
-            invoiceName: [this.invoice.invoiceName],
             invoiceNumber: [this.invoice.invoiceNumber],
             description: [this.invoice.description],
             priceTaxExcl: [this.invoice.price],
             tax: [this.invoice.tax],
-            discount: [this.invoice.discount],
             priceTaxIncl: [this.invoice.totalDue],
             active: [this.invoice.active],
-            dueDate: [this.invoice.dueDate],
             clientCompanyName: [this.invoice.client.companyName],
             clientEmail: [this.invoice.client.email],
             clientPhoneNumber: [this.invoice.client.phoneNumber],

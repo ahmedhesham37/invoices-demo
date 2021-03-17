@@ -34,7 +34,7 @@ public class ServicesResource {
 
     @GET
     public List<Service> retrieveServices() {
-        logger.info("request auth header " + request.getHeader("Authorization"));
+//        logger.info("request auth header " + request.getHeader("Authorization"));
         return servicesRepository.retrieveServices();
     }
 

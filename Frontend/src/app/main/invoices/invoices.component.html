@@ -164,22 +164,6 @@
                     </mat-cell>
                 </ng-container>
 
-                <!-- Due Date Column -->
-                <ng-container matColumnDef="duedate">
-                    <mat-header-cell
-                        *matHeaderCellDef
-                        mat-sort-header
-                        fxHide
-                        fxShow.gt-sm
-                        >Due Date</mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let invoice" fxHide fxShow.gt-sm>
-                        <p class="text-truncate">
-                            {{ invoice.dueDate }}
-                        </p>
-                    </mat-cell>
-                </ng-container>
-
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"
                 ></mat-header-row>

@@ -7,10 +7,8 @@ export class Service {
     active: boolean;
     serviceName: string;
     description: string;
-    unit: string;
-    unitPrice: number;
-    currency: string;
-    quantity: number;
+    price: number;
+    taxRate: number;
     totalPrice: number;
 
 
@@ -21,10 +19,8 @@ export class Service {
         this.active = service.active;
         this.serviceName = service.serviceName;
         this.description = service.description;
-        this.unit = service.unit;
-        this.unitPrice = service.unitPrice;
-        this.currency = service.currency;
-        this.quantity = service.quantity;
-        this.totalPrice = service.totalPrice;
+        this.price = service.price;
+        this.taxRate = service.taxRate;
+        this.totalPrice = service.price * (1 + (this.taxRate / 100));
     }
 }

@@ -12,11 +12,7 @@ import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 
 import { FuseModule } from "@fuse/fuse.module";
 import { FuseSharedModule } from "@fuse/shared.module";
-import {
-    FuseProgressBarModule,
-    FuseSidebarModule,
-    FuseThemeOptionsModule,
-} from "@fuse/components";
+import { FuseProgressBarModule } from "@fuse/components";
 
 import { fuseConfig } from "app/fuse-config";
 
@@ -68,8 +64,6 @@ const appRoutes: Routes = [
         FuseModule.forRoot(fuseConfig),
         FuseProgressBarModule,
         FuseSharedModule,
-        FuseSidebarModule,
-        FuseThemeOptionsModule,
 
         // App modules
         LayoutModule,

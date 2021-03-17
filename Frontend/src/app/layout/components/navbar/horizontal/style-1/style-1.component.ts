@@ -4,7 +4,6 @@ import { filter, takeUntil } from 'rxjs/operators';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 @Component({
     selector     : 'navbar-horizontal-style-1',
@@ -17,20 +16,11 @@ export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy
     fuseConfig: any;
     navigation: any;
 
-    // Private
     private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {FuseConfigService} _fuseConfigService
-     * @param {FuseNavigationService} _fuseNavigationService
-     * @param {FuseSidebarService} _fuseSidebarService
-     */
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseNavigationService: FuseNavigationService,
-        private _fuseSidebarService: FuseSidebarService
     )
     {
         // Set the private defaults
@@ -41,9 +31,6 @@ export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
     ngOnInit(): void
     {
         // Get current navigation
@@ -64,9 +51,6 @@ export class NavbarHorizontalStyle1Component implements OnInit, OnDestroy
             });
     }
 
-    /**
-     * On destroy
-     */
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
