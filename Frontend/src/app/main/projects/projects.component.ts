@@ -1,30 +1,40 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {fuseAnimations} from '../../../@fuse/animations';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {BehaviorSubject, fromEvent, merge, Observable, Subject} from 'rxjs';
-import {InvoicesService} from '../invoices/invoices.service';
-import {ProjectsService} from './projects.service';
-import {debounceTime, distinctUntilChanged, map, takeUntil} from 'rxjs/operators';
-import {DataSource} from '@angular/cdk/collections';
-import {FuseUtils} from '../../../@fuse/utils';
+import {
+    Component,
+    ElementRef,
+    OnInit,
+    ViewChild,
+    ViewEncapsulation,
+} from "@angular/core";
+import { fuseAnimations } from "../../../@fuse/animations";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { BehaviorSubject, fromEvent, merge, Observable, Subject } from "rxjs";
+import { ProjectsService } from "./projects.service";
+import {
+    debounceTime,
+    distinctUntilChanged,
+    map,
+    takeUntil,
+} from "rxjs/operators";
+import { DataSource } from "@angular/cdk/collections";
+import { FuseUtils } from "../../../@fuse/utils";
 
 @Component({
-    selector: 'app-projects',
-    templateUrl: './projects.component.html',
-    styleUrls: ['./projects.component.scss'],
+    selector: "app-projects",
+    templateUrl: "./projects.component.html",
+    styleUrls: ["./projects.component.scss"],
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None,
 })
 export class ProjectsComponent implements OnInit {
     dataSource: FilesDataSource | null;
     displayedColumns = [
-        'invoiceNumber',
-        'client',
-        'total',
+        "projectNumber",
+        "projectName",
+        // "client",
+        "totalDue",
         // "payment",
-        'status',
-        'date',
+        "status",
     ];
 
     @ViewChild(MatPaginator, { static: true })
@@ -67,9 +77,7 @@ export class ProjectsComponent implements OnInit {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
-
 }
-
 
 export class FilesDataSource extends DataSource<any> {
     private _filterChange = new BehaviorSubject("");
@@ -151,8 +159,8 @@ export class FilesDataSource extends DataSource<any> {
             let propertyB: number | string = "";
 
             switch (this._matSort.active) {
-                case "invoiceNumber":
-                    [propertyA, propertyB] = [a.invoiceNumber, b.invoiceNumber];
+                case "projectNumber":
+                    [propertyA, propertyB] = [a.projectNumber, b.projectNumber];
                     break;
                 case "client":
                     [propertyA, propertyB] = [

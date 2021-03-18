@@ -67,12 +67,6 @@ export class InvoiceService implements Resolve<any> {
         });
     }
 
-    /**
-     * Save invoice
-     *
-     * @param invoice
-     * @returns {Promise<any>}
-     */
     saveInvoice(invoice): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient
@@ -87,12 +81,6 @@ export class InvoiceService implements Resolve<any> {
         });
     }
 
-    /**
-     * Add invoice
-     *
-     * @param invoice
-     * @returns {Promise<any>}
-     */
     addInvoice(invoice): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient

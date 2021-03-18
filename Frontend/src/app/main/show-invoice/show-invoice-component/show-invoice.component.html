@@ -135,7 +135,7 @@
                                 {{ '%' + service.taxRate  }}
                             </td>
                             <td class="text-right">
-                                 {{ service.totalPrice | currency: "USD":"symbol" }}
+                                 {{ service.price | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                     </tbody>
@@ -143,18 +143,6 @@
 
                 <table class="simple invoice-table-footer">
                     <tbody>
-                        <tr class="subtotal">
-                            <td>SUBTOTAL</td>
-                            <td>
-                                 {{ invoice.price | currency: "USD":"symbol" }}
-                            </td>
-                        </tr>
-                        <tr class="tax">
-                            <td>TAX</td>
-                            <td>
-                                 {{ invoice.tax | currency: "USD":"symbol" }}
-                            </td>
-                        </tr>
                         <tr class="total">
                             <td>TOTAL</td>
                             <td>

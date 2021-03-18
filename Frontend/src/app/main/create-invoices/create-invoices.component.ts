@@ -18,11 +18,6 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
 
     form: FormGroup;
 
-    // Horizontal Stepper
-    horizontalStepperStep1: FormGroup;
-    horizontalStepperStep2: FormGroup;
-    horizontalStepperStep3: FormGroup;
-
     // Private
     private _unsubscribeAll: Subject<any>;
     FormStep1: FormGroup;
@@ -37,7 +32,7 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     services: Service[];
     invoiceServices: Service[] = [];
 
-    displayedColumns = ['serviceName', 'serviceDescription', 'totalPrice'];
+    displayedColumns = ['serviceName', 'serviceDescription', 'price'];
 
     constructor(
         private _formBuilder: FormBuilder,

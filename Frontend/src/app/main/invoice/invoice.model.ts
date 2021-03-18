@@ -13,17 +13,10 @@ export class Invoice {
     totalDue: number;
     client: Client;
     services: Service[];
-
     type: string;
-    hasInstallments: boolean;
     payment: Payment[];
     invoiceStatus: string;
 
-    /**
-     * Constructor
-     *
-     * @param invoice
-     */
     constructor(invoice) {
         invoice = invoice || {};
         this.id = invoice.id;
@@ -32,9 +25,7 @@ export class Invoice {
         this.invoiceNumber = invoice.invoiceNumber;
         this.price = invoice.price;
         this.tax = invoice.tax;
-
         this.invoiceDate = invoice.invoiceDate;
-
         this.totalDue = invoice.totalDue;
     }
 }

@@ -1,3 +1,4 @@
+import { ProjectService } from "./project/project.service";
 import { MatStepperModule } from "@angular/material/stepper";
 import { CreateInvoicesComponent } from "./create-invoices/create-invoices.component";
 import { NgModule } from "@angular/core";
@@ -34,10 +35,10 @@ import { CreateInvoiceService } from "./create-invoices/create-invoice.service";
 import { MatDatepicker } from "@angular/material/datepicker";
 import { InvoiceModernComponent } from "./show-invoice/show-invoice-component/show-invoice.component";
 import { ShowInvoiceService } from "./show-invoice/show-invoice.service";
-import {CommonModule} from '@angular/common';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectComponent } from './project/project.component';
-import {ProjectsService} from './projects/projects.service';
+import { CommonModule } from "@angular/common";
+import { ProjectsComponent } from "./projects/projects.component";
+import { ProjectComponent } from "./project/project.component";
+import { ProjectsService } from "./projects/projects.service";
 
 const routes: Routes = [
     {
@@ -92,20 +93,19 @@ const routes: Routes = [
         },
     },
     {
-        path: "invoices/create",
-        component: CreateInvoicesComponent,
+        path: "projects/create",
+        component: ProjectComponent,
         resolve: {
-            data: CreateInvoiceService,
+            data: ProjectService,
         },
     },
     {
-        path: "invoices/:invoiceNumber",
-        component: InvoiceComponent,
+        path: "projects/:projectNumber",
+        component: ProjectComponent,
         resolve: {
-            data: InvoiceService,
+            data: ProjectService,
         },
     },
-
 ];
 
 @NgModule({

@@ -39,7 +39,6 @@
                     </div>
                 </div>
 
-
             </div>
             <!-- / APP TITLE -->
             <button
@@ -304,7 +303,7 @@
                                                 {{ service.description }}
                                             </td>
                                             <td>
-                                                {{ service.totalPrice }}
+                                                {{ service.price }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -485,7 +484,7 @@
                                                                 class="text-right"
                                                             >
                                                                 {{
-                                                                    service.totalPrice
+                                                                    service.price
                                                                         | currency
                                                                             : "USD"
                                                                             : "symbol"
@@ -495,7 +494,7 @@
                                                                 class="text-right"
                                                             >
                                                                 {{
-                                                                    service.totalPrice
+                                                                    service.price
                                                                         | currency
                                                                             : "USD"
                                                                             : "symbol"

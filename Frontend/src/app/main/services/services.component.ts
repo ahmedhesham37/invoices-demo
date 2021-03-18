@@ -20,7 +20,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ServicesComponent implements OnInit {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'image', 'name', 'price', 'active'];
+    displayedColumns = ['id', 'name', 'price', 'active'];
 
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
@@ -41,13 +41,6 @@ export class ServicesComponent implements OnInit {
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
         this.dataSource = new FilesDataSource(this._servicesService, this.paginator, this.sort);
 

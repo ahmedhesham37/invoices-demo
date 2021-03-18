@@ -222,7 +222,7 @@
                                     </ng-container>
 
                                     <!-- Service Total Price Column -->
-                                    <ng-container matColumnDef="totalPrice">
+                                    <ng-container matColumnDef="price">
                                         <mat-header-cell
                                             *matHeaderCellDef
                                             mat-sort-header
@@ -239,7 +239,7 @@
                                                 class="total-price text-truncate"
                                             >
                                                 {{
-                                                    service.totalPrice
+                                                    service.price
                                                         | currency
                                                             : "USD"
                                                             : "symbol"

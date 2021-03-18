@@ -48,13 +48,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
         // Subscribe to update service on changes
         this._serviceService.onServiceChanged
@@ -72,30 +65,18 @@ export class ServiceComponent implements OnInit, OnDestroy {
             });
     }
 
-    /**
-     * On destroy
-     */
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Create service form
-     *
-     * @returns {FormGroup}
-     */
     createServiceForm(): FormGroup {
         return this._formBuilder.group({
             id: [this.service.id],
             serviceName: [this.service.serviceName],
             description: [this.service.description],
-            totalPrice: [this.service.totalPrice],
+            price: [this.service.price],
             taxRate: [this.service.taxRate],
             active: [this.service.active],
         });

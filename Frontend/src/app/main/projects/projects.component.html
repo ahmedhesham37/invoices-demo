@@ -9,13 +9,13 @@
         <div
             class="header accent"
             fxLayout="column"
-            fxLayoutAlign="cProjectComponententer center"
-            fxLayout.gt-xs="row"
-            fxLayoutAlign.gt-xs="space-between center"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
         >
             <!-- APP TITLE -->
             <div
-                class="logo mb-24 mb-sm-0"
+                class="logo mb-24 mb-md-0"
                 fxLayout="row"
                 fxLayoutAlign="start center"
             >
@@ -34,13 +34,14 @@
                         value: '*',
                         params: { delay: '100ms', x: '-25px' }
                     }"
-                >Projects</span
                 >
+                    Projects
+                </span>
             </div>
             <!-- / APP TITLE -->
 
             <!-- SEARCH -->
-            <div class="search-wrapper ml-sm-32">
+            <div class="search-wrapper mx-32 mx-md-0">
                 <div
                     class="search"
                     fxFlex
@@ -48,18 +49,18 @@
                     fxLayoutAlign="start center"
                 >
                     <mat-icon>search</mat-icon>
-                    <input #filter placeholder="Search for an project" />
+                    <input #filter placeholder="Search for a project" />
                 </div>
             </div>
-            <!-- / SEARCH -->
+            <!-- / SE   ARCH -->
 
             <!-- ADD BUTTON -->
             <button
                 mat-raised-button
-                [routerLink]="'/main/projects/create'"
-                class="add-service-button fuse-white mt-24 mt-md-0"
+                [routerLink]="'/main/projects/new'"
+                class="add-project-button fuse-white mt-24 mt-md-0"
             >
-                <span>CREATE INVOICE</span>
+                <span>ADD NEW PROJECT</span>
             </button>
             <!-- / ADD BUTTON -->
         </div>
@@ -75,63 +76,35 @@
                 [@animateStagger]="{ value: '50' }"
                 fusePerfectScrollbar
             >
-                <!-- Project Number Column -->
-                <ng-container matColumnDef="projectNumber">
-                    <mat-header-cell
-                        *matHeaderCellDef
-                        mat-sort-header
-                        fxHide
-                        fxShow.gt-sm
-                    >Project Number</mat-header-cell
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >ID</mat-header-cell
                     >
-                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-sm>
-                        <p class="text-truncate">{{ project.projectNumber }}</p>
+                    <mat-cell *matCellDef="let project">
+                        <p class="text-truncate">{{ project.id }}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Name Column -->
-                <ng-container matColumnDef="client">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Client
-                    </mat-header-cell>
+                <ng-container matColumnDef="projectName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Name</mat-header-cell
+                    >
                     <mat-cell *matCellDef="let project">
-                        <p class="text-truncate">
-                            {{ project.client.companyName }}
-                        </p>
+                        <p class="text-truncate">{{ project.projectName }}</p>
                     </mat-cell>
                 </ng-container>
 
-                <!-- Total Price Column -->
-                <ng-container matColumnDef="total">
-                    <mat-header-cell
-                        *matHeaderCellDef
-                        mat-sort-header
-                        fxHide
-                        fxShow.gt-md
-                    >Total</mat-header-cell
+                <!-- Project Number Column -->
+                <ng-container matColumnDef="projectNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Project No.</mat-header-cell
                     >
-                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-md>
-                        <p class="total-price text-truncate">
-                            {{ project.totalDue | currency: "USD":"symbol" }}
-                        </p>
+                    <mat-cell *matCellDef="let project">
+                        <p class="text-truncate">{{ project.projectNumber }}</p>
                     </mat-cell>
                 </ng-container>
-
-                <!-- Payment Column -->
-                <!-- <ng-container matColumnDef="payment">
-                    <mat-header-cell
-                        *matHeaderCellDef
-                        mat-sort-header
-                        fxHide
-                        fxShow.gt-sm
-                        >Payment</mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-sm>
-                        <p class="text-truncate">
-                            {{ project.payment.method }}
-                        </p>
-                    </mat-cell>
-                </ng-container> -->
 
                 <!-- Status Column -->
                 <ng-container matColumnDef="status">
@@ -139,27 +112,22 @@
                     >Status</mat-header-cell
                     >
                     <mat-cell *matCellDef="let project">
-                        <p
-                            class="status text-truncate h6 p-4"
-                            [ngClass]="'green-500'"
-                        >
-                            Finished
-                        </p>
+                        <p class="text-truncate">{{ project.status }}</p>
                     </mat-cell>
                 </ng-container>
 
-                <!-- Date Column -->
-                <ng-container matColumnDef="date">
+                <!-- Price Column -->
+                <ng-container matColumnDef="totalDue">
                     <mat-header-cell
                         *matHeaderCellDef
                         mat-sort-header
                         fxHide
-                        fxShow.gt-sm
-                    >Date</mat-header-cell
+                        fxShow.gt-xs
+                    >Total Price</mat-header-cell
                     >
-                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-sm>
-                        <p class="text-truncate">
-                            {{ project.projectDate }}
+                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{ project.totalDue | currency: "USD":"symbol" }}
                         </p>
                     </mat-cell>
                 </ng-container>
@@ -172,7 +140,7 @@
                     *matRowDef="let project; columns: displayedColumns"
                     class="project"
                     matRipple
-                    [routerLink]="'/main/projects/' + project.projectNumber"
+                    [routerLink]="'/main/projects/' + project.id"
                 >
                 </mat-row>
             </mat-table>

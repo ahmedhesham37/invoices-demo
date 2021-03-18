@@ -10,5 +10,10 @@
         <module name="InvoiceProject" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="invoiceentites" target="1.8" />
+      <module name="invoicerepository" target="1.8" />
+      <module name="invoiceresources" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

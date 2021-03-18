@@ -26,7 +26,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "projectNumber")
+    @Column(name = "projectNumber" , unique = true)
     private String projectNumber;
 
     @LazyCollection(LazyCollectionOption.FALSE)
