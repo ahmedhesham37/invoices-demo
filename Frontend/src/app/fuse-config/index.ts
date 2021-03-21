@@ -21,7 +21,7 @@ export const fuseConfig: FuseConfig = {
             folded             : false,
             hidden             : false,
             position           : 'left',
-            variant            : 'vertical-style-1'
+            variant            : 'horizontal-style-1'
         },
         toolbar  : {
             customBackgroundColor: false,
@@ -36,7 +36,7 @@ export const fuseConfig: FuseConfig = {
             position             : 'below-fixed'
         },
         sidepanel: {
-            hidden  : true,
+            hidden  : false,
             position: 'right'
         }
     }

@@ -21,16 +21,8 @@ export class NavbarComponent {
         private _renderer: Renderer2
     ) {
         // Set the private defaults
-        this._variant = 'vertical-style-1';
+        this._variant = 'horizontal-style-1';
     }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Variant
-     */
     get variant(): string {
         return this._variant;
     }

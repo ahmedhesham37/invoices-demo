@@ -12,33 +12,44 @@ import static com.vbs.entity.Project.FIND_BY_PROJECTNUM;
 
 
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "select p from Project p "),
-        @NamedQuery(name = FIND_BY_PROJECTNUM, query = "Select i from Project i where i.projectNumber = :projectNumber"),
+        @NamedQuery(name = FIND_BY_PROJECTNUM, query = "Select p from Project p where p.projectNumber = :projectNumber"),
+//        @NamedQuery(name = FIND_BY_CLIENT_ID, query = "Select p from Project p where p.client_id = :clientId"),
+
 })
 public class Project {
 
     public static final String FIND_ALL = "Project.finaAll";
     public static final String FIND_BY_PROJECTNUM = "find project by projectNumber" ;
+//    public static final String FIND_BY_CLIENT_ID = "find project by client id";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "projectName" , unique = true)
+    private String projectName;
+
     @Column(name = "projectNumber" , unique = true)
     private String projectNumber;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status;
+
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "project" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "project" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL)
     private List<Service> services = new ArrayList<>();
 
     @ManyToOne
-    private Client client;
+    private Client client = new Client();
 
     @Column(name = "remainingPayment")
     private double remainingPayment;
@@ -49,6 +60,14 @@ public class Project {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getProjectNumber() {
@@ -71,9 +90,9 @@ public class Project {
         return services;
     }
 
-    public void setServices(List<Service> services) {
-        this.services = services;
-    }
+//    public void setServices(List<Service> services) {
+//        this.services = services;
+//    }
 
     public Client getClient() {
         return client;
@@ -91,11 +110,21 @@ public class Project {
         this.remainingPayment = remainingPayment;
     }
 
+    public ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProjectStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
                 "id=" + id +
+                ", projectName='" + projectName + '\'' +
                 ", projectNumber='" + projectNumber + '\'' +
+                ", status=" + status +
                 ", invoices=" + invoices +
                 ", services=" + services +
                 ", client=" + client +

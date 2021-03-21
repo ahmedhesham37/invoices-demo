@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="invoice" />
         <module name="InvoiceProject" />
+        <module name="Backend" />
+        <module name="invoice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

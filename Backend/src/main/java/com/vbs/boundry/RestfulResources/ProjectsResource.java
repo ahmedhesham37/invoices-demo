@@ -47,6 +47,7 @@ public class ProjectsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createProject(Project project) {
+        logger.info("Creating new Project , " + project );
         return projectsRepository.createProject(project) ? Response.ok(project).build() :
                 Response.ok(false).build();
     }
@@ -60,11 +61,12 @@ public class ProjectsResource {
     }
 
     @POST
-    @PathParam("{projectNumber}/add-invoice")
+    @Path("{projectNumber}/add-invoice")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addInvoiceToProject(@PathParam("projectNumber") String projectNumber, Invoice invoice) {
         try {
+            logger.info("Adding invoice to Project , " + invoice );
             Project project = projectsRepository.addInvoiceToProject(invoice, projectNumber);
             return Response.ok(project).build();
         } catch (Exception e) {

@@ -28,16 +28,18 @@ public class ClientsRepository {
 
     public Client findById(Long Id) {
         logger.info("CLients: retrieving client by id {}", Id);
-        logger.info(Id.getClass().toString());
-        try {
-            Query query = entityManager.createNamedQuery(Client.FIND_BY_ID, Client.class);
-            query.setParameter("id", Id);
-            Client result = (Client) query.getSingleResult();
-            entityManager.merge(result);
-            return result;
-        } catch (NoResultException e) {
-            return null;
-        }
+            try {
+                if (Id != null) {
+                    logger.info(Id.getClass().toString());
+                    Query query = entityManager.createNamedQuery(Client.FIND_BY_ID, Client.class);
+                    query.setParameter("id", Id);
+                    Client result = (Client) query.getSingleResult();
+                    entityManager.merge(result);
+                    return result;
+                } else return null;
+            } catch (NoResultException e) {
+                return null;
+            }
     }
 
     public boolean createClient(Client client) {
@@ -48,7 +50,7 @@ public class ClientsRepository {
     public boolean updateClient(Client client) {
         logger.info("Updating Client :  ClientID : ", client.getId());
         entityManager.merge(client);
-        logger.info("New Service Object >> " , client.toString());
+        logger.info("New Service Object >> ", client.toString());
         return true;
     }
 
@@ -69,14 +71,14 @@ public class ClientsRepository {
 
     public Client findByCompanyName(String companyName) {
         logger.info("CLients: retrieving client by companyName {} " + companyName);
-                try {
-                    Query query = entityManager.createNamedQuery(Client.FIND_BY_COMPANY, Client.class);
-                    query.setParameter("companyName", companyName);
-                    Client result = (Client) query.getSingleResult();
-                    entityManager.merge(result);
-                    return result;
-                } catch (NoResultException e) {
-                    return null;
-                }
+        try {
+            Query query = entityManager.createNamedQuery(Client.FIND_BY_COMPANY, Client.class);
+            query.setParameter("companyName", companyName);
+            Client result = (Client) query.getSingleResult();
+            entityManager.merge(result);
+            return result;
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

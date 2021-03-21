@@ -26,7 +26,7 @@ export class FuseConfigService
         // Set the default config from the user provided config (from forRoot)
         this._defaultConfig = _config;
 
-        // Initialize the service
+        // Initialize the details
         this._init();
     }
 
@@ -54,11 +54,6 @@ export class FuseConfigService
         return this._configSubject.asObservable();
     }
 
-    /**
-     * Get default config
-     *
-     * @returns {any}
-     */
     get defaultConfig(): any
     {
         return this._defaultConfig;

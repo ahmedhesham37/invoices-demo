@@ -1,6 +1,6 @@
-import { ProjectService } from "./project/project.service";
+import { ProjectService } from "./project/details/project.service";
 import { MatStepperModule } from "@angular/material/stepper";
-import { CreateInvoicesComponent } from "./create-invoices/create-invoices.component";
+import { CreateInvoicesComponent } from "./invoice/create/create-invoices.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
@@ -23,22 +23,22 @@ import { AgmCoreModule } from "@agm/core";
 import { FuseSharedModule } from "@fuse/shared.module";
 import { FuseWidgetModule } from "@fuse/components/widget/widget.module";
 
-import { ServicesComponent } from "app/main/services/services.component";
-import { ServicesService } from "app/main/services/services.service";
-import { ServiceComponent } from "app/main/service/service.component";
-import { ServiceService } from "app/main/service/service.service";
-import { InvoicesComponent } from "app/main/invoices/invoices.component";
-import { InvoicesService } from "app/main/invoices/invoices.service";
-import { InvoiceComponent } from "app/main/invoice/invoice.component";
-import { InvoiceService } from "app/main/invoice/invoice.service";
-import { CreateInvoiceService } from "./create-invoices/create-invoice.service";
+import { ServicesComponent } from "app/main/service/list/services.component";
+import { ServicesService } from "app/main/service/list/services.service";
+import { ServiceComponent } from "app/main/service/details/service.component";
+import { ServiceService } from "app/main/service/details/service.service";
+import { InvoicesComponent } from "app/main/invoice/list/invoices.component";
+import { InvoicesService } from "app/main/invoice/list/invoices.service";
+import { InvoiceComponent } from "app/main/invoice/details/invoice.component";
+import { InvoiceService } from "app/main/invoice/details/invoice.service";
+import { CreateInvoiceService } from "./invoice/create/create-invoice.service";
 import { MatDatepicker } from "@angular/material/datepicker";
-import { InvoiceModernComponent } from "./show-invoice/show-invoice-component/show-invoice.component";
-import { ShowInvoiceService } from "./show-invoice/show-invoice.service";
+import { InvoiceModernComponent } from "./invoice/show-invoice/show-invoice-component/show-invoice.component";
+import { ShowInvoiceService } from "./invoice/show-invoice/show-invoice.service";
 import { CommonModule } from "@angular/common";
-import { ProjectsComponent } from "./projects/projects.component";
-import { ProjectComponent } from "./project/project.component";
-import { ProjectsService } from "./projects/projects.service";
+import { ProjectsComponent } from "./project/list/projects.component";
+import { ProjectComponent } from "./project/details/project.component";
+import { ProjectsService } from "./project/list/projects.service";
 
 const routes: Routes = [
     {
@@ -90,13 +90,6 @@ const routes: Routes = [
         component: ProjectsComponent,
         resolve: {
             data: ProjectsService,
-        },
-    },
-    {
-        path: "projects/create",
-        component: ProjectComponent,
-        resolve: {
-            data: ProjectService,
         },
     },
     {

@@ -23,7 +23,6 @@ public class InvoicesRepository implements Serializable {
     @PersistenceContext
     EntityManager entityManager;
 
-
     public Invoice findByInvoiceNumber(String invoiceNumber) {
         logger.info("Invoices: retrieving invoice by invoiceNumber {}", invoiceNumber);
         try {
@@ -40,12 +39,15 @@ public class InvoicesRepository implements Serializable {
 
     public List<Invoice> retrieveInvoices() {
         List<Invoice> invoices = entityManager.createNamedQuery(Invoice.FIND_ALL, Invoice.class).getResultList();
-//        List<Invoice> invoices = entityManager.createQuery("from client").getResultList();
         logger.info(invoices.toString());
         return invoices;
     }
 
     public boolean createInvoice(Invoice invoice) {
+        // Create Project Number
+        int invoiceNumber = 1001 + (retrieveInvoices().size());
+        invoice.setInvoiceNubmer(String.valueOf(invoiceNumber));
+
         entityManager.persist(invoice);
         logger.info(invoice.toString());
         return true;
@@ -57,5 +59,27 @@ public class InvoicesRepository implements Serializable {
 //        return true;
 //    }
 
+//    private String getNewInvoiceNumber(Project project) {
+//        String newInvoiceNumber = "";
+//        List<Invoice> invoices = new ArrayList<>();
+//        if (project != null)
+//            invoices = findInvoicesByProject(project.getId());
+//        newInvoiceNumber = "P-" + project.getClient().getCompanyName().substring(0,2).toUpperCase() + "-I" + "-" + invoices.size();
+//
+//        return newInvoiceNumber;
+//    }
+
+//    public List<Invoice> findInvoicesByProject(Long projectId) {
+//        logger.info("Project: retrieving projects by client {} ", projectId);
+//        try {
+//            Query query = entityManager.createNamedQuery(Invoice.FIND_BY_PROJECTID, Invoice.class);
+//            query.setParameter("companyName", String.valueOf(projectId));
+//            List<Invoice> invoices = query.getResultList();
+//            logger.info(invoices.toString());
+//            return invoices;
+//        } catch (NoResultException e) {
+//            return null;
+//        }
+//    }
 
 }

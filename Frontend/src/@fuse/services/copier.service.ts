@@ -1,5 +1,5 @@
 /**
- * This class is based on the code in the following projects:
+ * This class is based on the code in the following list:
  * https://github.com/zenorocha/select
  * https://github.com/zenorocha/clipboard.js/
  *

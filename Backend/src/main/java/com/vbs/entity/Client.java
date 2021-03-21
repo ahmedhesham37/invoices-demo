@@ -50,7 +50,7 @@ public class Client implements Serializable {
     private String secondPhoneNumber;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "client" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)

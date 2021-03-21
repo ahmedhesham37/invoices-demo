@@ -14,25 +14,24 @@ import static com.vbs.entity.Invoice.FIND_BY_INVOICENUM;
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "select i from Invoice i "),
         @NamedQuery(name = FIND_BY_INVOICENUM, query = "Select i from Invoice i where i.invoiceNumber = :invoiceNumber"),
+//        @NamedQuery(name = FIND_BY_PROJECTID, query = "Select i from Invoice i where i.project_id = :projectId"),
 })
 public class Invoice implements Serializable {
 
     public static final String FIND_ALL = "Invoice.finaAll";
     public static final String FIND_BY_ID = "find invoice by id";
     public static final String FIND_BY_INVOICENUM = "find invoice by invoiceNumber";
-
+//    public static final String FIND_BY_PROJECTID = "find invoices by Project ";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @Column(name = "invoiceNumber" , unique = true)
     private String invoiceNumber;
 
     @Column(name = "price")
     private double price;
-
 
     @Column(name = "invoiceDate")
     private Date invoiceDate;
@@ -42,9 +41,6 @@ public class Invoice implements Serializable {
 
     @Column(name = "type")
     private InvoiceType type;
-
-    @Column(name = "invoiceStatus")
-    private InvoiceStatus invoiceStatus;
 
     @OneToOne
     private Payment payment;
@@ -164,6 +160,12 @@ public class Invoice implements Serializable {
                 ", client=" + client +
                 ", services=" + services +
                 '}';
+    }
+
+    // To AutoGenerate the invoice Number (instead of generation type Auto)
+    @PrePersist
+    private void createInvoiceNumber(){
+
     }
 }
 

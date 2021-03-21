@@ -18,7 +18,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
                     },
                     enableBearerInterceptor: true,
                     bearerPrefix: "Bearer",
-                    bearerExcludedUrls: ["show-invoice/show-invoice-component", "main$"],
+                    bearerExcludedUrls: ["show-details/show-details-component", "main$"],
                 });
                 resolve();
             } catch (error) {

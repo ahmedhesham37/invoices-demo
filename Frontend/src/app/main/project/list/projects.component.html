@@ -1,0 +1,165 @@
+<div id="projects" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div
+                class="logo mb-24 mb-md-0"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <mat-icon
+                    class="logo-icon s-32 mr-16"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }"
+                >
+                    shopping_basket
+                </mat-icon>
+                <span
+                    class="logo-text h1"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    Projects
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0">
+                <div
+                    class="search"
+                    fxFlex
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                >
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search for a project" />
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            <!-- ADD BUTTON -->
+            <button
+                mat-raised-button
+                [routerLink]="'/main/projects/new'"
+                class="add-project-button fuse-white mt-24 mt-md-0"
+            >
+                <span>ADD NEW PROJECT</span>
+            </button>
+            <!-- / ADD BUTTON -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <mat-table
+                class="projects-table"
+                #table
+                [dataSource]="dataSource"
+                matSort
+                [@animateStagger]="{ value: '50' }"
+                fusePerfectScrollbar
+            >
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >ID</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let project">
+                        <p class="text-truncate">{{ project.id }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="projectName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Name</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let project">
+                        <p class="text-truncate">{{ project.projectName }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Project Number Column -->
+                <ng-container matColumnDef="projectNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Project No.</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let project">
+                        <p class="text-truncate">{{ project.projectNumber }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Status</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let project">
+                        <p
+                            class="status text-truncate h6 p-4"
+                            [ngClass]="'green-500'"
+                        >
+                            {{project.status}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Price Column -->
+                <ng-container matColumnDef="totalDue">
+                    <mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header
+                        fxHide
+                        fxShow.gt-xs
+                    >Total Price</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{ project.totalDue | currency: "USD":"symbol" }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let project; columns: displayedColumns"
+                    class="project"
+                    matRipple
+                    [routerLink]="'/main/projects/' + project.projectNumber"
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator
+                #paginator
+                [length]="dataSource.filteredData.length"
+                [pageIndex]="0"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+            >
+            </mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

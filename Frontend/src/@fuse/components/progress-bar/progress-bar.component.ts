@@ -44,7 +44,7 @@ export class FuseProgressBarComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Subscribe to the progress bar service properties
+        // Subscribe to the progress bar details properties
 
         // Buffer value
         this._fuseProgressBarService.bufferValue

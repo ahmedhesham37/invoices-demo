@@ -55,7 +55,7 @@ export class FuseMatSidenavHelperDirective implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Register the sidenav to the service
+        // Register the sidenav to the details
         this._fuseMatSidenavHelperService.setSidenav(this.fuseMatSidenavHelper, this._matSidenav);
 
         if ( this.matIsLockedOpen && this._mediaObserver.isActive(this.matIsLockedOpen) )

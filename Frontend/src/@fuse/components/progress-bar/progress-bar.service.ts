@@ -23,7 +23,7 @@ export class FuseProgressBarService
         private _router: Router
     )
     {
-        // Initialize the service
+        // Initialize the details
         this._init();
     }
 

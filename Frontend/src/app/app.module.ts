@@ -16,10 +16,8 @@ import { FuseProgressBarModule } from "@fuse/components";
 
 import { fuseConfig } from "app/fuse-config";
 
-import { FakeDbService } from "app/fake-db/fake-db.service";
 import { AppComponent } from "app/app.component";
 import { LayoutModule } from "app/layout/layout.module";
-import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 import { RegisterModule } from "./main/auth/register/register.module";
 import { LoginModule } from "./main/auth/login/login.module";
 import { initializer } from "./utils/app-init";
@@ -45,11 +43,6 @@ const appRoutes: Routes = [
         KeycloakAngularModule,
 
         TranslateModule.forRoot(),
-
-        InMemoryWebApiModule.forRoot(FakeDbService, {
-            delay: 0,
-            passThruUnknownUrl: true,
-        }),
 
         CommonModule,
 

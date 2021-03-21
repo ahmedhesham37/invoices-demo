@@ -41,7 +41,7 @@ public class Service implements Serializable {
     @Column(name = "price")
     private double price;
 
-    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
 
     @ManyToOne
