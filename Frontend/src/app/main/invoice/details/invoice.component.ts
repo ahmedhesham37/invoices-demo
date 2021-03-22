@@ -71,39 +71,39 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         });
     }
 
-    saveInvoice(): void {
-        const data = this.invoiceForm.getRawValue();
-
-        this._invoiceService.saveInvoice(data).then(() => {
-            // Trigger the subscription with new data
-            this._invoiceService.onInvoiceChanged.next(data);
-
-            // Show the success message
-            this._matSnackBar.open("Invoice saved", "OK", {
-                verticalPosition: "top",
-                duration: 3000,
-            });
-        });
-    }
-
-    /**
-     * Add Invoice
-     */
-    addInvoice(): void {
-        const data = this.invoiceForm.getRawValue();
-
-        this._invoiceService.addInvoice(data).then((invoice) => {
-            // Trigger the subscription with new data
-            this._invoiceService.onInvoiceChanged.next(data);
-
-            // Show the success message
-            this._matSnackBar.open("Invoice added", "OK", {
-                verticalPosition: "top",
-                duration: 3000,
-            });
-
-            // Change the location with new one
-            this._location.go("main/invoices/" + invoice.id);
-        });
-    }
+    // saveInvoice(): void {
+    //     const data = this.invoiceForm.getRawValue();
+    //
+    //     this._invoiceService.saveInvoice(data).then(() => {
+    //         // Trigger the subscription with new data
+    //         this._invoiceService.onInvoiceChanged.next(data);
+    //
+    //         // Show the success message
+    //         this._matSnackBar.open("Invoice saved", "OK", {
+    //             verticalPosition: "top",
+    //             duration: 3000,
+    //         });
+    //     });
+    // }
+    //
+    // /**
+    //  * Add Invoice
+    //  */
+    // addInvoice(): void {
+    //     const data = this.invoiceForm.getRawValue();
+    //
+    //     this._invoiceService.addInvoice(data).then((invoice) => {
+    //         // Trigger the subscription with new data
+    //         this._invoiceService.onInvoiceChanged.next(data);
+    //
+    //         // Show the success message
+    //         this._matSnackBar.open("Invoice added", "OK", {
+    //             verticalPosition: "top",
+    //             duration: 3000,
+    //         });
+    //
+    //         // Change the location with new one
+    //         this._location.go("main/invoices/" + invoice.id);
+    //     });
+    // }
 }

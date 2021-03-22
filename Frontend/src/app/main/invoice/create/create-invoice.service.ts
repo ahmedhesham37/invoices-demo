@@ -73,16 +73,22 @@ export class CreateInvoiceService implements Resolve<any> {
         });
     }
 
-    /**
-     * Get clients
-     *
-     * @returns {Promise<any>}
-     */
+
     getServices(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient
                 .get("/vbs-invoice-system/resources/services")
                 .subscribe((response: any) => {
+                    resolve(response);
+                }, reject);
+        });
+    }
+    getProjects(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient
+                .get("/vbs-invoice-system/resources/projects")
+                .subscribe((response: any) => {
+                    console.log(response);
                     resolve(response);
                 }, reject);
         });

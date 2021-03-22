@@ -137,6 +137,22 @@
                     </mat-cell>
                 </ng-container>
 
+                <!-- Remaining Payment Column -->
+                <ng-container matColumnDef="remainingPayment">
+                    <mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header
+                        fxHide
+                        fxShow.gt-xs
+                    >Remaining Payment</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let project" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{ project.remainingPayment | currency: "USD":"symbol" }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"
                 ></mat-header-row>

@@ -39,6 +39,7 @@ export class ProjectsService {
                 .get("/vbs-invoice-system/resources/projects")
                 .subscribe((response: any) => {
                     this.projects = response;
+                    console.log("projects " , this.projects);
                     this.onProjectsChanged.next(this.projects);
                     resolve(response);
                 }, reject);

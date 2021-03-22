@@ -1,0 +1,598 @@
+<div id="project" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button
+                    mat-icon-button
+                    class="mr-0 mr-sm-16"
+                    [routerLink]="'/main/projects'"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2" *ngIf="pageType === 'edit'">
+                        {{ project.projectName }}
+                    </div>
+                    <div class="h2" *ngIf="pageType === 'new'">New Project</div>
+                    <div class="subtitle secondary-text">
+                        <span>Project Details</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button
+                mat-raised-button
+                class="save-project-button"
+                [disabled]="projectForm.invalid || projectForm.pristine"
+                *ngIf="pageType === 'edit'"
+                (click)="saveProject()"
+            >
+                <span>SAVE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content p-24">
+                <mat-horizontal-stepper class="horizontal-stepper-wrapper">
+                    <mat-step [stepControl]="projectForm">
+                        <form
+                            name="projectForm"
+                            [formGroup]="projectForm"
+                            class="project w-100-p"
+                            fxLayout="column"
+                            fxFlex
+                        >
+                            <ng-template matStepLabel>Project Info</ng-template>
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Project Name</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Project Name"
+                                        name="projectName"
+                                        formControlName="projectName"
+                                        required
+                                    />
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    *ngIf="pageType !== 'new'"
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Project Number</mat-label>
+                                    <textarea
+                                        matInput
+                                        placeholder="Project Number"
+                                        name="projectNumber"
+                                        formControlName="projectNumber"
+                                    >
+                                    </textarea>
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    *ngIf="pageType !== 'new'"
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Project Status</mat-label>
+                                    <textarea
+                                        matInput
+                                        placeholder="Project Status"
+                                        name="status"
+                                        formControlName="status"
+                                    >
+                                    </textarea>
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    *ngIf="pageType !== 'new'"
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Remaining Payments</mat-label>
+                                    <textarea
+                                        matInput
+                                        placeholder="Remaining Payments"
+                                        name="remainingPayment"
+                                        formControlName="remainingPayment"
+                                    >
+                                    </textarea>
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    *ngIf="pageType !== 'new'"
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Total Price</mat-label>
+                                    <textarea
+                                        matInput
+                                        placeholder="Total Price"
+                                        name="totalDue"
+                                        formControlName="totalDue"
+                                    >
+                                    </textarea>
+                                </mat-form-field>
+
+
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button
+                                    mat-raised-button
+                                    matStepperNext
+                                    type="button"
+                                    color="accent"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="clientForm">
+                        <form name="clientForm"
+                              [formGroup]="clientForm"
+                              class="project w-100-p"
+                              fxLayout="column"
+                              fxFlex>
+                            <ng-template matStepLabel>Client</ng-template>
+
+                            <div class="tab-content p-24" *ngIf="pageType === 'new'">
+                                <mat-form-field appearance="outline" fxFlex="1 1">
+                                    <mat-label>Company Name</mat-label>
+                                    <mat-select
+                                        formControlName="client"
+                                        (valueChange)="populateClient($event)"
+                                    >
+                                        <mat-option
+                                            *ngFor="let client of savedClients"
+                                            [value]="client.companyName"
+                                        >{{ client.companyName }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix class="secondary-text"
+                                    >outlined_flag
+                                    </mat-icon>
+                                    <mat-error>Company is required!</mat-error>
+                                </mat-form-field>
+
+                                <button
+                                    mat-raised-button
+                                    style="margin: 10px"
+                                    color="accent"
+                                    type="button"
+                                    (click)="showClientForm = !showClientForm"
+                                >
+                                    <span>NEW CLIENT</span>
+                                </button>
+                            </div>
+
+                            <div
+                                class="tab-content p-24"
+                                fxFlex="1 0 auto"
+                                fxLayout="column"
+                                *ngIf="showClientForm"
+                            >
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Company</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="companyName"
+                                        required
+                                    />
+                                    <mat-error>Company Name is required!</mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Company Address</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="address"
+                                        required
+                                    />
+                                    <mat-error
+                                    >Company Address is required!
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Company Website</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="website"
+                                        required
+                                    />
+                                    <mat-error
+                                    >Company Website is required!
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Company Email</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="email"
+                                        required
+                                    />
+                                    <mat-error
+                                    >Company Email is required!
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Company Phone Number</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="phoneNumber"
+                                        required
+                                    />
+                                    <mat-error
+                                    >Company Phone Number is required!
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Other Phone Number</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="secondPhoneNumber"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button
+                                    class="mr-8"
+                                    mat-raised-button
+                                    matStepperPrevious
+                                    type="button"
+                                    color="accent"
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    mat-raised-button
+                                    matStepperNext
+                                    type="button"
+                                    color="accent"
+                                >
+                                    {{pageType === "new" ?  "Next" : "Finish"}}
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="servicesForm">
+                        <form fxLayout="column" [formGroup]="servicesForm">
+                            <ng-template matStepLabel>Services</ng-template>
+
+                            <mat-form-field appearance="outline" fxFlex="1 1" *ngIf="pageType === 'new'">
+                                <mat-label>Services</mat-label>
+                                <mat-select
+                                    formControlName="service"
+                                    (selectionChange)="addService($event);"
+                                >
+                                    <mat-option
+                                        *ngFor="let service of savedServices"
+                                        [value]="service.serviceName"
+                                    >{{ service.serviceName }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon matSuffix class="secondary-text"
+                                >outlined_flag
+                                </mat-icon>
+                                <mat-error
+                                >At least one service is required!
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div
+                                *ngIf="showServicesForm"
+                                fxFlex="1 0 auto"
+                                fxLayout="row"
+                            >
+                                <mat-label>Services</mat-label>
+
+                                <!-- CONTENT CARD -->
+                                <div class="content-card">
+                                    <mat-table
+                                        class="services-table"
+                                        #servicesTable
+                                        [dataSource]="this.projectServices"
+                                        matSort
+                                        fusePerfectScrollbar
+                                    >
+                                        <!-- Service Name Column -->
+                                        <ng-container matColumnDef="serviceName">
+                                            <mat-header-cell
+                                                *matHeaderCellDef
+                                                mat-sort-header
+                                                fxHide
+                                                fxShow.gt-sm
+                                            >Service Name
+                                            </mat-header-cell>
+                                            <mat-cell
+                                                *matCellDef="let service"
+                                                fxHide
+                                                fxShow.gt-sm
+                                            >
+                                                <p class="text-truncate">
+                                                    {{ service.serviceName }}
+                                                </p>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <!-- Service Tax Rate Column -->
+                                        <ng-container
+                                            matColumnDef="serviceTaxRate"
+                                        >
+                                            <mat-header-cell
+                                                *matHeaderCellDef
+                                                mat-sort-header
+                                            >
+                                                Tax Rate
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let service">
+                                                <p class="text-truncate">
+                                                    {{ service.taxRate }}
+                                                </p>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <!-- Service Total Price Column -->
+                                        <ng-container matColumnDef="price">
+                                            <mat-header-cell
+                                                *matHeaderCellDef
+                                                mat-sort-header
+
+                                            >Total Price
+                                            </mat-header-cell>
+                                            <mat-cell
+                                                *matCellDef="let service"
+
+                                            >
+                                                <p
+                                                    class="total-price text-truncate"
+                                                >
+                                                    {{
+                                                    service.price
+                                                        | currency
+                                                        : "USD"
+                                                            : "symbol"
+                                                    }}
+                                                </p>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <mat-header-row
+                                            *matHeaderRowDef="
+                                            displayedColumnsServices;
+                                            sticky: true
+                                        "
+                                        ></mat-header-row>
+
+                                        <mat-row
+                                            *matRowDef="
+                                            let service;
+                                            columns: displayedColumnsServices
+                                        "
+                                            class="service"
+                                            matRipple
+                                            [routerLink]="
+                                            '/main/services/' + service.id
+                                        "
+                                        >
+                                        </mat-row>
+                                    </mat-table>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button
+                                    class="mr-8"
+                                    mat-raised-button
+                                    matStepperPrevious
+                                    type="button"
+                                    color="accent"
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    mat-raised-button
+                                    matStepperNext
+                                    type="button"
+                                    color="accent"
+                                    (click)="getTotalDue()"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step [stepControl]="invoicesForm" *ngIf="pageType !== 'new'">
+                        <form name="invoicesForm"
+                              [formGroup]="invoicesForm"
+                              class="project w-100-p"
+                              fxLayout="column"
+                              fxFlex>
+                            <ng-template matStepLabel>Invoices</ng-template>
+                            <div class="tab-content p-24">
+
+                                <mat-table
+                                    class="invoices-table"
+                                    #table
+                                    [dataSource]="this.projectInvoices"
+                                    matSort
+                                    [@animateStagger]="{ value: '50' }"
+                                    fusePerfectScrollbar
+                                >
+                                    <!-- Invoice Number Column -->
+                                    <ng-container matColumnDef="invoiceNumber">
+                                        <mat-header-cell
+                                            *matHeaderCellDef
+                                            mat-sort-header
+                                            fxHide
+                                            fxShow.gt-sm
+                                        >Invoice Number
+                                        </mat-header-cell
+                                        >
+                                        <mat-cell *matCellDef="let invoice" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">{{ invoice.invoiceNumber }}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="client">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                            Client
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let invoice">
+                                            <p class="text-truncate">
+                                                {{ invoice.client.companyName }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Total Price Column -->
+                                    <ng-container matColumnDef="invoiceTotalDue">
+                                        <mat-header-cell
+                                            *matHeaderCellDef
+                                            mat-sort-header
+                                            fxHide
+                                            fxShow.gt-md
+                                        >Total
+                                        </mat-header-cell
+                                        >
+                                        <mat-cell *matCellDef="let invoice" fxHide fxShow.gt-md>
+                                            <p class="total-price text-truncate">
+                                                {{ invoice.totalDue | currency: "USD":"symbol" }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="invoiceDate">
+                                        <mat-header-cell
+                                            *matHeaderCellDef
+                                            mat-sort-header
+                                            fxHide
+                                            fxShow.gt-sm
+                                        >Date
+                                        </mat-header-cell
+                                        >
+                                        <mat-cell *matCellDef="let invoice" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">
+                                                {{ invoice.invoiceDate | date : "mediumDate"}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row
+                                        *matHeaderRowDef="displayedColumnsInvoices; sticky: true"
+                                    ></mat-header-row>
+
+                                    <mat-row
+                                        *matRowDef="let invoice; columns: displayedColumnsInvoices"
+                                        class="invoice"
+                                        matRipple
+                                        [routerLink]="'/main/invoices/' + invoice.invoiceNumber"
+                                    >
+                                    </mat-row>
+                                </mat-table>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button
+                                    class="mr-8"
+                                    mat-raised-button
+                                    matStepperPrevious
+                                    type="button"
+                                    color="accent"
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    mat-raised-button
+                                    type="button"
+                                    color="accent"
+                                    (click)="saveProject()"
+                                >
+                                    Finish
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+
+                        <div
+                            class="h2 m-16"
+                            fxLayout="row"
+                            fxLayoutAlign="center center"
+                        >
+                            Review Your Project details
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <button
+                                class="mr-8"
+                                mat-raised-button
+                                matStepperPrevious
+                                type="button"
+                                color="accent"
+                            >
+                                Previous
+                            </button>
+                            <button
+                                mat-raised-button
+                                type="button"
+                                color="accent"
+                                (click)="finishForm()"
+                            >
+                                Finish
+                            </button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+        <!-- / CONTENT -->
+    </div>
+    <!-- / CONTENT CARD -->
+</div>
+<!-- / CENTER -->
+

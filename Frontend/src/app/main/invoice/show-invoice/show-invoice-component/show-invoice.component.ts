@@ -25,17 +25,6 @@ export class InvoiceModernComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((invoice) => {
                 this.invoice = new Invoice(invoice);
-                // let x = invoice.invoiceDate.replace("[UTC]" , "");
-                // console.log(Date.parse(x));
-                // console.log(x.getUTCDate());
-                // console.log(x.getTimezoneOffset());
-                // console.log(x.getTime());
-
-
-                // console.log(invoice.invoiceDate , typeof invoice.invoiceDate , invoice.invoiceDate instanceof Object );
-                // let d = new Date(Date.parse(invoice.invoiceDate);
-                // let d = new Date(this.invoice.invoiceDate);
-                // console.log('d' , d);
             });
     }
 

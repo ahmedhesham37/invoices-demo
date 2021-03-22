@@ -14,23 +14,11 @@ export class InvoiceService implements Resolve<any> {
     invoice: any;
     onInvoiceChanged: BehaviorSubject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {HttpClient} _httpClient
-     */
     constructor(private _httpClient: HttpClient, private router: Router) {
         // Set the defaults
         this.onInvoiceChanged = new BehaviorSubject({});
     }
 
-    /**
-     * Resolver
-     *
-     * @param {ActivatedRouteSnapshot} route
-     * @param {RouterStateSnapshot} state
-     * @returns {Observable<any> | Promise<any> | any}
-     */
     resolve(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot

@@ -2,7 +2,6 @@ package com.vbs.boundry.RestfulResources;
 
 import com.vbs.control.ClientsRepository;
 import com.vbs.control.InvoicesRepository;
-import com.vbs.entity.Client;
 import com.vbs.entity.Invoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,18 +55,18 @@ public class InvoicesResource {
     @POST
     public Response createInvoice(Invoice invoice) {
         //Check if the client is saved otherwise create it with a new Id
-        Client client = clientsRepository.findByCompanyName(invoice.getClient().getCompanyName());
+//        Client client = clientsRepository.findByCompanyName(invoice.getClient().getCompanyName());
 
-        if ( client == null ) {
-            logger.info("Client is not found , creating a new Client ");
-            clientsRepository.createClient(invoice.getClient());
-            client = clientsRepository.findByCompanyName(invoice.getClient().getCompanyName());
-        } else {
-            logger.info("Client found , updating Client data" + client);
-            clientsRepository.updateClient(client);
-        }
+//        if ( client == null ) {
+//            logger.info("Client is not found , creating a new Client ");
+//            clientsRepository.createClient(invoice.getClient());
+//            client = clientsRepository.findByCompanyName(invoice.getClient().getCompanyName());
+//        } else {
+//            logger.info("Client found , updating Client data" + client);
+//            clientsRepository.updateClient(client);
+//        }
 
-        invoice.setClient(client);
+//        invoice.setClient(client);
         return invoicesRepository.createInvoice(invoice) ? Response.ok(invoice).build() : Response.ok(false).build();
     }
 

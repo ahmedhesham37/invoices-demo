@@ -8,6 +8,7 @@ import {Client} from 'app/main/invoice/details/client.model';
 import {Invoice} from '../details/invoice.model';
 import {MatTable} from '@angular/material/table';
 import {fuseAnimations} from '../../../../@fuse/animations';
+import {Project} from '../../project/create/project.model';
 
 @Component({
     selector: 'forms',
@@ -29,10 +30,13 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     invoicesForm: FormGroup;
 
     showClientForm: Boolean = false;
+    showProjectsForm: Boolean = false;
     showServicesForm: Boolean = false;
     client: Client;
+    project: Project;
     invoice: Invoice;
     savedClients: Client[];
+    savedProjects: Project[];
     services: Service[];
     invoiceServices: Service[] = [];
 
@@ -47,10 +51,11 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         this._unsubscribeAll = new Subject();
 
         this.client = new Client(null);
+        this.project = new Project(null)
         this.invoice = new Invoice(null);
         this.invoice.invoiceDate = new Date();
-        this.getClients();
         this.getServices();
+        this.getProjects();
     }
 
     async ngOnInit() {
@@ -59,31 +64,16 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
 
     createForm() {
         this.createProjectsForm();
-        this.createClientForm();
         this.createServicesForm();
         this.createInvoiceForm();
     }
 
     createProjectsForm(){
         this.projectsForm = this._formBuilder.group({
-            projects: [this.client],
+            project: [this.project],
         });
     }
 
-    createClientForm(){
-        this.clientForm = this._formBuilder.group({
-            companyName: [this.client.companyName, Validators.required],
-            address: [this.client.address, Validators.required],
-            website: [this.client.website, Validators.required],
-            email: [this.client.email, Validators.email],
-            phoneNumber: [this.client.phoneNumber, Validators.min(9)],
-            secondPhoneNumber: [
-                this.client.secondPhoneNumber,
-                Validators.required,
-            ],
-            client: [this.client],
-        });
-    }
 
     createServicesForm(){
         this.servicesForm = this._formBuilder.group({
@@ -131,18 +121,8 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
             );
     }
 
-    async getClients() {
-        this.savedClients = await this._createInvoiceService.getSavedClients();
-    }
-
     async getServices() {
         this.services = await this._createInvoiceService.getServices();
-    }
-
-    populateClient(e) {
-        this.client = this.savedClients.filter((x) => x.companyName === e)[0];
-        this.createForm();
-        this.showClientForm = true;
     }
 
     addService(e) {
@@ -159,5 +139,15 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
             total += (service.price * ((service.taxRate / 100) + 1));
         });
         this.invoicesForm.controls.totalDue.setValue(total);
+    }
+
+    private async getProjects() {
+        this.savedProjects = await this._createInvoiceService.getProjects();
+    }
+
+    populateProjectDetails(e) {
+        this.project = this.savedProjects.filter((x) => x.projectName === e)[0];
+        this.createProjectsForm();
+        this.showProjectsForm = true;
     }
 }

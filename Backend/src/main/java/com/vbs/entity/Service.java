@@ -1,8 +1,10 @@
 package com.vbs.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.vbs.entity.Service.FIND_ALL;
@@ -41,11 +43,13 @@ public class Service implements Serializable {
     @Column(name = "price")
     private double price;
 
-    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Invoice> invoices = new ArrayList<>();
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private List<Invoice> invoices = new ArrayList<>();
 
-    @ManyToOne
-    private Project project;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Project> projects;
 
     public Service() {
     }

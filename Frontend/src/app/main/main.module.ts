@@ -1,4 +1,4 @@
-import { ProjectService } from "./project/details/project.service";
+import { ProjectService } from "./project/create/project.service";
 import { MatStepperModule } from "@angular/material/stepper";
 import { CreateInvoicesComponent } from "./invoice/create/create-invoices.component";
 import { NgModule } from "@angular/core";
@@ -37,8 +37,10 @@ import { InvoiceModernComponent } from "./invoice/show-invoice/show-invoice-comp
 import { ShowInvoiceService } from "./invoice/show-invoice/show-invoice.service";
 import { CommonModule } from "@angular/common";
 import { ProjectsComponent } from "./project/list/projects.component";
-import { ProjectComponent } from "./project/details/project.component";
+import { CreateProjectComponent } from "./project/create/create-project.component";
 import { ProjectsService } from "./project/list/projects.service";
+import {ProjectDetailsComponent} from './project/details/project-details.component';
+import {ProjectDetailsService} from './project/details/project-details.service';
 
 const routes: Routes = [
     {
@@ -94,7 +96,14 @@ const routes: Routes = [
     },
     {
         path: "projects/:projectNumber",
-        component: ProjectComponent,
+        component: ProjectDetailsComponent,
+        resolve: {
+            data: ProjectDetailsService,
+        },
+    },
+    {
+        path: "projects/create",
+        component: CreateProjectComponent,
         resolve: {
             data: ProjectService,
         },
@@ -110,7 +119,8 @@ const routes: Routes = [
         InvoiceModernComponent,
         CreateInvoicesComponent,
         ProjectsComponent,
-        ProjectComponent,
+        CreateProjectComponent,
+        ProjectDetailsComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -147,6 +157,7 @@ const routes: Routes = [
         InvoiceService,
         CreateInvoiceService,
         ShowInvoiceService,
+        ProjectDetailsService
     ],
 })
 export class MainModule {}

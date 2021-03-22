@@ -5,113 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a44c2f-8dae-4ed1-a694-4c4558fab7df" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/Invoice-Project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Backend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/ProjectStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-details.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-details.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-details.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-details.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-statuses.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connectDB.sh" beforeDir="false" afterPath="$PROJECT_DIR$/connectDB.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keycloak.sh" beforeDir="false" afterPath="$PROJECT_DIR$/keycloak.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/boundry/RestfulResources/ProjectsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/boundry/RestfulResources/ProjectsResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/control/ClientsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/control/ClientsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/control/InvoicesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/control/InvoicesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/control/ProjectsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/control/ProjectsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/boundry/RestfulResources/InvoicesResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/boundry/RestfulResources/InvoicesResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/InvoiceStatus.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/boundry/RestfulResources/ProjectsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/boundry/RestfulResources/ProjectsResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/control/ClientsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/control/ClientsRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/control/InvoicesRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/control/InvoicesRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/control/ProjectsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/control/ProjectsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/boundry/RestfulResources/InvoicesResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/boundry/RestfulResources/InvoicesResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/entity/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/entity/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/entity/Invoice.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/entity/Invoice.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/entity/InvoiceStatus.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/entity/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/entity/Project.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/vbs/entity/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vbs/entity/Service.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/boundry/RestfulResources/ProjectsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/boundry/RestfulResources/ProjectsResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/control/ClientsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/control/ClientsRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/control/InvoicesRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/control/InvoicesRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/control/ProjectsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/control/ProjectsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/boundry/RestfulResources/InvoicesResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/boundry/RestfulResources/InvoicesResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Invoice.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Invoice.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/InvoiceStatus.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Project.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/vbs-invoice-system/WEB-INF/classes/com/vbs/entity/Service.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wildfly.sh" beforeDir="false" afterPath="$PROJECT_DIR$/wildfly.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/@fuse/components/navigation/navigation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/@fuse/components/navigation/navigation.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/@fuse/components/progress-bar/progress-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/@fuse/components/progress-bar/progress-bar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/@fuse/components/progress-bar/progress-bar.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/@fuse/components/progress-bar/progress-bar.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/@fuse/directives/fuse-mat-sidenav/fuse-mat-sidenav.directive.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/@fuse/directives/fuse-mat-sidenav/fuse-mat-sidenav.directive.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/@fuse/services/config.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/@fuse/services/config.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/@fuse/services/copier.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/@fuse/services/copier.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/fake-db/e-commerce.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/fake-db/fake-db.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/fake-db/icons.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/fake-db/invoice.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/layout/horizontal/layout-1/layout-1.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/layout/horizontal/layout-1/layout-1.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/layout/horizontal/layout-1/layout-1.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/layout/horizontal/layout-1/layout-1.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/create-invoices/create-invoice.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoice.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/create-invoices/create-invoices.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/create-invoices/create-invoices.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/create-invoices/create-invoices.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/errors/404/error-404.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/errors/404/error-404.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/errors/500/error-500.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/errors/500/error-500.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/client.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/client.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/invoice-statuses.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice-statuses.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/invoice.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/invoice.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/invoice.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/invoice.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/invoice.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoices/invoices.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoices/invoices.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoices/invoices.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoices/invoices.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoices/invoices.theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.theme.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoice.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoice.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/list/invoices.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/main.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/main.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/project.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/project.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/project.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/project.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/project.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/projects/projects.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/projects/projects.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/projects/projects.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/projects/projects.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/projects/projects.theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.theme.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/service/service.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/service/service.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/service/service.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/service/service.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/service/service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/services/services.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/list/services.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/services/services.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/list/services.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/services/services.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/list/services.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/services/services.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/list/services.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/services/services.theme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/list/services.theme.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/show-invoice/show-invoice-component/show-invoice.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/show-invoice/show-invoice-component/show-invoice.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/show-invoice/show-invoice-component/show-invoice.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/show-invoice/show-invoice.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/utils/app-init.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/utils/app-init.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/project.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/project.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/list/projects.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

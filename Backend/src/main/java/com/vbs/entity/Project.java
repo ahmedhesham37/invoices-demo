@@ -45,7 +45,12 @@ public class Project {
     private List<Invoice> invoices = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "PROJECT_SERVICE",
+            joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
+    )
     private List<Service> services = new ArrayList<>();
 
     @ManyToOne
@@ -53,6 +58,9 @@ public class Project {
 
     @Column(name = "remainingPayment")
     private double remainingPayment;
+
+    @Column(name = "totalDue")
+    private double totalDue;
 
     public Long getId() {
         return id;
@@ -90,9 +98,9 @@ public class Project {
         return services;
     }
 
-//    public void setServices(List<Service> services) {
-//        this.services = services;
-//    }
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
 
     public Client getClient() {
         return client;
@@ -118,6 +126,14 @@ public class Project {
         this.status = status;
     }
 
+    public double getTotalDue() {
+        return totalDue;
+    }
+
+    public void setTotalDue(double totalDue) {
+        this.totalDue = totalDue;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -129,6 +145,7 @@ public class Project {
                 ", services=" + services +
                 ", client=" + client +
                 ", remainingPayment=" + remainingPayment +
+                ", totalDue=" + totalDue +
                 '}';
     }
 

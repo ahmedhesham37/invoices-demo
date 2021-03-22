@@ -4,46 +4,46 @@ import {
     OnInit,
     ViewChild,
     ViewEncapsulation,
-} from "@angular/core";
-import { fuseAnimations } from "../../../../@fuse/animations";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { BehaviorSubject, fromEvent, merge, Observable, Subject } from "rxjs";
-import { ProjectsService } from "./projects.service";
+} from '@angular/core';
+import {fuseAnimations} from '../../../../@fuse/animations';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {BehaviorSubject, fromEvent, merge, Observable, Subject} from 'rxjs';
+import {ProjectsService} from './projects.service';
 import {
     debounceTime,
     distinctUntilChanged,
     map,
     takeUntil,
-} from "rxjs/operators";
-import { DataSource } from "@angular/cdk/collections";
-import { FuseUtils } from "../../../../@fuse/utils";
+} from 'rxjs/operators';
+import {DataSource} from '@angular/cdk/collections';
+import {FuseUtils} from '../../../../@fuse/utils';
 
 @Component({
-    selector: "app-projects",
-    templateUrl: "./projects.component.html",
-    styleUrls: ["./projects.component.scss"],
+    selector: 'app-projects',
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.scss'],
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None,
 })
 export class ProjectsComponent implements OnInit {
     dataSource: FilesDataSource | null;
     displayedColumns = [
-        "projectNumber",
-        "projectName",
+        'projectNumber',
+        'projectName',
         // "client",
-        "totalDue",
-        // "payment",
-        "status",
+        'totalDue',
+        'remainingPayment',
+        'status',
     ];
 
-    @ViewChild(MatPaginator, { static: true })
+    @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
 
-    @ViewChild("filter", { static: true })
+    @ViewChild('filter', {static: true})
     filter: ElementRef;
 
-    @ViewChild(MatSort, { static: true })
+    @ViewChild(MatSort, {static: true})
     sort: MatSort;
 
     private _unsubscribeAll: Subject<any>;
@@ -59,7 +59,7 @@ export class ProjectsComponent implements OnInit {
             this.sort
         );
 
-        fromEvent(this.filter.nativeElement, "keyup")
+        fromEvent(this.filter.nativeElement, 'keyup')
             .pipe(
                 takeUntil(this._unsubscribeAll),
                 debounceTime(150),
@@ -80,8 +80,8 @@ export class ProjectsComponent implements OnInit {
 }
 
 export class FilesDataSource extends DataSource<any> {
-    private _filterChange = new BehaviorSubject("");
-    private _filteredDataChange = new BehaviorSubject("");
+    private _filterChange = new BehaviorSubject('');
+    private _filteredDataChange = new BehaviorSubject('');
 
     constructor(
         private _projectsService: ProjectsService,
@@ -150,29 +150,29 @@ export class FilesDataSource extends DataSource<any> {
     }
 
     sortData(data): any[] {
-        if (!this._matSort.active || this._matSort.direction === "") {
+        if (!this._matSort.active || this._matSort.direction === '') {
             return data;
         }
 
         return data.sort((a, b) => {
-            let propertyA: number | string = "";
-            let propertyB: number | string = "";
+            let propertyA: number | string = '';
+            let propertyB: number | string = '';
 
             switch (this._matSort.active) {
-                case "projectNumber":
+                case 'projectNumber':
                     [propertyA, propertyB] = [a.projectNumber, b.projectNumber];
                     break;
-                case "client":
+                case 'client':
                     [propertyA, propertyB] = [
                         a.client.companyName,
                         b.client.companyName,
                     ];
                     break;
-                case "totalDue":
+                case 'totalDue':
                     [propertyA, propertyB] = [a.totalDue, b.totalDue];
                     break;
 
-                case "status":
+                case 'status':
                     [propertyA, propertyB] = [a.status, b.status];
                     break;
             }
@@ -182,10 +182,11 @@ export class FilesDataSource extends DataSource<any> {
 
             return (
                 (valueA < valueB ? -1 : 1) *
-                (this._matSort.direction === "asc" ? 1 : -1)
+                (this._matSort.direction === 'asc' ? 1 : -1)
             );
         });
     }
 
-    disconnect(): void {}
+    disconnect(): void {
+    }
 }

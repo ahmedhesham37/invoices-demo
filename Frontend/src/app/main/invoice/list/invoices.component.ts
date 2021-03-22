@@ -118,7 +118,7 @@ export class FilesDataSource extends DataSource<any> {
      */
     connect(): Observable<any[]> {
         const displayDataChanges = [
-            this._invoicesService.onOrdersChanged,
+            this._invoicesService.onInvoicesChanged,
             this._matPaginator.page,
             this._filterChange,
             this._matSort.sortChange,

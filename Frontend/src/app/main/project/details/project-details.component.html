@@ -1,0 +1,300 @@
+<div id="project-details" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button
+                    mat-icon-button
+                    class="mr-16"
+                    [routerLink]="'/main/projects'"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">Project {{ project.projectNumber }}</div>
+
+                    <div class="subtitle secondary-text">
+                        <span>from</span>
+                        <span>
+                            {{ project.client.companyName }}
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <form
+                    name="projectForm"
+                    *ngIf="loading"
+                    [formGroup]="projectForm"
+                    class="service w-100-p"
+                    fxLayout="column"
+                    fxFlex
+                >
+                    <mat-tab-group fxLayout="column" fxFlex>
+                        <mat-tab label="Client Details">
+                            <div
+                                class="client-details tab-content p-24"
+                                fusePerfectScrollbar
+                            >
+                                <div class="section pb-48">
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            account_circle
+                                        </mat-icon>
+                                        <div class="h2 secondary-text">
+                                            Client
+                                        </div>
+                                    </div>
+
+                                    <div class="client mb-32">
+                                        <table class="simple">
+                                            <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Email</th>
+                                                <th>Company Address</th>
+                                                <th>Website</th>
+                                                <th>Phone</th>
+                                                <th>Other Phone Number</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div
+                                                        fxLayout="row"
+                                                        fxLayoutAlign="start center"
+                                                    >
+                                                            <span
+                                                                class="company text-truncate"
+                                                            >
+                                                                {{
+                                                                project
+                                                                    .client
+                                                                    .companyName
+                                                                }}
+                                                            </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                        <span
+                                                            class="email text-truncate"
+                                                        >
+                                                            {{
+                                                            project.client
+                                                                .email
+                                                            }}
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span
+                                                            class="address text-truncate"
+                                                        >
+                                                            {{
+                                                            project.client
+                                                                .address
+                                                            }}
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span
+                                                            class="address text-truncate"
+                                                        >
+                                                            {{
+                                                            project.client
+                                                                .website
+                                                            }}
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span
+                                                            class="phone text-truncate"
+                                                        >
+                                                            {{
+                                                            project.client
+                                                                .phoneNumber
+                                                            }}
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span
+                                                            class="phone text-truncate"
+                                                        >
+                                                            {{
+                                                            project.client
+                                                                .secondPhoneNumber
+                                                            }}
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            account_circle
+                                        </mat-icon>
+                                        <div class="h2 secondary-text">
+                                            Remaining Payment : {{project.remainingPayment | currency: "USD":"symbol"}}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            account_circle
+                                        </mat-icon>
+                                        <div class="h2 secondary-text">
+                                            Total Payment : {{project.totalDue | currency: "USD":"symbol"}}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- PAYMENTS END -->
+
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Services">
+                            <div
+                                class="services tab-content p-24"
+                                fusePerfectScrollbar
+                            >
+                                <table class="simple">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr
+                                        class="product-row"
+                                        *ngFor="
+                                                let service of project.services
+                                            "
+                                        [routerLink]="
+                                                '/main/services/' + service.id
+                                            "
+                                    >
+                                        <td>
+                                            {{ service.serviceName }}
+                                        </td>
+                                        <td>
+                                            {{ service.description }}
+                                        </td>
+                                        <td>
+                                            {{ service.price }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Invoices">
+                            <div
+                                class="services tab-content p-24"
+                                fusePerfectScrollbar
+                            >
+                                <table class="simple" *ngIf="project.invoices.length > 0">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr
+                                        class="product-row"
+                                        *ngFor="
+                                                let invoice of project.invoices
+                                            "
+                                        [routerLink]="
+                                                '/main/invoices/' + invoice.invoiceNumber
+                                            "
+                                    >
+                                        <td>
+                                            {{ invoice.invoiceNumber }}
+                                        </td>
+                                        <td>
+                                            {{ invoice.invoiceDate }}
+                                        </td>
+                                        <td>
+                                            {{ invoice.totalDue }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="project.invoices.length == 0">
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <div class="h2 secondary-text">
+                                            No Invoices Are Created Yet!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+
+                    </mat-tab-group>
+                </form>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

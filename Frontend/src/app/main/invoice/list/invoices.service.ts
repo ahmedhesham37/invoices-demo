@@ -10,10 +10,10 @@ import { BehaviorSubject, Observable } from "rxjs";
 @Injectable()
 export class InvoicesService implements Resolve<any> {
     invoices: any[];
-    onOrdersChanged: BehaviorSubject<any>;
+    onInvoicesChanged: BehaviorSubject<any>;
 
     constructor(private _httpClient: HttpClient) {
-        this.onOrdersChanged = new BehaviorSubject({});
+        this.onInvoicesChanged = new BehaviorSubject({});
     }
 
     /**
@@ -40,7 +40,7 @@ export class InvoicesService implements Resolve<any> {
                 .get("/vbs-invoice-system/resources/invoices")
                 .subscribe((response: any) => {
                     this.invoices = response;
-                    this.onOrdersChanged.next(this.invoices);
+                    this.onInvoicesChanged.next(this.invoices);
                     resolve(response);
                 }, reject);
         });
