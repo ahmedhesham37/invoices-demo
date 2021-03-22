@@ -20,7 +20,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ServicesComponent implements OnInit {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'name', 'price', 'active'];
+    displayedColumns = ['id', 'name', 'price'];
 
     @ViewChild(MatPaginator, {static: true})
     paginator: MatPaginator;
@@ -181,9 +181,6 @@ export class FilesDataSource extends DataSource<any> {
                     break;
                 case 'quantity':
                     [propertyA, propertyB] = [a.quantity, b.quantity];
-                    break;
-                case 'active':
-                    [propertyA, propertyB] = [a.active, b.active];
                     break;
             }
 

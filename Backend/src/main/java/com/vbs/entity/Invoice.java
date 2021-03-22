@@ -1,8 +1,16 @@
 package com.vbs.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 import static com.vbs.entity.Invoice.FIND_ALL;
 import static com.vbs.entity.Invoice.FIND_BY_INVOICENUM;
@@ -18,7 +26,6 @@ public class Invoice implements Serializable {
     public static final String FIND_ALL = "Invoice.finaAll";
     public static final String FIND_BY_ID = "find invoice by id";
     public static final String FIND_BY_INVOICENUM = "find invoice by invoiceNumber";
-//    public static final String FIND_BY_PROJECTID = "find invoices by Project ";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +34,8 @@ public class Invoice implements Serializable {
     @Column(name = "invoiceNumber" , unique = true)
     private String invoiceNumber;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "invoiceDate")
     private Date invoiceDate;
@@ -36,26 +43,25 @@ public class Invoice implements Serializable {
     @Column(name = "totalDue")
     private double totalDue;
 
-    @Column(name = "type")
-    private InvoiceType type;
-
     @OneToOne
     private Payment payment;
 
     @ManyToOne
+    private Client client = new Client();
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
+    @JoinTable(
+            name = "INVOICE_SERVICE",
+            joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
+    )
+    private List<Service> services = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name="project_id", nullable=false)
+    @JsonBackReference
     private Project project;
-
-//    @ManyToOne
-//    private Client client = new Client();
-
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    @ManyToMany
-//    @JoinTable(
-//            name = "INVOICE_SERVICE",
-//            joinColumns = @JoinColumn(name = "invoice_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id")
-//    )
-//    private List<Service> services = new ArrayList<>();
 
     public Invoice() {
     }
@@ -67,15 +73,6 @@ public class Invoice implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
 
     public Date getInvoiceDate() {
         return invoiceDate;
@@ -93,25 +90,6 @@ public class Invoice implements Serializable {
         this.totalDue = totalDue;
     }
 
-    public String getInvoiceNubmer() {
-        return invoiceNumber;
-    }
-
-    public void setInvoiceNubmer(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
-
-
-//    public List<Service> getServices() {
-//        return services;
-//    }
-//
-//
-//    public void setServices(List<Service> services) {
-//        this.services = services;
-//    }
-
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -119,23 +97,6 @@ public class Invoice implements Serializable {
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
-
-//    public Client getClient() {
-//        return client;
-//    }
-//
-//    public void setClient(Client client) {
-//        this.client = client;
-//    }
-
-    public InvoiceType getType() {
-        return type;
-    }
-
-    public void setType(InvoiceType type) {
-        this.type = type;
-    }
-
 
     public Payment getPayment() {
         return payment;
@@ -145,25 +106,57 @@ public class Invoice implements Serializable {
         this.payment = payment;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
                 "id=" + id +
                 ", invoiceNumber='" + invoiceNumber + '\'' +
-                ", price=" + price +
+                ", description='" + description + '\'' +
                 ", invoiceDate=" + invoiceDate +
                 ", totalDue=" + totalDue +
-                ", type=" + type +
                 ", payment=" + payment +
-//                ", client=" + client +
-//                ", services=" + services +
+                ", client=" + client +
+                ", services=" + services +
                 '}';
     }
 
-//    // To AutoGenerate the invoice Number (instead of generation type Auto)
-//    @PrePersist
-//    private void createInvoiceNumber(){
-//
-//    }
+    @PrePersist
+    private void addInvoiceNumber(){
+        // There needs to be a check that this id is unique
+        String lUUID = String.format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)).substring(0,8);
+        this.setInvoiceNumber(String.valueOf(lUUID));
+    }
 }
 

@@ -21,24 +21,24 @@
 
                         <div class="detail">
                             <div class="title">
-                                <span> Invoice Number:</span>
+                                <span> <b>Invoice Number:</b></span>
                                 {{ invoice.invoiceNumber }}</div>
                             <div class="address">
-                                <span> Address:</span>
+                                <span> <b>Address: </b></span>
                                 Arkan Plaza Building 4 Sheikh Zayed, Giza, Egypt
                                 Postal Code: 12588
                             </div>
                             <div class="phone">
-                                <span>Phone:</span>
+                                <span><b>Phone:</b></span>
                                 +2 0238277304 -
                                 +201225556926
                             </div>
                             <div class="email">
-                                <span>Email:</span>
+                                <span><b>Email:</b></span>
                                 info@vbseg.com
                             </div>
                             <div class="website">
-                                <span>Web:</span>
+                                <span><b>Web:</b></span>
                                 www.vbseg.com
                             </div>
                         </div>
@@ -61,28 +61,28 @@
 
                         <div class="detail">
                             <div class="title">
-                                {{ invoice.client.companyName }}
+                                <span><b>Company Name: </b></span>
+                                {{ client.companyName }}
                             </div>
                             <div
-                                *ngIf="invoice?.client.address"
                                 class="address"
                             >
-                                {{ invoice.client.address }}
+                                <span><b>Address:</b></span>
+                                {{ client.address }}
                             </div>
-                            <div *ngIf="invoice?.client.phoneNumber" class="phone">
-                                <span>Phone:</span>
-                                {{ invoice.client.phoneNumber }}
+                            <div class="phone">
+                                <span><b>Phone: </b></span>
+                                {{ client.phoneNumber }}
                             </div>
-                            <div *ngIf="invoice?.client.email" class="email">
-                                <span>Email:</span>
-                                {{ invoice.client.email }}
+                            <div class="email">
+                                <span><b>Email:</b></span>
+                                {{ client.email }}
                             </div>
                             <div
-                                *ngIf="invoice?.client.website"
                                 class="website"
                             >
-                                <span>Web:</span>
-                                {{ invoice.client.website }}
+                                <span><b>Website:</b></span>
+                                {{ client.website }}
                             </div>
                         </div>
                     </div>
@@ -115,11 +115,10 @@
                             <th>SERVICE</th>
                             <th class="text-right">UNIT PRICE</th>
                             <th class="text-right">TAX</th>
-                            <th class="text-right">TOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let service of invoice.services">
+                        <tr *ngFor="let service of services">
                             <td>
                                 <div class="title">
                                     {{ service.serviceName }}
@@ -133,9 +132,6 @@
                             </td>
                             <td class="text-right">
                                 {{ '%' + service.taxRate  }}
-                            </td>
-                            <td class="text-right">
-                                 {{ service.price | currency: "USD":"symbol" }}
                             </td>
                         </tr>
                     </tbody>

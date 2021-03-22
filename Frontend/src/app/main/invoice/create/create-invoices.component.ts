@@ -35,12 +35,9 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     client: Client;
     project: Project;
     invoice: Invoice;
-    savedClients: Client[];
     savedProjects: Project[];
     services: Service[];
     invoiceServices: Service[] = [];
-
-    displayedColumns = ['serviceName', 'serviceDescription', 'price'];
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -50,11 +47,8 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
 
-        this.client = new Client(null);
         this.project = new Project(null)
         this.invoice = new Invoice(null);
-        this.invoice.invoiceDate = new Date();
-        this.getServices();
         this.getProjects();
     }
 
@@ -64,7 +58,6 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
 
     createForm() {
         this.createProjectsForm();
-        this.createServicesForm();
         this.createInvoiceForm();
     }
 
@@ -75,17 +68,10 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     }
 
 
-    createServicesForm(){
-        this.servicesForm = this._formBuilder.group({
-            service: ['', Validators.required],
-        });
-    }
-
     createInvoiceForm(){
+        console.log(this.project.remainingPayment , typeof this.project.remainingPayment);
         this.invoicesForm = this._formBuilder.group({
-            invoiceDate: [{ value: this.invoice.invoiceDate , disabled : true} ],
-            type: [this.invoice.type, [Validators.required]],
-            totalDue: [{value : this.invoice.totalDue , disabled : true }],
+            totalDue: [this.invoice.totalDue  , [Validators.required , Validators.max(this.project.remainingPayment) ]],
             description: [this.invoice.description],
         });
     }
@@ -99,46 +85,20 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         // Populating details data into the details object
         let data = this.invoicesForm.getRawValue();
         this.invoice = new Invoice(data);
-
-        // Populating client data into the client object (whether new or saved)
-        let clientData = this.clientForm.getRawValue();
-        this.client = new Client(clientData);
-
-        // Add the list chosen in Step 2 to the Main Invoice Object
-        this.invoice.services = this.invoiceServices;
-
-        // Add the client details (whether previous or new) chosen in Step 2 to the Main Invoice Object
-        this.invoice.client = this.client;
+        this.invoice.invoiceDate = new Date();
 
         console.log('details ', this.invoice);
+        // Change the remaining payment in the project
+        // Attach the project id to the invoice ??
 
         this._createInvoiceService
-            .addInvoice(this.invoice)
-            .then((invoice: Invoice) =>
-                this.router.navigateByUrl(
-                    '/main/show-invoice/' + this.invoice.invoiceNumber
-                )
+            .addInvoice(this.invoice , this.project.projectNumber)
+            .then((project: Project) => {
+                console.log(project);
+                    this.router.navigateByUrl(
+                        '/main/show-invoice/'+ project.projectNumber + '/' + project.invoices[project.invoices.length - 1].invoiceNumber
+                    );}
             );
-    }
-
-    async getServices() {
-        this.services = await this._createInvoiceService.getServices();
-    }
-
-    addService(e) {
-        let service = this.services.filter((x) => x.serviceName === e.value)[0];
-        if (this.invoiceServices.indexOf(service) == -1) {
-            this.invoiceServices.push(service);
-        }
-        this.showServicesForm = true;
-    }
-
-    getTotalDue(){
-        let total = 0.0;
-        this.invoiceServices.forEach((service) => {
-            total += (service.price * ((service.taxRate / 100) + 1));
-        });
-        this.invoicesForm.controls.totalDue.setValue(total);
     }
 
     private async getProjects() {
@@ -148,6 +108,7 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
     populateProjectDetails(e) {
         this.project = this.savedProjects.filter((x) => x.projectName === e)[0];
         this.createProjectsForm();
+        this.createInvoiceForm();
         this.showProjectsForm = true;
     }
 }

@@ -45,8 +45,8 @@ public class InvoicesRepository implements Serializable {
 
     public boolean createInvoice(Invoice invoice) {
         // Create Project Number
-        int invoiceNumber = 1001 + (retrieveInvoices().size());
-        invoice.setInvoiceNubmer(String.valueOf(invoiceNumber));
+//        int invoiceNumber = 1001 + (retrieveInvoices().size());
+//        invoice.setInvoiceNumber(String.valueOf(invoiceNumber));
 
         entityManager.persist(invoice);
         logger.info(invoice.toString());

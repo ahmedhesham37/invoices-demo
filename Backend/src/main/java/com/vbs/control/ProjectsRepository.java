@@ -81,38 +81,33 @@ public class ProjectsRepository {
         return true;
     }
 
-    // TODO : Create a function to add invoice to the project
     public Project addInvoiceToProject(Invoice invoice, String projectNumber) {
         Query query = entityManager.createNamedQuery(Project.FIND_BY_PROJECTNUM, Project.class);
         query.setParameter("projectNumber", String.valueOf(projectNumber));
         Project project = (Project) query.getSingleResult();
+        logger.info("Project Number >> " + project.getProjectNumber());
+        invoice.setClient(project.getClient());
+        invoice.setServices(project.getServices());
         project.addInvoice(invoice);
+        logger.info("Project Number >> " + project.getRemainingPayment());
+        logger.info("Project Number >> " + invoice.getTotalDue());
+        project.setRemainingPayment(project.getRemainingPayment() - invoice.getTotalDue());
         entityManager.merge(project);
         logger.info(project.toString());
         return project;
     }
 
-//    private String getNewProjectNumber(Client client) {
-//        String newProjectNumber = "";
-//        List<Project> projects = new ArrayList<>();
-//        if (client != null)
-//            projects = findProjectsByClient(client.getId());
-//
-//        newProjectNumber = "P-" + client.getCompanyName().substring(0, 2).toUpperCase() + "-" + projects.size();
-//
-//        return newProjectNumber;
-//    }
-//
-//    public List<Project> findProjectsByClient(Long clientId) {
-//        logger.info("Project: retrieving projects by client {} ", clientId);
-//        try {
-//            Query query = entityManager.createNamedQuery(Project.FIND_BY_CLIENT_ID, Project.class);
-//            query.setParameter("companyName", String.valueOf(clientId));
-//            List<Project> projects = query.getResultList();
-//            logger.info(projects.toString());
-//            return projects;
-//        } catch (NoResultException e) {
-//            return null;
-//        }
-//    }
+    public Project findProjectByInvoiceNumber(String invoiceNumber) {
+        logger.info("Project: find project by invoiceNumber {}", invoiceNumber);
+        try {
+            Query query = entityManager.createNamedQuery(Project.FIND_BY_INVOICENUM, Project.class);
+            query.setParameter("invoiceNumber", String.valueOf(invoiceNumber));
+            Project project = (Project) query.getSingleResult();
+            entityManager.merge(project);
+            logger.info(project.toString());
+            return project;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

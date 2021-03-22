@@ -7,7 +7,6 @@ com/vbs/entity/PaymentMethod.class
 com/vbs/entity/AuditTrail.class
 com/vbs/entity/Project.class
 com/vbs/boundry/RestfulResources/ProjectsResource.class
-com/vbs/entity/InvoiceType.class
 com/vbs/entity/Invoice.class
 com/vbs/boundry/RestfulResources/InvoicesResource.class
 com/vbs/boundry/RestfulResources/ServicesResource.class

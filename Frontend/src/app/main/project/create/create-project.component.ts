@@ -55,34 +55,37 @@ export class CreateProjectComponent implements OnInit {
         private _matSnackBar: MatSnackBar,
         private router: Router
     ) {
+
         this.getClients();
         this.getServices();
         this._unsubscribeAll = new Subject();
     }
 
     ngOnInit(): void {
+
+        // this._projectService.getProject().then((project) => this.project = new )
         // Subscribe to update details on changes
-        this._projectService.onProjectChanged
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((project: Project) => {
-                if (project) {
-                    this.project = new Project(project);
-                    this.projectClient = new Client(project.client);
-                    this.projectInvoices = project.invoices;
-                    this.showClientForm = true;
-                    this.showServicesForm = true;
-                    this.pageType = 'edit';
-                } else {
+        // this._projectService.onProjectChanged
+        //     .pipe(takeUntil(this._unsubscribeAll))
+        //     .subscribe((project: Project) => {
+                // if (project) {
+                //     this.project = new Project(project);
+                //     this.projectClient = new Client(project.client);
+                //     this.projectInvoices = project.invoices;
+                //     this.showClientForm = true;
+                //     this.showServicesForm = true;
+                //     this.pageType = 'edit';
+                // } else {
                     this.project = new Project(null);
                     this.projectClient = new Client(null);
                     this.pageType = 'new';
-                }
+                // }
 
                 this.projectForm = this.createProjectForm();
                 this.clientForm = this.createClientForm();
                 this.servicesForm = this.createServicesForm();
                 this.invoicesForm = this.createInvoicesForm();
-            });
+            // });
     }
 
     ngOnDestroy(): void {

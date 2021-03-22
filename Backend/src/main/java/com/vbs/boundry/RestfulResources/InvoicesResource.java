@@ -1,8 +1,9 @@
 package com.vbs.boundry.RestfulResources;
 
-import com.vbs.control.ClientsRepository;
 import com.vbs.control.InvoicesRepository;
+import com.vbs.control.ProjectsRepository;
 import com.vbs.entity.Invoice;
+import com.vbs.entity.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class InvoicesResource {
     InvoicesRepository invoicesRepository;
 
     @Inject
-    ClientsRepository clientsRepository;
+    ProjectsRepository projectsRepository;
 
     @GET
     public Response retrieveInvoices() {
@@ -54,31 +55,21 @@ public class InvoicesResource {
 
     @POST
     public Response createInvoice(Invoice invoice) {
-        //Check if the client is saved otherwise create it with a new Id
-//        Client client = clientsRepository.findByCompanyName(invoice.getClient().getCompanyName());
-
-//        if ( client == null ) {
-//            logger.info("Client is not found , creating a new Client ");
-//            clientsRepository.createClient(invoice.getClient());
-//            client = clientsRepository.findByCompanyName(invoice.getClient().getCompanyName());
-//        } else {
-//            logger.info("Client found , updating Client data" + client);
-//            clientsRepository.updateClient(client);
-//        }
-
-//        invoice.setClient(client);
         return invoicesRepository.createInvoice(invoice) ? Response.ok(invoice).build() : Response.ok(false).build();
     }
 
-    // Invoice Cannot be updated
-//    @PUT
-//    public Response updateInvoice(Invoice invoice) {
-//        return invoicesRepository.updateInvoice(invoice) ? Response.ok(true).build() : Response.ok(false).build();
-//    }
+    @GET
+    @Path("{invoiceNumber}/get-project-details")
+    public Response getProjectDetails(@PathParam("invoiceNumber") String invoiceNumber){
+//        try {
+            Project project = projectsRepository.findProjectByInvoiceNumber(invoiceNumber);
+            logger.info(project.toString());
+            return Response.ok(project).build();
+//        } catch (Exception e) {
+//            logger.error(e.toString());
+//            return Response.ok(e).build();
+//        }
+    }
 
-    // Invoice Cannot be deleted ??
-//    @DELETE
-//    public Response deleteInvoice(Invoice invoice) {
-//    }
 
 }

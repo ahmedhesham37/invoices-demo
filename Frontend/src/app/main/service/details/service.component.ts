@@ -78,7 +78,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
             description: [this.service.description],
             price: [this.service.price],
             taxRate: [this.service.taxRate],
-            active: [this.service.active],
         });
     }
 

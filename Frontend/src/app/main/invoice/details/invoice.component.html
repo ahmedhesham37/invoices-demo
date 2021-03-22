@@ -34,7 +34,7 @@
                     <div class="subtitle secondary-text">
                         <span>from</span>
                         <span>
-                            {{ invoice.client.companyName }}
+                            {{ client.companyName }}
                         </span>
                     </div>
                 </div>
@@ -106,8 +106,7 @@
                                                                 class="company text-truncate"
                                                             >
                                                                 {{
-                                                                invoice
-                                                                    .client
+                                                                client
                                                                     .companyName
                                                                 }}
                                                             </span>
@@ -118,7 +117,7 @@
                                                             class="email text-truncate"
                                                         >
                                                             {{
-                                                            invoice.client
+                                                            client
                                                                 .email
                                                             }}
                                                         </span>
@@ -128,7 +127,7 @@
                                                             class="phone text-truncate"
                                                         >
                                                             {{
-                                                            invoice.client
+                                                            client
                                                                 .phoneNumber
                                                             }}
                                                         </span>
@@ -138,7 +137,7 @@
                                                             class="address text-truncate"
                                                         >
                                                             {{
-                                                            invoice.client
+                                                            client
                                                                 .address
                                                             }}
                                                         </span>
@@ -201,10 +200,7 @@
                                             </td>
                                             <td>
                                                     <span class="text-truncate">
-                                                        {{
-                                                        invoice.invoiceDate
-                                                            | date : "mediumDate"
-                                                        }}
+                                                        {{invoice.invoiceDate  | date : "mediumDate" }}
                                                     </span>
                                             </td>
                                         </tr>
@@ -225,15 +221,15 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th class="w-120">Description</th>
-                                        <th class="w-80">Price</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr
                                         class="product-row"
                                         *ngFor="
-                                                let service of invoice.services
+                                                let service of services
                                             "
                                         [routerLink]="
                                                 '/main/services/' + service.id
@@ -246,7 +242,9 @@
                                             {{ service.description }}
                                         </td>
                                         <td>
-                                            {{ service.price }}
+                                            {{ service.price  | currency
+                                            : "USD"
+                                                : "symbol"}}
                                         </td>
                                     </tr>
                                     </tbody>
@@ -404,7 +402,7 @@
                                                     <tbody>
                                                     <tr
                                                         *ngFor="
-                                                                let service of invoice.services
+                                                                let service of services
                                                             "
                                                     >
                                                         <td>

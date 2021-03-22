@@ -59,6 +59,13 @@ const routes: Routes = [
     },
     // Invoices
     {
+        path: "show-invoice/:projectNumber/:invoiceNumber",
+        component: InvoiceModernComponent,
+        resolve: {
+            data: ShowInvoiceService,
+        },
+    },
+    {
         path: "invoices",
         component: InvoicesComponent,
         resolve: {
@@ -79,13 +86,6 @@ const routes: Routes = [
             data: InvoiceService,
         },
     },
-    {
-        path: "show-invoice/:invoiceNumber",
-        component: InvoiceModernComponent,
-        resolve: {
-            data: ShowInvoiceService,
-        },
-    },
     // Projects
     {
         path: "projects",
@@ -95,17 +95,17 @@ const routes: Routes = [
         },
     },
     {
-        path: "projects/:projectNumber",
-        component: ProjectDetailsComponent,
-        resolve: {
-            data: ProjectDetailsService,
-        },
-    },
-    {
         path: "projects/create",
         component: CreateProjectComponent,
         resolve: {
             data: ProjectService,
+        },
+    },
+    {
+        path: "projects/:projectNumber",
+        component: ProjectDetailsComponent,
+        resolve: {
+            data: ProjectDetailsService,
         },
     },
 ];

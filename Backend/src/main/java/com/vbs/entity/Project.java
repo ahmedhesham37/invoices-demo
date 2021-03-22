@@ -1,5 +1,6 @@
 package com.vbs.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -7,8 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vbs.entity.Project.FIND_ALL;
-import static com.vbs.entity.Project.FIND_BY_PROJECTNUM;
+import static com.vbs.entity.Project.*;
 
 
 @Entity
@@ -16,13 +16,16 @@ import static com.vbs.entity.Project.FIND_BY_PROJECTNUM;
 @NamedQueries({
         @NamedQuery(name = FIND_ALL, query = "select p from Project p "),
         @NamedQuery(name = FIND_BY_PROJECTNUM, query = "Select p from Project p where p.projectNumber = :projectNumber"),
+        @NamedQuery(name = FIND_BY_INVOICENUM, query = "Select p from Project p join p.invoices p_i where p_i.invoiceNumber = :invoiceNumber "),
 //        @NamedQuery(name = FIND_BY_CLIENT_ID, query = "Select p from Project p where p.client_id = :clientId"),
+//        select i from Invoice i join i.clients i_c where i_c.id = :id
 
 })
 public class Project {
 
     public static final String FIND_ALL = "Project.finaAll";
     public static final String FIND_BY_PROJECTNUM = "find project by projectNumber" ;
+    public static final String FIND_BY_INVOICENUM = "find project By invoice number";
 //    public static final String FIND_BY_CLIENT_ID = "find project by client id";
 
 
@@ -42,6 +45,7 @@ public class Project {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "project" , cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Invoice> invoices = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -88,10 +92,6 @@ public class Project {
 
     public List<Invoice> getInvoices() {
         return invoices;
-    }
-
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
     }
 
     public List<Service> getServices() {
@@ -151,5 +151,6 @@ public class Project {
 
     public void addInvoice(Invoice invoice) {
         this.invoices.add(invoice);
+        invoice.setProject(this);
     }
 }

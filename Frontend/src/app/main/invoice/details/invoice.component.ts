@@ -9,6 +9,9 @@ import { fuseAnimations } from "@fuse/animations";
 
 import { Invoice } from "app/main/invoice/details/invoice.model";
 import { InvoiceService } from "app/main/invoice/details/invoice.service";
+import {Project} from '../../project/create/project.model';
+import {Client} from './client.model';
+import {Service} from '../../service/details/service.model';
 
 @Component({
     selector: "invoice",
@@ -18,8 +21,13 @@ import { InvoiceService } from "app/main/invoice/details/invoice.service";
     animations: fuseAnimations,
 })
 export class InvoiceComponent implements OnInit, OnDestroy {
-    invoice: Invoice;
+    invoice: Invoice = new Invoice(null);
+    project: Project = new Project(null);
+    client: Client = new Client(null);
+    services: Service[] = [];
+
     invoiceForm: FormGroup;
+
     loading: Boolean = false;
 
     // Private
@@ -33,7 +41,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         private _location: Location
     ) {
         // Set the defaults
-        // this.invoice = new Invoice(null);
+        this.getProjectDetails();
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -44,6 +52,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((invoice) => {
                 if (invoice) {
+                    console.log("asdas " , invoice);
                     this.invoice = new Invoice(invoice);
                 }
                 this.invoiceForm = this.createInvoiceForm();
@@ -71,39 +80,9 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         });
     }
 
-    // saveInvoice(): void {
-    //     const data = this.invoiceForm.getRawValue();
-    //
-    //     this._invoiceService.saveInvoice(data).then(() => {
-    //         // Trigger the subscription with new data
-    //         this._invoiceService.onInvoiceChanged.next(data);
-    //
-    //         // Show the success message
-    //         this._matSnackBar.open("Invoice saved", "OK", {
-    //             verticalPosition: "top",
-    //             duration: 3000,
-    //         });
-    //     });
-    // }
-    //
-    // /**
-    //  * Add Invoice
-    //  */
-    // addInvoice(): void {
-    //     const data = this.invoiceForm.getRawValue();
-    //
-    //     this._invoiceService.addInvoice(data).then((invoice) => {
-    //         // Trigger the subscription with new data
-    //         this._invoiceService.onInvoiceChanged.next(data);
-    //
-    //         // Show the success message
-    //         this._matSnackBar.open("Invoice added", "OK", {
-    //             verticalPosition: "top",
-    //             duration: 3000,
-    //         });
-    //
-    //         // Change the location with new one
-    //         this._location.go("main/invoices/" + invoice.id);
-    //     });
-    // }
+    async getProjectDetails(){
+        this.project = await this._invoiceService.getProject();
+        this.client = this.project.client;
+        this.services = this.project.services;
+    }
 }

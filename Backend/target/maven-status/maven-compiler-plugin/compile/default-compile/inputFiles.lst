@@ -14,7 +14,6 @@
 /home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/entity/Service.java
 /home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/boundry/RestfulResources/InvoicesResource.java
 /home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/control/InvoicesRepository.java
-/home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/entity/InvoiceType.java
 /home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/entity/Project.java
 /home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/entity/AuditTrail.java
 /home/crash/development/Projects/Invoice-Project/Backend/src/main/java/com/vbs/entity/Invoice.java

@@ -7,11 +7,14 @@ import {
     RouterStateSnapshot,
 } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
+import {Project} from '../../project/create/project.model';
+import {Invoice} from './invoice.model';
 
 @Injectable()
 export class InvoiceService implements Resolve<any> {
     routeParams: any;
-    invoice: any;
+    invoice: Invoice;
+    project: Project;
     onInvoiceChanged: BehaviorSubject<any>;
 
     constructor(private _httpClient: HttpClient, private router: Router) {
@@ -35,11 +38,6 @@ export class InvoiceService implements Resolve<any> {
         });
     }
 
-    /**
-     * Get details
-     *
-     * @returns {Promise<any>}
-     */
     getInvoice(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient
@@ -47,34 +45,26 @@ export class InvoiceService implements Resolve<any> {
                     "/vbs-invoice-system/resources/invoices/" +
                         this.routeParams.invoiceNumber
                 )
-                .subscribe((response: any) => {
-                    this.invoice = response;
+                .subscribe((invoice: Invoice) => {
+                    this.invoice = invoice;
                     this.onInvoiceChanged.next(this.invoice);
-                    resolve(response);
+                    resolve(invoice);
                 }, reject);
         });
     }
 
-    saveInvoice(invoice): Promise<any> {
+    getProject(): Promise<any> {
         return new Promise((resolve, reject) => {
             this._httpClient
-                .post(
-                    "/vbs-invoice-system/resources/invoices" +
-                        invoice.invoiceNumber,
-                    invoice
+                .get(
+                    "/vbs-invoice-system/resources/invoices/" +
+                    this.routeParams.invoiceNumber + "/get-project-details"
                 )
-                .subscribe((response: any) => {
-                    resolve(response);
-                }, reject);
-        });
-    }
-
-    addInvoice(invoice): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this._httpClient
-                .post("/vbs-invoice-system/resources/invoices", invoice)
-                .subscribe((response: any) => {
-                    resolve(response);
+                .subscribe((project: Project) => {
+                    this.invoice = project.invoices.filter((x) => x.invoiceNumber === this.routeParams.invoiceNumber)[0];
+                    console.log("sad " , this.invoice);
+                    this.project = project;
+                    resolve(project);
                 }, reject);
         });
     }

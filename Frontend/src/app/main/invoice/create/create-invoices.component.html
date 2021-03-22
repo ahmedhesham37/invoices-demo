@@ -156,6 +156,71 @@
                                 </div>
                                 <!-- END OF CLIENT DATA-->
 
+                                <!-- SERVICES DATA-->
+                                <div class="section pb-48">
+                                    <div
+                                        class="pb-16"
+                                        fxLayout="row"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon
+                                            class="m-0 mr-16 secondary-text"
+                                        >
+                                            account_circle
+                                        </mat-icon>
+                                        <div class="h2 secondary-text">
+                                            Services
+                                        </div>
+                                    </div>
+
+                                    <div class="client mb-32">
+                                        <table class="simple">
+                                            <thead>
+                                            <tr>
+                                                <th>Service Name</th>
+                                                <th>Description</th>
+                                                <th>Price</th>
+                                                <th>Tax Rate</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let service of project.services">
+                                                <td>
+                                                    <div
+                                                        fxLayout="row"
+                                                        fxLayoutAlign="start center"
+                                                    >
+                                                            <span
+                                                                class="company text-truncate"
+                                                            >
+                                                                {{ service.serviceName }}
+                                                            </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                        <span class="email text-truncate">
+                                                            {{service.description}}
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span
+                                                            class="address text-truncate"
+                                                        >
+                                                            {{ service.price | currency: "USD":"symbol"}}
+                                                        </span>
+                                                </td>
+                                                <td>
+                                                        <span class="address text-truncate">
+                                                            {{ service.taxRate }}%
+                                                        </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- END OF SERVICES DATA-->
+
                                 <!-- PAYMENTS START-->
                                 <div class="section pb-48">
                                     <div
@@ -233,7 +298,7 @@
                                             account_circle
                                         </mat-icon>
                                         <div class="h2 secondary-text">
-                                            Remaining Payment : {{project.remainingPayment}}
+                                            Remaining Payment : {{project.remainingPayment | currency: "USD":"symbol"}}
                                         </div>
                                     </div>
 
@@ -246,7 +311,6 @@
                                     matStepperNext
                                     type="button"
                                     color="accent"
-                                    (click)="getServices()"
                                 >
                                     Next
                                 </button>
@@ -254,191 +318,24 @@
                         </form>
                     </mat-step>
 
-
-                    <mat-step [stepControl]="servicesForm">
-                        <form fxLayout="column" [formGroup]="servicesForm">
-                            <ng-template matStepLabel>Services</ng-template>
-
-                            <mat-form-field appearance="outline" fxFlex="1 1">
-                                <mat-label>Services</mat-label>
-                                <mat-select
-                                    formControlName="service"
-                                    (selectionChange)="
-                                    addService($event);
-                                    servicesTable.renderRows()
-                                "
-                                >
-                                    <mat-option
-                                        *ngFor="let service of services"
-                                        [value]="service.serviceName"
-                                    >{{ service.serviceName }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-icon matSuffix class="secondary-text"
-                                >outlined_flag
-                                </mat-icon>
-                                <mat-error
-                                >At least one service is required!
-                                </mat-error>
-                            </mat-form-field>
-
-                            <div
-                                *ngIf="showServicesForm"
-                                fxFlex="1 0 auto"
-                                fxLayout="row"
-                            >
-                                <mat-label>Services</mat-label>
-
-                                <!-- CONTENT CARD -->
-                                <div class="content-card">
-                                    <mat-table
-                                        class="services-table"
-                                        #servicesTable
-                                        [dataSource]="this.invoiceServices"
-                                        matSort
-                                        fusePerfectScrollbar
-                                    >
-                                        <!-- Service Name Column -->
-                                        <ng-container matColumnDef="serviceName">
-                                            <mat-header-cell
-                                                *matHeaderCellDef
-                                                mat-sort-header
-                                                fxHide
-                                                fxShow.gt-sm
-                                            >Service Name
-                                            </mat-header-cell>
-                                            <mat-cell
-                                                *matCellDef="let service"
-                                                fxHide
-                                                fxShow.gt-sm
-                                            >
-                                                <p class="text-truncate">
-                                                    {{ service.serviceName }}
-                                                </p>
-                                            </mat-cell>
-                                        </ng-container>
-
-                                        <!-- Service Description Column -->
-                                        <ng-container
-                                            matColumnDef="serviceDescription"
-                                        >
-                                            <mat-header-cell
-                                                *matHeaderCellDef
-                                                mat-sort-header
-                                            >
-                                                Tax Rate
-                                            </mat-header-cell>
-                                            <mat-cell *matCellDef="let service">
-                                                <p class="text-truncate">
-                                                    {{ service.taxRate }}
-                                                </p>
-                                            </mat-cell>
-                                        </ng-container>
-
-                                        <!-- Service Total Price Column -->
-                                        <ng-container matColumnDef="price">
-                                            <mat-header-cell
-                                                *matHeaderCellDef
-                                                mat-sort-header
-                                                fxHide
-                                                fxShow.gt-md
-                                            >Total Price
-                                            </mat-header-cell>
-                                            <mat-cell
-                                                *matCellDef="let service"
-                                                fxHide
-                                                fxShow.gt-md
-                                            >
-                                                <p
-                                                    class="total-price text-truncate"
-                                                >
-                                                    {{
-                                                    service.price
-                                                        | currency
-                                                        : "USD"
-                                                            : "symbol"
-                                                    }}
-                                                </p>
-                                            </mat-cell>
-                                        </ng-container>
-
-                                        <mat-header-row
-                                            *matHeaderRowDef="
-                                            displayedColumns;
-                                            sticky: true
-                                        "
-                                        ></mat-header-row>
-
-                                        <mat-row
-                                            *matRowDef="
-                                            let service;
-                                            columns: displayedColumns
-                                        "
-                                            class="service"
-                                            matRipple
-                                            [routerLink]="
-                                            '/main/services/' + service.id
-                                        "
-                                        >
-                                        </mat-row>
-                                    </mat-table>
-                                </div>
-                            </div>
-
-                            <div fxLayout="row" fxLayoutAlign="center center">
-                                <button
-                                    class="mr-8"
-                                    mat-raised-button
-                                    matStepperPrevious
-                                    type="button"
-                                    color="accent"
-                                >
-                                    Previous
-                                </button>
-                                <button
-                                    mat-raised-button
-                                    matStepperNext
-                                    type="button"
-                                    color="accent"
-                                    (click)="getTotalDue()"
-                                >
-                                    Next
-                                </button>
-                            </div>
-                        </form>
-                    </mat-step>
 
                     <mat-step [stepControl]="invoicesForm">
                         <form fxLayout="column" [formGroup]="invoicesForm">
                             <ng-template matStepLabel>Invoice Details</ng-template>
 
                             <div fxFlex="1 0 auto" fxLayout="column">
-                                <mat-form-field appearance="outline" fxFlex="100">
-                                    <mat-label>Invoice Type</mat-label>
-                                    <mat-select formControlName="type">
-                                        <mat-option value="DEVELOPMENT">
-                                            Development
-                                        </mat-option>
-                                        <mat-option value="CR">
-                                            Change Request
-                                        </mat-option>
-                                        <mat-option value="SUPPORT">
-                                            Support
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-icon matSuffix class="secondary-text"
-                                    >outlined_flag
-                                    </mat-icon>
-                                </mat-form-field>
 
                                 <mat-form-field appearance="outline" fxFlex="100">
-                                    <mat-label>Total Due</mat-label>
+                                    <mat-label>Payment Amount</mat-label>
                                     <input
                                         matInput
                                         formControlName="totalDue"
                                         required
                                     />
-                                    <mat-error>Total Due is missing!</mat-error>
+                                    <mat-error *ngIf="invoicesForm.controls['totalDue'].hasError('required')">Payment is missing!</mat-error>
+                                    <mat-error *ngIf="invoicesForm.controls['totalDue'].hasError('max')">
+                                        Maximum amount is {{this.project.remainingPayment | currency: "USD":"symbol"}}.
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field appearance="outline" fxFlex="100">

@@ -25,8 +25,8 @@ export class ProjectDetailsService implements Resolve<any> {
         state: RouterStateSnapshot
     ): Observable<any> | Promise<any> | any {
         this.routeParams = route.params;
-
-        if (this.routeParams.projectNumber == "create")
+        console.log(this.routeParams);
+        if (this.routeParams.projectNumber === "create")
             this.router.navigateByUrl("main/projects/create");
 
         return new Promise<void>((resolve, reject) => {
