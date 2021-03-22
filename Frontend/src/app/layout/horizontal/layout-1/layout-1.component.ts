@@ -1,18 +1,17 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { FuseConfigService } from '@fuse/services/config.service';
-import { navigation } from 'app/navigation/navigation';
+import {FuseConfigService} from '@fuse/services/config.service';
+import {navigation} from 'app/navigation/navigation';
 
 @Component({
-    selector     : 'horizontal-layout-1',
-    templateUrl  : './layout-1.component.html',
-    styleUrls    : ['./layout-1.component.scss'],
+    selector: 'horizontal-layout-1',
+    templateUrl: './layout-1.component.html',
+    styleUrls: ['./layout-1.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class HorizontalLayout1Component implements OnInit, OnDestroy
-{
+export class HorizontalLayout1Component implements OnInit, OnDestroy {
     fuseConfig: any;
     navigation: any;
 
@@ -20,14 +19,13 @@ export class HorizontalLayout1Component implements OnInit, OnDestroy
 
     constructor(
         private _fuseConfigService: FuseConfigService
-    )
-    {
+    ) {
+        console.log("constructor of horizontal layout component");
         this.navigation = navigation;
         this._unsubscribeAll = new Subject();
     }
 
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((config) => {
@@ -35,8 +33,7 @@ export class HorizontalLayout1Component implements OnInit, OnDestroy
             });
     }
 
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

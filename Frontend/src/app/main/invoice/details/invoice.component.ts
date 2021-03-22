@@ -52,7 +52,6 @@ export class InvoiceComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((invoice) => {
                 if (invoice) {
-                    console.log("asdas " , invoice);
                     this.invoice = new Invoice(invoice);
                 }
                 this.invoiceForm = this.createInvoiceForm();

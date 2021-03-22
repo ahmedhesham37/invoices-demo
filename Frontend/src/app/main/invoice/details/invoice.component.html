@@ -43,7 +43,7 @@
             <!-- / APP TITLE -->
             <button
                 mat-raised-button
-                [routerLink]="'/main/show-invoice/' + this.invoice.invoiceNumber"
+                [routerLink]="'/main/show-invoice/'+ this.project.projectNumber + '/' + this.invoice.invoiceNumber"
                 class="add-service-button fuse-white mt-24 mt-md-0"
             >
                 <span>Show Printable Invoice</span>

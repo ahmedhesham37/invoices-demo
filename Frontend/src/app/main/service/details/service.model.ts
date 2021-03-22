@@ -4,6 +4,7 @@ export class Service {
     description: string;
     price: number;
     taxRate: number;
+    vat: number;
 
     constructor(service) {
         service = service || {};
@@ -12,5 +13,6 @@ export class Service {
         this.description = service.description;
         this.price = service.price;
         this.taxRate = service.taxRate;
+        this.vat = service.vat;
     }
 }

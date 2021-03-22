@@ -16,6 +16,7 @@ import { KeycloakService } from "keycloak-angular";
     encapsulation: ViewEncapsulation.None,
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
+
     horizontalNavbar: boolean;
     rightNavbar: boolean;
     hiddenNavbar: boolean;
@@ -33,11 +34,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         private _translateService: TranslateService,
         private keycloak: KeycloakService
     ) {
+        console.log("Toolbar component constructor");
         this.userData = {};
         this.userData.firstName = "";
         this.userData.lastName = "";
         this.userData.email = "";
         this.getUserData();
+
 
         this.languages = [
             {
@@ -102,6 +105,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     async getUserData() {
         this.userData = await this.keycloak.loadUserProfile();
+        console.log("Toolbar component >> " , this.userData);
     }
 
     logout() {

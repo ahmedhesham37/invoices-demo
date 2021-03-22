@@ -62,7 +62,6 @@ export class InvoiceService implements Resolve<any> {
                 )
                 .subscribe((project: Project) => {
                     this.invoice = project.invoices.filter((x) => x.invoiceNumber === this.routeParams.invoiceNumber)[0];
-                    console.log("sad " , this.invoice);
                     this.project = project;
                     resolve(project);
                 }, reject);

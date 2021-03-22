@@ -94,7 +94,7 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         this._createInvoiceService
             .addInvoice(this.invoice , this.project.projectNumber)
             .then((project: Project) => {
-                console.log(project);
+                console.log("project in add invoice " , project);
                     this.router.navigateByUrl(
                         '/main/show-invoice/'+ project.projectNumber + '/' + project.invoices[project.invoices.length - 1].invoiceNumber
                     );}
