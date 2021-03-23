@@ -114,10 +114,6 @@ export class CreateProjectComponent implements OnInit {
             website: [{value: this.projectClient.website, disabled: this.fieldDisabled}, Validators.required],
             email: [{value: this.projectClient.email, disabled: this.fieldDisabled}, Validators.email],
             phoneNumber: [{value: this.projectClient.phoneNumber, disabled: this.fieldDisabled}, Validators.min(9)],
-            secondPhoneNumber: [
-                {value: this.projectClient.secondPhoneNumber, disabled: this.fieldDisabled},
-                Validators.required,
-            ],
             client: [this.projectClient],
         });
     }

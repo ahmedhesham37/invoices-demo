@@ -5,12 +5,7 @@ export class Client {
     website: string;
     email: string;
     phoneNumber: string;
-    secondPhoneNumber: string;
 
-    /** Constructor
-     *
-     * @param client
-     */
     constructor(client) {
         client = client || {};
         this.id = client.id;
@@ -19,6 +14,5 @@ export class Client {
         this.website = client.website;
         this.email = client.email;
         this.phoneNumber = client.phoneNumber;
-        this.secondPhoneNumber = client.secondPhoneNumber;
     }
 }

@@ -5,15 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a44c2f-8dae-4ed1-a694-4c4558fab7df" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vbs/control/DTOServices/MapDTOService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vbs/dto/ClientDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vbs/dto/InvoiceDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vbs/dto/ProjectDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vbs/dto/ServiceDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/layout/horizontal/layout-1/layout-1.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/layout/horizontal/layout-1/layout-1.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vbs/entity/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/create/create-invoices.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/client.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/client.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/details/invoice.model.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/invoice/show-invoice/show-invoice-component/show-invoice.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/service/details/service.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/create/create-project.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/app/main/project/details/project-details.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>

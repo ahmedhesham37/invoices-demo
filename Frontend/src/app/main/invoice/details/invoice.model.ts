@@ -11,6 +11,8 @@ export class Invoice {
     client: Client;
     services: Service[];
     payment: Payment[];
+    taxRate: number;
+    taxValue: number
 
     constructor(invoice) {
         invoice = invoice || {};
@@ -18,12 +20,13 @@ export class Invoice {
         this.description = invoice.description;
         this.invoiceNumber = invoice.invoiceNumber;
         this.price = invoice.price;
-        // this.invoiceDate = invoice.invoiceDate == null ? '' : invoice.invoiceDate.replace("[UTC]" , "");
         this.invoiceDate = new Date(invoice.invoiceDate);
         this.totalDue = invoice.totalDue;
         this.client = invoice.client;
         this.services = invoice.services;
         this.payment = invoice.payment;
+        this.taxRate = invoice.taxRate;
+        this.taxValue = invoice.taxValue;
     }
 }
 

@@ -73,6 +73,7 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         this.invoicesForm = this._formBuilder.group({
             totalDue: [this.invoice.totalDue  , [Validators.required , Validators.max(this.project.remainingPayment) ]],
             description: [this.invoice.description],
+            taxRate: [this.invoice.taxRate]
         });
     }
     ngOnDestroy(): void {
@@ -110,5 +111,9 @@ export class CreateInvoicesComponent implements OnInit, OnDestroy {
         this.createProjectsForm();
         this.createInvoiceForm();
         this.showProjectsForm = true;
+    }
+
+    calculateTaxValue(){
+        this.invoice.taxValue = this.invoice.taxRate * this.invoice.totalDue / 100;
     }
 }

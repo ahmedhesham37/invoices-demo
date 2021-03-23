@@ -46,12 +46,8 @@ public class Client implements Serializable {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "secondPhoneNumber")
-    private String secondPhoneNumber;
-
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
-//    private List<Invoice> invoices = new ArrayList<>();
+    @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
+    private List<Invoice> invoices = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL)
@@ -107,28 +103,6 @@ public class Client implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getSecondPhoneNumber() {
-        return secondPhoneNumber;
-    }
-
-    public void setSecondPhoneNumber(String secondPhoneNumber) {
-        this.secondPhoneNumber = secondPhoneNumber;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", address='" + address + '\'' +
-                ", website='" + website + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", secondPhoneNumber='" + secondPhoneNumber + '\'' +
-                '}';
     }
 
 }

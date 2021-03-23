@@ -43,6 +43,9 @@ public class Service implements Serializable {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "vat")
+    private double vat;
+
 //    @LazyCollection(LazyCollectionOption.FALSE)
 //    @ManyToMany(mappedBy = "services", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private List<Invoice> invoices = new ArrayList<>();
@@ -102,6 +105,14 @@ public class Service implements Serializable {
         this.currency = currency;
     }
 
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
+    }
+
     @Override
     public String toString() {
         return "Service{" +
@@ -111,6 +122,7 @@ public class Service implements Serializable {
                 ", currency='" + currency + '\'' +
                 ", taxRate=" + taxRate +
                 ", price=" + price +
+                ", vat=" + vat +
                 '}';
     }
 }

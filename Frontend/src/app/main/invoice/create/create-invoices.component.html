@@ -78,7 +78,6 @@
                                                 <th>Address</th>
                                                 <th>Website</th>
                                                 <th>Phone</th>
-                                                <th>Other Phone Number</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -136,16 +135,6 @@
                                                             {{
                                                             project.client
                                                                 .phoneNumber
-                                                            }}
-                                                        </span>
-                                                </td>
-                                                <td>
-                                                        <span
-                                                            class="phone text-truncate"
-                                                        >
-                                                            {{
-                                                            project.client
-                                                                .secondPhoneNumber
                                                             }}
                                                         </span>
                                                 </td>
@@ -342,8 +331,16 @@
                                     <mat-label>description</mat-label>
                                     <input
                                         matInput
-                                        #postalCode2
                                         formControlName="description"
+                                        required
+                                    />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100">
+                                    <mat-label>Tax Rate</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="taxRate"
                                         required
                                     />
                                 </mat-form-field>
@@ -365,6 +362,7 @@
                                     matStepperNext
                                     type="button"
                                     color="accent"
+                                    (click)="this.calculateTaxValue()"
                                 >
                                     Next
                                 </button>

@@ -21,10 +21,9 @@
 
                         <div class="detail">
                             <div class="title">
-                                <span> <b>Invoice Number:</b></span>
-                                {{ invoice.invoiceNumber }}</div>
+                                Vertical Business Solutions
+                            </div>
                             <div class="address">
-                                <span> <b>Address: </b></span>
                                 Arkan Plaza Building 4 Sheikh Zayed, Giza, Egypt
                                 Postal Code: 12588
                             </div>
@@ -54,20 +53,18 @@
                             fxLayout="row"
                             fxLayoutAlign="end center"
                         >
-                            <div>CLIENT</div>
+                            <div>Invoice To</div>
                         </div>
 
                         <div class="divider"></div>
 
                         <div class="detail">
                             <div class="title">
-                                <span><b>Company Name: </b></span>
                                 {{ client.companyName }}
                             </div>
                             <div
                                 class="address"
                             >
-                                <span><b>Address:</b></span>
                                 {{ client.address }}
                             </div>
                             <div class="phone">
@@ -109,18 +106,18 @@
 
                     <div class="divider"></div>
 
-                    <tr class="detail">
-                        <td class="label"> Project Number: </td>
+                    <tr>
+                        <td class="label"> Project Number:</td>
                         <td class="value"> {{ project.projectNumber }} </td>
-
-                        <td class="label"> Project Name: </td>
-                        <td class="value">{{ project.projectName }}</td>
-
-                        <td class="label"> Phone: </td>
-                        <td class="value">{{ client.phoneNumber }}</td>
-
                     </tr>
-
+                    <tr>
+                        <td class="label"> Project Name:</td>
+                        <td class="value">{{ project.projectName }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label"> Phone:</td>
+                        <td class="value">{{ client.phoneNumber }}</td>
+                    </tr>
                 </table>
             </div>
 
@@ -134,22 +131,38 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let service of services">
+                    <!--                    <tr *ngFor="let service of services">-->
+                    <!--                        <td>-->
+                    <!--                            <div class="title">-->
+                    <!--                                {{ service.serviceName }}-->
+                    <!--                            </div>-->
+                    <!--                            <div class="detail">-->
+                    <!--                                {{ service.description }}-->
+                    <!--                            </div>-->
+                    <!--                        </td>-->
+                    <!--                        <td class="text-right">-->
+                    <!--                            {{ service.vat | currency: "USD":"symbol" }}-->
+                    <!--                        </td>-->
+                    <!--                        <td class="text-right">-->
+                    <!--                            {{ service.price | currency: "USD":"symbol" }}-->
+                    <!--                        </td>-->
+                    <!--                    </tr>-->
+                    <tr>
                         <td>
                             <div class="title">
-                                {{ service.serviceName }}
+                                Description
                             </div>
                             <div class="detail">
-                                {{ service.description }}
+                                {{ invoice.description }}
                             </div>
                         </td>
-                        <td class="text-right">
-                            {{ service.vat | currency: "USD":"symbol" }}
-                        </td>
-                        <td class="text-right">
-                            {{ service.price | currency: "USD":"symbol" }}
-                        </td>
                     </tr>
+                    <td class="text-right">
+                        {{ invoice.taxValue | currency: "USD":"symbol" }}
+                    </td>
+                    <td class="text-right">
+                        {{ invoice.totalDue | currency: "USD":"symbol" }}
+                    </td>
                     </tbody>
                 </table>
 
@@ -168,21 +181,16 @@
 
             <div class="footer">
                 <div class="note">
-                    Please pay within 15 days. Thank you for your business.
+                    On Payment Orders, please indicate Agreement Number and Invoice Number
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start start">
                     <div class="logo">
                         <img src="assets/images/logos/full-logo.png"/>
                     </div>
                     <div class="small-note">
-                        In condimentum malesuada efficitur. Mauris volutpat
-                        placerat auctor. Ut ac congue dolor. Quisque scelerisque
-                        lacus sed feugiat fermentum. Cras aliquet facilisis
-                        pellentesque. Nunc hendrerit quam at leo commodo, a
-                        suscipit tellus dapibus. Etiam at felis volutpat est
-                        mollis lacinia. Mauris placerat sem sit amet velit
-                        mollis, in porttitor ex finibus. Proin eu nibh id libero
-                        tincidunt lacinia et eget eros.
+                        On Withholding taxes deducted from your payment, should be notified to VBS and a copy of your
+                        payment check including the withheld
+                        tax should be sent to VBS on due time
                     </div>
                 </div>
             </div>
