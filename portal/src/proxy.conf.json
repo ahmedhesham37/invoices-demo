@@ -1,0 +1,8 @@
+{
+    "/vbs-invoice-system": {
+        "target": "http://localhost:8883",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

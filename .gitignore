@@ -1,3 +1,7 @@
-/home/javaee/development/Invoice-Project/Backend/workdir/db
-Backend/workdir
-Backend/workdir/
+portal/dist
+portal/dist/*
+**/node_modules
+**/node_modules/**
+**/.idea
+sandbox/mysql-data/*
+**/target

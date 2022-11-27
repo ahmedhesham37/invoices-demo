@@ -1,0 +1,10 @@
+{
+  "realm": "is-realm",
+  "bearer-only": true,
+  "auth-server-url": "http://localhost:8081/auth/",
+  "ssl-required": "external",
+  "resource": "rest-api",
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

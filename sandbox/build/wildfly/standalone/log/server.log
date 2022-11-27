@@ -1,0 +1,26 @@
+2022-11-27 00:15:50,636 INFO  [org.jboss.as.server] (Thread-1) WFLYSRV0272: Suspending server
+2022-11-27 00:15:50,647 INFO  [org.jboss.as.ejb3] (Thread-1) WFLYEJB0493: EJB subsystem suspension complete
+2022-11-27 00:15:50,653 INFO  [org.jboss.as.server] (Thread-1) WFLYSRV0220: Server shutdown has been requested via an OS signal
+2022-11-27 00:15:50,668 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-8) WFLYJCA0019: Stopped Driver service with driver-name = vbs-invoice-system.war_org.h2.Driver_1_4
+2022-11-27 00:15:50,679 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-5) WFLYJCA0019: Stopped Driver service with driver-name = vbs-invoice-system.war_com.mysql.cj.jdbc.Driver_8_0
+2022-11-27 00:15:50,679 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-7) WFLYJCA0019: Stopped Driver service with driver-name = vbs-invoice-system.war
+2022-11-27 00:15:50,687 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) WFLYMAIL0002: Unbound mail session [java:jboss/mail/Default]
+2022-11-27 00:15:50,689 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 80) WFLYUT0022: Unregistered web context: '/vbs-invoice-system' from server 'default-server'
+2022-11-27 00:15:50,702 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0019: Host default-host stopping
+2022-11-27 00:15:50,710 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 89) WFLYCLINF0003: Stopped http-remoting-connector cache from ejb container
+2022-11-27 00:15:50,715 INFO  [org.infinispan.manager.DefaultCacheManager] (ServerService Thread Pool -- 89) Stopping cache manager null on null
+2022-11-27 00:15:50,717 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) WFLYJCA0010: Unbound data source [java:jboss/datasources/ExampleDS]
+2022-11-27 00:15:50,718 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 90) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'vbs-invoice-system.war#invoices'
+2022-11-27 00:15:50,718 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-5) WFLYJCA0019: Stopped Driver service with driver-name = h2
+2022-11-27 00:15:50,719 INFO  [org.hibernate.orm.beans] (ServerService Thread Pool -- 90) HHH10005004: Stopping BeanContainer : org.hibernate.resource.beans.container.internal.CdiBeanContainerExtendedAccessImpl@7284e091
+2022-11-27 00:15:50,722 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 90) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'vbs-invoice-system.war#invoices'
+2022-11-27 00:15:50,722 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) WFLYJCA0010: Unbound data source [java:/jdbc/datasources/invoicesDS]
+2022-11-27 00:15:50,723 INFO  [org.infinispan.manager.DefaultCacheManager] (ServerService Thread Pool -- 90) Stopping cache manager null on null
+2022-11-27 00:15:50,725 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0019: Stopped Driver service with driver-name = mysql
+2022-11-27 00:15:50,733 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0008: Undertow HTTP listener default suspending
+2022-11-27 00:15:50,733 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0008: Undertow HTTPS listener https suspending
+2022-11-27 00:15:50,734 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0007: Undertow HTTP listener default stopped, was bound to 127.0.0.1:8080
+2022-11-27 00:15:50,734 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0007: Undertow HTTPS listener https stopped, was bound to 127.0.0.1:8443
+2022-11-27 00:15:50,734 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0004: Undertow 2.2.4.Final stopping
+2022-11-27 00:15:50,755 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0028: Stopped deployment vbs-invoice-system.war (runtime-name: vbs-invoice-system.war) in 89ms
+2022-11-27 00:15:50,759 INFO  [org.jboss.as] (MSC service thread 1-4) WFLYSRV0050: WildFly Full 22.0.1.Final (WildFly Core 14.0.1.Final) stopped in 99ms
