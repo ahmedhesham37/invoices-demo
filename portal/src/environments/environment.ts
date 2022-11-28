@@ -10,10 +10,10 @@ export const environment = {
         issuer: "http://localhost:8081/auth/",
 
         // Realm
-        realm: "is-realm",
+        realm: "IS_REALM",
 
         // The SPA's id.
         // The SPA is registerd with this id at the auth-serverß
-        clientId: "is-portal",
+        clientId: "IS_PORTAL",
     },
 };

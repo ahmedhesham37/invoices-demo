@@ -1,6 +1,6 @@
 {
-  "id": "wildfly-infra",
-  "realm": "IS_REALM",
+  "id": "is-realm",
+  "realm": "is-realm",
   "notBefore": 0,
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
@@ -48,7 +48,7 @@
         "description": "${role_uma_authorization}",
         "composite": false,
         "clientRole": false,
-        "containerId": "wildfly-infra",
+        "containerId": "is-realm",
         "attributes": {}
       },
       {
@@ -57,7 +57,7 @@
         "description": "${role_offline-access}",
         "composite": false,
         "clientRole": false,
-        "containerId": "wildfly-infra",
+        "containerId": "is-realm",
         "attributes": {}
       },
       {
@@ -65,7 +65,7 @@
         "name": "Admin",
         "composite": false,
         "clientRole": false,
-        "containerId": "wildfly-infra",
+        "containerId": "is-realm",
         "attributes": {}
       },
       {
@@ -73,7 +73,7 @@
         "name": "customer",
         "composite": false,
         "clientRole": false,
-        "containerId": "wildfly-infra",
+        "containerId": "is-realm",
         "attributes": {}
       }
     ],
@@ -301,7 +301,7 @@
         }
       ],
       "security-admin-console": [],
-      "IS_PORTAL": [],
+      "is-portal": [],
       "admin-cli": [],
       "account-console": [],
       "broker": [
@@ -459,7 +459,7 @@
   "clients": [
     {
       "id": "e36cb172-a547-4db6-80ca-d4733bee6d8a",
-      "clientId": "IS_PORTAL",
+      "clientId": "is-portal",
       "rootUrl": "http://localhost:4200",
       "adminUrl": "http://localhost:4200/*",
       "surrogateAuthRequired": false,
@@ -572,14 +572,14 @@
       "clientId": "account-console",
       "name": "${client_account-console}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/wildfly-infra/account/",
+      "baseUrl": "/realms/is-realm/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "/realms/wildfly-infra/account/*"
+        "/realms/is-realm/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,

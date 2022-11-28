@@ -1,12 +1,10 @@
 version: "3.3"
 
 services:
-  is_core:
+  is_core_1:
     build: 
       context: ./build
     container_name: "is-core"
-    volumes: 
-      - ./build/deployments/:/opt/server/wildfly/standalone/deployments/
     depends_on:
       - is_mysql_db
     restart: always
@@ -14,6 +12,8 @@ services:
       - 8445:8443
       - 8883:8080
       - 9992:9990
+    environment:
+      - WILDFLY_ADMIN_PASSWORD=admin
     networks:
       - NETWORK
 
