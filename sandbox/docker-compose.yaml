@@ -55,19 +55,19 @@ services:
     networks:
       - NETWORK
 
-  is_nginx:
-    image: nginx:latest
-    container_name: is-nginx
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      #nginx and default servers
-      - ./build/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./build/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      #copy build files from dist folders
-      - ./build/nginx/dist/invoicing-systems:/usr/share/nginx/invoicing-systems/html
+  # is_nginx:
+  #   image: nginx:latest
+  #   container_name: is-nginx
+  #   restart: always
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     #nginx and default servers
+  #     - ./build/nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./build/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+  #     #copy build files from dist folders
+  #     - ./build/nginx/dist/invoicing-systems:/usr/share/nginx/invoicing-systems/html
     
 networks:
   NETWORK:
