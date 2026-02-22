@@ -1,7 +1,5 @@
 # Invoices-Systems-Demo
 
-# This Demo is for Intalio Technical Team
-
 The proposed demo is for creating invoices for companies projects supplying multiple services 
 
 The process is to add the services to the process, add the clients and for every new project, an invoice will be created automatically with all the previously supplied data
